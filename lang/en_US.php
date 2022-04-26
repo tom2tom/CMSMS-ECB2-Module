@@ -83,23 +83,30 @@ $lang['general_c'] = <<<'EOD'
 EOD;
 
 $lang['about_c'] = <<<'EOD'
+<h3>Usage</h3>
+<p>For site-page (frontend) use, include 
+<pre><code>{ECB2}</code></pre>
+in the header of page-templates which use extended content block(s) supported by this module.<br>
+That tag initiates inclusion of css and/or javascript relevant to the content blocks which are used.</p>
+
 <h3>Upgrade from ECB</h3>
 <p>After installing the ECB2 module, change the "module" parameter in each content_module tag to module="ECB2" (was "ECB"). Then ECB can be uninstalled.</p><br>
 
 <h3>Support</h3>
-<p>As per the GPL licence, this software is provided as is. Please read the text of the license for the full disclaimer.
-The module author is not obligated to provide support for this code. However you might get support through the following:</p>
+<p>As per the GPL licence, this module is provided as is. Please read the text of the license for the full disclaimer.
+The module author is not obliged to provide support for this module. However you might get support through the following:</p>
 <ul>
-  <li>For support, first <strong>search</strong> the <a href="//forum.cmsmadesimple.org">CMS Made Simple Forum</a>, for issues with the module similar to those you are finding.</li>
-  <li>Then, if necessary, open a <strong>new forum topic</strong> to request help, with a thorough description of your issue, and steps to reproduce it.</li>
-  <li>If you find a bug you can <a href="http://dev.cmsmadesimple.org/bug/list/1366">submit a Bug Report</a>.</li>
-  <li>For any good ideas you can <a href="http://dev.cmsmadesimple.org/feature_request/list/1366">submit a Feature Request</a>.</li>
-  <li>If you found the module useful - shout out to me on Twitter <a href="//twitter.com/KiwiChrisBT">@KiwiChrisBT</a></li>
+  <li>first <strong>search</strong> the <a href="https://forum.cmsmadesimple.org">CMS Made Simple Forum</a>, for issues with the module similar to those you are finding.</li>
+  <li>then, if necessary, open a <strong>new forum topic</strong> to request help, with a thorough description of your issue, and steps to reproduce it.</li>
 </ul><br>
 
+If you find a bug you can <a href="https://dev.cmsmadesimple.org/bug/list/1366">submit a bug report</a>.<br>
+You can <a href="https://dev.cmsmadesimple.org/feature_request/list/1366">submit a feature request</a> for improvements.<br>
+If you find the module useful, shout out to the author on Twitter <a href="https://twitter.com/KiwiChrisBT">@KiwiChrisBT</a>.<br>
+
 <h3>Copyright &amp; Licence</h3>
-<p>Copyright &copy; 2019-2022 CMS Made Simple Foundation. All rights reserved.</p><br>
-<p>This module has been released under the GNU Public License v3, and may not be used otherwise than in accord with that licence,
+<p>Copyright &copy; 2016-2022 CMS Made Simple Foundation. All rights reserved.</p><br>
+<p>This module has been released under the GNU General Public License v.3, and may not be distributed or used otherwise than in accord with that licence,
 or a later version of that licence granted by the module distributor.
 <br>
 EOD;
