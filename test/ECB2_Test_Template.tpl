@@ -15,7 +15,6 @@
 {cgjs_require jsfile='assets/js/slick.min.js'}
 {cgjs_require jsfile='assets/js/main.js'}
 
-
 {/strip}<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,10 +36,8 @@
 <h1>ECB2 Test Page</h1>
 {content oneline=1}
 
-
 <h2>file_selector</h2>
 <p>selected file:'{content_module module="ECB2" field="file_selector" block="test1" label="Test 1: file_selector" dir="images" filetypes="jpg,gif,png" excludeprefix="thumb_" description="file_selector: Test description (optional) can be shown here"}'<p>
-
 
 <h2>color_picker</h2>
 {content_module module="ECB2" field="color_picker" block="test2" label="Test 2: color_picker" default_value="#CCCCCC" assign=test2 description="Test description - short"}
@@ -54,65 +51,49 @@
 {content_module module="ECB2" field="color_picker" block="test2_2c" label="Test 2-2c: color_picker default RED" default_value="#FF0000" assign=test2_2c}
 <p style="color:#FFF; background-color:{$test2_2c};">colour:'{$test2_2c}'</p>
 
-
 <h2>color_picker - promo_bgcolor</h2>
 {$promo_bgcolor="{content_module module='ECB2' field='color_picker' block='promo_bgcolor' label='Background Color' default_value='transparent'}" scope=global}
 <p style="color:#FFF; background-color:{$promo_bgcolor};">colour:'{$promo_bgcolor}'</p>
-
-
 
 <h2>Test3: dropdown_from_udt</h2>
 <p>Section 1 Layout Style:'{content_module module='ECB2' field='dropdown_from_udt' block='test3' label='Test 3: dropdown_from_udt' udt='ecb2_sortable_udt_test' description="Test description (optional) can be shown here"}'</p>
 <p>Section 1 Layout Style (with first_value):'{content_module module='ECB2' field='dropdown_from_udt' block='test3a' label='Test 3a: dropdown_from_udt (with first_value)' udt='ecb2_sortable_udt_test' first_value="=select=" multiple=1 description="Test description (optional) can be shown here"}'</p>
 
-
 <h2>Test 4: dropdown</h2>
 <p>{content_module module="ECB2" field="dropdown" block="test4" label="Test 4: dropdown" values="Apple=apple,Orange=orange" first_value="select fruit" description="Test description (optional) can be shown here"}</p>
-
 
 <h2>checkbox</h2>
 <p>{content_module module="ECB2" field="checkbox" block="test5a" label="Test 5: Checkbox" default_value="0" description="Test description (optional) can be shown here"}</p>
 
-
 <h2>module_link</h2>
 <p>{content_module module="ECB2" field="module_link" label="Test 6: module_link:Gallery" block="test6" mod="Gallery" text="Edit Galleries" description="Test description (optional) can be shown here"}</p>
-
 
 <h2>link</h2>
 <p>{content_module module="ECB2" field="link" label="Test 7: link" block="test7" target="_blank" link="http://www.bing.com" text="bing search" description="Test description (optional) can be shown here"}</p>
 
-
 <h2>timepicker</h2>
 <p>{content_module module="ECB2" field="timepicker" label="Test 8: timepicker" block="test8" description="Test description (optional) can be shown here"}</p>
-
 
 <h2>datepicker</h2>
 <p>{content_module module="ECB2" field="datepicker" label="Test 9: datepicker" block="test9" description="Test description (optional) can be shown here"}</p>
 
-
 <h2>input</h2>
 <p>{content_module module="ECB2" field="input" label="Test 10: input" block="test10" size=55 max_length=55 default_value="fill it" description="Test description (optional) can be shown here"}</p>
-
 
 <h2>textarea</h2>
 <p>{content_module module="ECB2" field="textarea" label="Test 11: textarea" block="test11" rows=10 cols=40 default_value="fill it" description="Test description (optional) can be shown here"}</p>
 
-
 <h2>editor</h2>
 <p>{content_module module="ECB2" field="editor" label="Test 12: editor" block="test12" rows=10 cols=40 default_value="fill it" description="Test description (optional) can be shown here"}</p>
-
 
 <h2>Test 13: text</h2>
 {content_module module="ECB2" field="text" label="Test 13: text" block="test13" text="Hello word!" description="Test description (optional) can be shown here"}
 
-
 <h2>pages</h2>
 <p>{content_module module="ECB2" field="pages" label="Test 14: pages" block="test14" description="Test description (optional) can be shown here"}</p>
 
-
 <h2>hr</h2>
 <p>{content_module module="ECB2" field="hr" label="Test 15: hr" block="test15" description="Test description (optional) can be shown here"}</p>
-
 
 <h2>sortablelist</h2>
 {content_module module='ECB2' field='sortablelist' block='test16' udt='ecb2_sortable_udt_test' label='test16:sortablelist' label_left='Selected Widgets' label_right='Available Widgets' description="Test description (optional) can be shown here, using 'udt' option"}
@@ -155,7 +136,6 @@
 <p>{$input_repeater_test="||"|explode:"{content_module module='ECB2' field='input_repeater' label='Test 22: input_repeater' block='test22' size=100 max_length=255 default_value='fill it' description='Press (+) and (-) to add and remove additional input fields'}" scope=global}</p>
 <div class="pre">$input_repeater_test:{$input_repeater_test|print_r}</div>
 
-
 <br><br><p>That's it. All Tests done :)</p>
 
          </div>
@@ -163,8 +143,7 @@
    </div>
 </div><!-- main-->
 
-
-{global_content name='footer'}
+{*global_content name='footer'*}
 
 {cgjs_render addkey='19Oct18'}
 

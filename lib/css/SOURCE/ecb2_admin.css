@@ -1,0 +1,20 @@
+/* ecb2_admin.css - v1.1 - 16Feb19
+
+   - v1.1 - 16Feb19 - ecb_repeater added & began consolidating CSS into this file
+   - v1.0 - 18Apr17 - initial css file
+
+***************************************************************************************************/
+
+.sortable-ecb2-list tr {cursor:move;}
+#loader {padding-left:50px;}
+
+.ecb2-button-inline {padding-right:10px; padding-left:10px; font-size:20px; font-weight:bold;}
+
+.ecb_repeater .repeater-wrapper {width:100%;}
+.ecb_repeater .repeater-wrapper:first-child .ecb2-repeater-remove {display:none;}
+.ecb_repeater .repeater-field {max-width:calc(100% - 100px);}
+
+.ecb_compact .ecb_select_edit::before {content:'Hide';}
+.ecb_compact select {display:inline-block; max-height:80vh;}
+.ecb_compact:not(.show) .ecb_select_edit::before {content:'Edit';}
+.ecb_compact:not(.show) select {display:none;}

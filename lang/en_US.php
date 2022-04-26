@@ -1,41 +1,42 @@
 <?php
+$lang['about'] = 'About';
+$lang['add_line'] = 'Add line';
 
-$lang['friendlyname'] = 'Extended Content Blocks 2';
-$lang['postinstall'] = 'Extended Content Blocks 2 was successful installed';
-$lang['postuninstall'] = 'Extended Content Blocks 2 was successful uninstalled';
-$lang['really_uninstall'] = 'Really? Are you sure you want to unsinstall this fine module?';
-$lang['uninstalled'] = 'Module Uninstalled.';
-$lang['installed'] = 'Module version %s installed.';
-$lang['upgraded'] = 'Module upgraded to version %s.';
-$lang['module_description'] = 'This module adds new content blocks to CMS Made Simple v2+';
-
-$lang['selected'] = 'Selected';
-$lang['select'] = 'Select';
-$lang['refresh'] = 'Refresh';
-
-$lang['content_block_label_selected'] = 'Selected';
+$lang['clear'] = 'Clear';
 $lang['content_block_label_available'] = 'Available';
+$lang['content_block_label_selected'] = 'Selected';
+$lang['customgs_field_error'] = 'Please create option \'%s\' in CustomGS';
+
 $lang['drop_items'] = 'No items selected - drop selected items here';
 $lang['drop_required_items'] = 'Drop %s required items here';
-$lang['remove'] = 'Remove';
 
-$lang['udt_error'] = 'UDT \'%s\' does not exist';
-$lang['customgs_field_error'] = "Please create option '%s' in CustomGS";
 $lang['field_error'] = 'Please specify a correct field parameter for the ECB2 content block.';
+$lang['fields'] = 'Fields';
+$lang['friendlyname'] = 'Extended Content Blocks 2';
 
-$lang['gallery_module_error'] = 'Gallery module is not installed.';
+$lang['general'] = 'General';
 
-$lang['add_line'] = 'Add line';
-$lang['remove_line'] = 'Remove line';
+$lang['installed'] = 'Module version %s installed.';
+
+$lang['module_description'] = 'This module enables extra types of content block for page templates';
+$lang['module_error'] = 'The \'%s\' module is not available.';
 
 $lang['none_selected'] = '--- none ---';
 
+$lang['postinstall'] = 'Extended Content Blocks 2 was successfully installed';
+$lang['postuninstall'] = 'Extended Content Blocks 2 was uninstalled';
 
+$lang['really_uninstall'] = 'Really? Are you sure you want to uninstall this module?';
+$lang['refresh'] = 'Refresh';
+$lang['remove_line'] = 'Remove line';
+$lang['remove'] = 'Remove';
 
+$lang['select'] = 'Select';
+$lang['selected'] = 'Selected';
 
-
-
-
+$lang['udt_error'] = 'User Defined Tag \'%s\' does not exist';
+$lang['uninstalled'] = 'Module uninstalled.';
+$lang['upgraded'] = 'Module upgraded to version %s.';
 
 ###    ###   #########   ###        #########
 ###    ###   #########   ###        #########
@@ -46,69 +47,63 @@ $lang['none_selected'] = '--- none ---';
 ###    ###   #########   #########  ###
 ###    ###   #########   #########  ###
 
+$lang['general_c'] = <<<'EOD'
+<h3>What Does This Do?</h3>
+<p>This module enables aditional content blocks for CMS Made Simple v2+. This is a fork of the original ECB module that worked with CMSMS v1.</p>
+<p>It supports content blocks having the following field types:<br>
+<ol>
+  <li>checkbox</li>
+  <li>color_picker</li>
+  <li>datepicker</li>
+  <li>dropdown</li>
+  <li>dropdown_from_customgs</li>
+  <li>dropdown_from_module</li>
+  <li>dropdown_from_udt</li>
+  <li>editor</li>
+  <li>fieldset_end()
+  <li>fieldset_start</li>
+  <li>file_selector</li>
+  <li>gallery_picker</li>
+  <li>hidden</li>
+  <li>hr</li>
+  <li>input</li>
+  <li>input_repeater</li>
+  <li>link</li>
+  <li>module</li>
+  <li>module_link</li>
+  <li>pages</li>
+  <li>radio</li>
+  <li>sortablelist</li>
+  <li>text</li>
+  <li>textarea</li>
+  <li>timepicker</li>
+</ol>
+</p><br>
+<p>If you like this module please <a href="http://www.cmsmadesimple.org/about-link/donations/" target="_blank" style="font-weight:bold;">donate to CMSMS</a></p><br>
+EOD;
 
+$lang['about_c'] = <<<'EOD'
+<h3>Upgrade from ECB</h3>
+<p>After installing the ECB2 module, change the "module" parameter in each content_module tag to module="ECB2" (was "ECB"). Then ECB can be uninstalled.</p><br>
 
-$lang['general'] = 'General';
-$lang['general_c'] = '
-   <h3>What Does This Do?</h3>
-   <p>Module adds aditional content blocks for CMS Made Simple v2+. This is a fork of the original ECB module that worked with CMSMS v1.</p>
-   <p>Provides the following field types:<br>
-   <ol>
-      <li>file_selector</li>
-      <li>color_picker</li>
-      <li>dropdown</li>
-      <li>dropdown_from_udt</li>
-      <li>dropdown_from_customgs</li>
-      <li>checkbox</li>
-      <li>module_link</li>
-      <li>link</li>
-      <li>timepicker</li>
-      <li>datepicker</li>
-      <li>input</li>
-      <li>textarea</li>
-      <li>editor (textarea with wysiwyg)</li>
-      <li>text </li>
-      <li>pages </li>
-      <li>hr (horizontal line)</li>
-      <li>sortablelist</li>
-      <li>radio</li>
-      <li>hidden</li>
-      <li>fieldset_start</li>
-      <li>fieldset_end</li>
-      <li>gallery_picker</li>
-      <li>input_repeater</li>
-   </ol>
-   </p><br>
+<h3>Support</h3>
+<p>As per the GPL licence, this software is provided as is. Please read the text of the license for the full disclaimer.
+The module author is not obligated to provide support for this code. However you might get support through the following:</p>
+<ul>
+  <li>For support, first <strong>search</strong> the <a href="//forum.cmsmadesimple.org">CMS Made Simple Forum</a>, for issues with the module similar to those you are finding.</li>
+  <li>Then, if necessary, open a <strong>new forum topic</strong> to request help, with a thorough description of your issue, and steps to reproduce it.</li>
+  <li>If you find a bug you can <a href="http://dev.cmsmadesimple.org/bug/list/1366">submit a Bug Report</a>.</li>
+  <li>For any good ideas you can <a href="http://dev.cmsmadesimple.org/feature_request/list/1366">submit a Feature Request</a>.</li>
+  <li>If you found the module useful - shout out to me on Twitter <a href="//twitter.com/KiwiChrisBT">@KiwiChrisBT</a></li>
+</ul><br>
 
-   <p>If you like this module please <a href="http://www.cmsmadesimple.org/about-link/donations/" target="_blank" style="font-weight:bold;">donate to CMSMS</a></p><br>
-   ';
+<h3>Copyright &amp; Licence</h3>
+<p>Copyright &copy; 2019-2022 CMS Made Simple Foundation. All rights reserved.</p><br>
+<p>This module has been released under the GNU Public License v3, and may not be used otherwise than in accord with that licence,
+or a later version of that licence granted by the module distributor.
+<br>
+EOD;
 
-$lang['about'] = 'About';
-$lang['about_c'] = '
-   <h3>Upgrade from ECB</h3>
-   <p>Install ECB2 module and change all "module" parameters, in content_module tags to be module="ECB2" (was "ECB"). Then ECB can be uninstalled.</p><br>
-
-
-   <h3>Support</h3>
-   <p>As per the GPL licence, this software is provided as is. Please read the text of the license for the full disclaimer.
-   The module author is not obligated to provide support for this code. However you might get support through the following:</p>
-   <ul>
-      <li>For support, first <strong>search</strong> the <a href="//forum.cmsmadesimple.org">CMS Made Simple Forum</a>, for issues with the module similar to those you are finding.</li>
-      <li>Then, if necessary, open a <strong>new forum topic</strong> to request help, with a thorough description of your issue, and steps to reproduce it.</li>
-      <li>If you find a bug you can <a href="http://dev.cmsmadesimple.org/bug/list/1366">submit a Bug Report</a>.</li>
-      <li>For any good ideas you can <a href="http://dev.cmsmadesimple.org/feature_request/list/1366">submit a Feature Request</a>.</li>
-      <li>If you found the Module useful - shout out to me on Twitter <a href="//twitter.com/KiwiChrisBT">@KiwiChrisBT</a></li>
-   </ul><br>
-
-
-   <h3>Copyright &amp; Licence</h3>
-   <p>Copyright © 2019, Chris Taylor <chris at binnovative dot co dot uk>. All Rights Are Reserved.</p><br>
-   <p>This module has been released under the GNU Public License v3. However, as a special exception to the GPL, this software is distributed as an addon module to CMS Made Simple. You may only use this software when there is a clear and obvious indication in the admin section that the site was built with CMS Made Simple!</p><br>
-   <br>
-';
-
-
-$lang['fields'] = 'Fields';
 $lang['fields_c'] = <<<'EOD'
 
 <h3>Fields</h3>
@@ -125,7 +120,6 @@ preview (optional) - only for images<br>
 description (optional) - adds additional text explanation for editor
 </p><br>
 
-
 <p><strong>color_picker</strong></p>
 <p>Example:  {content_module module="ECB2" field="color_picker" block="test1" label="Color" default_value="#000000"}</p>
 <p>Parameters:
@@ -133,8 +127,6 @@ default_value (optional)<br>
 size (optional) - default 10<br>
 description (optional) - adds additional text explanation for editor
 </p><br>
-
-
 
 <p><strong>dropdown</strong></p>
 <p>Example: {content_module module="ECB2" field="dropdown" block="test5" label="Fruit"  values="Apple=apple,Orange=orange" first_value="select fruit"}</p>
@@ -146,8 +138,6 @@ size (optional) - multiple enabled only<br>
 description (optional) - adds additional text explanation for editor<br>
 compact (optional) - default:false - if set, a summary of the selected options is displayed and the full select is shown/hidden when 'edit/hide' is clicked
 </p><br>
-
-
 
 <p><strong>dropdown_from_udt</strong></p>
 <p>Example: {content_module module="ECB2" field="dropdown_from_udt" block="test2" label="Gallery" udt="mycustomudt"  first_value="=select="}</p>
@@ -167,7 +157,6 @@ compact (optional) - default:false - if set, a summary of the selected options i
 <a href="https://gist.github.com/kuzmany/51583c6439cb041679a6">Users list from FEU</a>
 </p><br>
 
-
 <p><strong>dropdown_from_customgs</strong> <span style="color:red;">new</span></p>
 <p>Provides a single or multiple select using the content set in a CustomGS Module field.</p>
 <p>Requires the CustomGS module and to have a field of type 'text area'.</p>
@@ -182,8 +171,6 @@ compact (optional) - default:false - if set, a summary of the selected options i
    <li>compact (optional) - default:false - if set, a summary of the selected options is displayed and the full select is shown/hidden when 'edit/hide' is clicked</li>
 </ul>
 <br>
-
-
 
 <p><strong>checkbox</strong></p>
 <p>Example: {content_module module="ECB2" field="checkbox" block="test11" label="Checkbox" default_value="1"}</p>
@@ -321,7 +308,6 @@ Creates the end of a fieldset for grouping relavant admin fields together. Note:
 TIP: set label='& nbsp;' to not show the field label.
 </p><br>
 
-
 <p><strong>gallery_picker</strong> <span style="color:red;">new</span></p>
 <p>Provides a gallery picker for the Gallery module.</p>
 <p>Example:
@@ -333,7 +319,6 @@ TIP: set label='& nbsp;' to not show the field label.
 </ul>
 <br>
 
-
 <p><strong>input_repeater</strong> <span style="color:red;">new</span></p>
 <p>Provides one or more text inputs that can be added or removed by the editor.</p>
 <p>The content block output is a string with each input field's contents delimiter by '||'. To make the output a more useful array use 'explode', e.g. {"||"|explode:$content_block_name}</p>
@@ -342,5 +327,3 @@ TIP: set label='& nbsp;' to not show the field label.
 <p>To use: {$input_repeater_test|print_r}</p>
 <br>
 EOD;
-
-

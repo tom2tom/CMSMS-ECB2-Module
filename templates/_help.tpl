@@ -1,6 +1,5 @@
 {* ECB2 _help.tpl *}
 
-
 <div class="clear"></div>
 
 <div id="page_tabs">
@@ -39,5 +38,3 @@
 
 </div>
 <br>
-
-
