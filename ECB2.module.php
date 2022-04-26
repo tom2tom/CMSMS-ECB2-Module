@@ -54,8 +54,8 @@ class ECB2 extends CMSModule
     public function HasCapability($capability, $params = array())
     {
         switch ($capability) {
-           case 'contentblocks':
-           case 'plugin':
+           case 'contentblocks': //aka CoreCapabilities::CONTENT_BLOCKS
+           case 'plugin': //aka CoreCapabilities::PLUGIN_MODULE
                return true;
            default:
                return false;
