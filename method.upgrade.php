@@ -13,5 +13,8 @@ if ( version_compare($oldversion, '1.4') < 0 ) {
     $this->RemovePermission('Use Extended Content Blocks 2');
 }
 if ( version_compare($oldversion, '1.6.1') <= 0 ) {
-    $this->RegisterModulePlugin(TRUE);
+    // module settings not used (any more?)
+    $this->RemovePreference();
+    // module-specific templates not stored (any more?)
+    $this->DeleteTemplate();
 }

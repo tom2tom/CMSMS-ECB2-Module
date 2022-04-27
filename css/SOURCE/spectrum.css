@@ -21,12 +21,14 @@
     border-top-right-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
 }
+/* CMSMS change
 input.spectrum.with-add-on {
-    /*padding-left: 45px;*/
+    /*padding-left: 45px;* /
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     border-left: 0;
 }
+*/
 .sp-original-input-container .sp-add-on .sp-colorize {
     height: 100%;
     width: 100%;

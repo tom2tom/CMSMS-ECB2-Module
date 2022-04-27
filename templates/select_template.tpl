@@ -4,13 +4,13 @@
        $options array of: $text => $value
 
 *}
-{if $description}{$description}{/if}
+{if !empty($description)}{$description}{/if}
 {if $multiple}
 <div class="ecb_multiple_select cms_dropdown{if $compact} ecb_compact{/if}">
 {if $compact}
   <div class="ecb_select_summary">
     <span class="ecb_select_text" data-empty="{$none_selected}">{$selected_text|default:$none_selected}</span>
-    &nbsp;<a class="ecb_select_edit" href="edit/hide"></a>{* WHAT href ? *}
+    &nbsp;<a class="ecb_select_edit" href="edit/hide"><span id="showtext">{$show_text}</span><span id="hidetext">{$hide_text}</span></a>
   </div>
 {/if}
   <input type="hidden" id="{$block_name}" class="ecb_select_input" name="{$block_name}" value="{$selected}" />

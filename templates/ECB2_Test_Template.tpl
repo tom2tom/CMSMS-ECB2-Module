@@ -10,24 +10,21 @@
   - create a simple core:page template 'ECB2_Test' with just 1 line:
    {include file='module_file_tpl:ECB2;ECB2_Test_Template.tpl'}
   - create 'ECB2 Test' page, using that template.
+  OR
+  - create a new page
+  - add the contents of the <body/> element below into the main
+     content-block of that page
 *}
-
-{cgjs_require lib='jquery'}
-{cgjs_require jsfile='assets/js/bootstrap.bundle.min.js'}
-{cgjs_require jsfile='assets/js/slick.min.js'}
-{cgjs_require jsfile='assets/js/main.js'}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
    {cms_stylesheet}
    <style>{literal}.pre {font-family:monospace; white-space:pre-wrap; word-wrap:break-word;
       background-color:#DDD; padding:1em;}{/literal}</style>
+   {cms_jquery}
 </head>
 
 <body class="page-{$page_alias}">
-
-{*global_content name='header'*}
 
 <div class="main">
    <div class="container">
@@ -37,138 +34,140 @@
 <h1>ECB2 Test Page 1</h1>
 {content oneline=1}
 
-<h2>file_selector 1</h2>
-<p>selected file:'{content_module module="ECB2" field="file_selector" block="test1" label="Test 1: file_selector" dir="images" filetypes="gif,png,jpg" excludeprefix="thumb_" description="file_selector: Test description (optional) can be shown here"}'<p>
+<h2>1. file_selector</h2>
+<p>selected file:'{content_module module=ECB2 field=file_selector block=test1 label="Test 1: file_selector" dir="images" filetypes="gif,png,jpg" excludeprefix="thumb_" description="file_selector: Test description (optional)"}'</p>
 
-<h2>file_selector 1A - recurse</h2>
-<p>selected file:'{content_module module="ECB2" field="file_selector" block="test1a" label="Test 1A: file_selector - recursive" dir="images" filetypes="gif,png,jpg" excludeprefix="thumb_" recurse=1 description="file_selector: Test description (optional) can be shown here"}'<p>
+<h2>2. file_selector - recurse</h2>
+<p>selected file:'{content_module module=ECB2 field=file_selector block=test2 label="Test 2: file_selector - recursive" dir="images" filetypes="gif,png,jpg" excludeprefix="thumb_" recurse=1 description="file_selector: Test description (optional)"}'</p>
 
-<h2>file_selector 1B - image preview</h2>
-<p>selected file:'{content_module module="ECB2" field="file_selector" block="test1b" label="Test 1B: file_selector - image preview (no description)" dir="images" filetypes="gif,png,jpg" excludeprefix="thumb_" preview=1}'<p>
+<h2>3. file_selector - image preview</h2>
+<p>selected file:'{content_module module=ECB2 field=file_selector block=test3 label="Test 3: file_selector - image preview (no description)" dir="images" filetypes="gif,png,jpg" excludeprefix="thumb_" preview=1}'</p>
 
-<h2>color_picker</h2>
-{content_module module="ECB2" field="color_picker" block="test2" label="Test 2: color_picker" default_value="#CCCCCC" assign=test2 description="Test description - short"}
-<p style="color:#FFF; background-color:{$test2};">colour:'{$test2}'</p>
+<h2>4A. color_picker</h2>
+{content_module module=ECB2 field=color_picker block=test4a label="Test 4A: color_picker" assign=assn4a description="Test description - no value"}
+<p style="color:#FFF; background-color:{$assn4a};">colour: '{$assn4a}'</p>
 
-<h2>color_picker #2A</h2>
-{content_module module="ECB2" field="color_picker" block="test2_2A" label="Test 2-2A: color_picker" default_value="#5c51a5" assign=test2_2A description="Test description - short - 5c51a5"}
-<p style="color:#FFF; background-color:{$test2_2A};">colour:'{$test2_2A}'</p>
+<h2>4B. color_picker #2</h2>
+{content_module module=ECB2 field=color_picker block=test4b label="Test 4B: color_picker" default_value="#CCC" assign=assn4b description="Test description - short"}
+<p style="color:#FFF; background-color:{$assn4b};">colour: '{$assn4b}'</p>
 
-<h2>color_picker #2c</h2>
-{content_module module="ECB2" field="color_picker" block="test2_2c" label="Test 2-2c: color_picker default RED" default_value="#FF0000" assign=test2_2c}
-<p style="color:#FFF; background-color:{$test2_2c};">colour:'{$test2_2c}'</p>
+<h2>4C. color_picker #3</h2>
+{content_module module=ECB2 field=color_picker block=test4c label="Test 4C: color_picker" default_value="#5c51a5" assign=assn4c description="Test description - hex"}
+<p style="color:#FFF; background-color:{$assn4c};">colour: '{$assn4c}'</p>
 
-<h2>color_picker - promo_bgcolor</h2>
-{$promo_bgcolor="{content_module module='ECB2' field='color_picker' block='promo_bgcolor' label='Background Color' default_value='transparent'}" scope=global}
-<p style="color:#FFF; background-color:{$promo_bgcolor};">colour:'{$promo_bgcolor}'</p>
+<h2>4D. color_picker #5</h2>
+{content_module module=ECB2 field=color_picker block=test4d label="Test 4D: color_picker" default_value="red" assign=assn4d description="Test description - named"}
+<p style="color:#FFF; background-color:{$assn4d};">colour: '{$assn4d}'</p>
 
-<h2>Test 3: dropdown</h2>
-<p>{content_module module="ECB2" field="dropdown" block="test3" label="Test 3: dropdown" values="Apple=apple,Orange=orange" first_value="select fruit" description="Test description (optional) can be shown here"}</p>
+<h2>4E. color_picker #5 smarty assignment</h2>
+{$promo_bgcolor="{content_module module=ECB2 field=color_picker block=test4e label='Background Color' default_value='transparent'}" scope=global}
+<p style="color:#FFF; background-color:{$promo_bgcolor};">colour: '{$promo_bgcolor}'</p>
 
-<h2>Test 3A: dropdown - multiple</h2>
-<p>{content_module module="ECB2" field="dropdown" block="test3A" label="Test 3A: dropdown - multiple" values="Apple=apple,Orange=orange,Banana,Pineapple,Test number 5,Test 6,Test7,Test8,test9,test10,test11" multiple=1 description="Test description (optional) can be shown here"}</p>
+<h2>5A. dropdown</h2>
+<p>{content_module module=ECB2 field=dropdown block=test5a label="Test 5A: dropdown" values="Apple=apple,Orange=orange" first_value="select fruit" description="Test description (optional)"}</p>
 
-<h2>Test 3B: dropdown - multiple & compact</h2>
-<p>{content_module module="ECB2" field="dropdown" block="test3B" label="Test 3B: compact dropdown - multiple" values="Apple=apple,Orange=orange,Banana,Pineapple,Test number 5,Test 6,Test7,Test8,test9,test10,test11" multiple=1 compact=1 description="Test description (optional) can be shown here"}</p>
+<h2>5B. dropdown - multiple</h2>
+<p>{content_module module=ECB2 field=dropdown block=test5b label="Test 5B: dropdown - multiple" values="Apple=apple,Orange=orange,Banana,Pineapple,Test number 5,Test 6,Test7,Test8,test9,test10,test11" multiple=1 description="Test description (optional)"}</p>
 
-<h2>Test4: dropdown_from_udt</h2>
-<p>Section 1 Layout Style:'{content_module module='ECB2' field='dropdown_from_udt' block='test4' label='Test 4: dropdown_from_udt' udt='ecb2_sortable_udt_test' description="Test description (optional) can be shown here"}'</p>
+<h2>5C. dropdown - multiple &amp; compact</h2>
+<p>{content_module module=ECB2 field=dropdown block=test5c label="Test 5C: compact dropdown - multiple" values="Apple=apple,Orange=orange,Banana,Pineapple,Test number 5,Test 6,Test7,Test8,test9,test10,test11" multiple=1 compact=1 description="Test description (optional)"}</p>
 
-<p>Section 1 Layout Style (with first_value):'{content_module module='ECB2' field='dropdown_from_udt' block='test4a' label='Test 4a: dropdown_from_udt (with first_value)' udt='ecb2_sortable_udt_test' first_value="=select=" multiple=1 description="Test description (optional) can be shown here"}'</p>
-
-<p>Section 1 Layout Style - compact:'{content_module module='ECB2' field='dropdown_from_udt' block='test4b' label='Test 4b: dropdown_from_udt - compact' udt='ecb2_sortable_udt_test' multiple=1 compact=1 description="Test description (optional) can be shown here"}'</p>
-
-<h2>checkbox</h2>
-<p>{content_module module="ECB2" field="checkbox" block="test5a" label="Test 5: Checkbox - no default" default_value="0" description="Test description (optional) can be shown here"}</p>
-<p>{content_module module="ECB2" field="checkbox" block="test5b" label="Test 5b: Checkbox - default NOT Checked" default_value="0"}</p>
-<p>{content_module module="ECB2" field="checkbox" block="test5c" label="Test 5c: Checkbox - default Checked" default_value="1"}</p>
-
-<h2>module_link</h2>
-<p>{content_module module="ECB2" field="module_link" label="Test 6: module_link:Gallery" block="test6" mod="Gallery" text="Edit Galleries" description="Test description (optional) can be shown here"}</p>
-
-<h2>link</h2>
-<p>{content_module module="ECB2" field="link" label="Test 7: link" block="test7" target="_blank" link="http://www.bing.com" text="bing search" description="Test description (optional) can be shown here"}</p>
-
-<h2>timepicker</h2>
-<p>{content_module module="ECB2" field="timepicker" label="Test 8: timepicker" block="test8" description="Test description (optional) can be shown here"}</p>
-
-<h2>datepicker</h2>
-<p>{content_module module="ECB2" field="datepicker" label="Test 9: datepicker" block="test9" description="Test description (optional) can be shown here"}</p>
-
-<h2>Test 10: input</h2>
-<p>{content_module module="ECB2" field="input" label="Test 10: input" block="test10" size=55 max_length=55 default_value="fill it" description="Test description (optional) can be shown here"}</p>
-
-<h2>Test 10A: input no default value</h2>
-<p>{content_module module="ECB2" field="input" label="Test 10: input" block="test10A" size=55 max_length=55 description="Test description (optional) can be shown here"}</p>
-
-<h2>Test 11: textarea</h2>
-<p>{content_module module="ECB2" field="textarea" label="Test 11: textarea" block="test11" rows=10 cols=40 default_value="fill it" description="Test description (optional) can be shown here"}</p>
-
-<h2>editor</h2>
-<p>{content_module module="ECB2" field="editor" label="Test 12: editor" block="test12" rows=10 cols=40 default_value="fill it" description="Test description (optional) can be shown here"}</p>
-
-<h2>Test 13: text</h2>
-{content_module module="ECB2" field="text" label="Test 13: text" block="test13" text="Hello word!" description="Test description (optional) can be shown here"}
-
-<h2>pages</h2>
-<p>{content_module module="ECB2" field="pages" label="Test 14: pages" block="test14" description="Test description (optional) can be shown here"}</p>
-
-<h2>hr</h2>
-<p>{content_module module="ECB2" field="hr" label="Test 15: hr" block="test15" description="Test description (optional) can be shown here"}</p>
-
-<h2>sortablelist</h2>
-{content_module module='ECB2' field='sortablelist' block='test16' udt='ecb2_sortable_udt_test' label='test16:sortablelist' label_left='Selected Widgets' label_right='Available Widgets' description="Test description (optional) can be shown here, using 'udt' option"}
-
-<h2>sortablelist 2</h2>
-{content_module module='ECB2' field='sortablelist' block='test16a' values='apple=Apple,orange=Orange,green=Green,value=Label' label='test16a:sortablelist' description="Test using default labels, 2nd sortable - so should be no lib output, uses values (not udt)"}
-
-<h2>radio</h2>
-{content_module module="ECB2" field="radio" block="test17a" label="Test 17"  values="Apple=apple,Orange=orange,Kiwifruit=kiwifruit" default_value='Orange' description="Test description (optional) can be shown here"}
-
-<h2>input</h2>
-<p>{content_module module="ECB2" field="input" label="Test 17b: no description" block="test17b" size=55 max_length=55 default_value="check for no description on this field"}</p>
-
-<h2>hidden</h2>
-<p>{content_module module='ECB2' field='hidden' block='test18' assign='test18hidden' label='hidden' description='Hidden: would not normally use a description field!' value="markervalue"}</p>
-
-<h2>Test 19: gallery_picker</h2>
-<p>{content_module module='ECB2' field='gallery_picker' block='test19' dir='on-page-galleries' assign='test19' label='Test 19: gallery_picker' description="Test description (optional) can be shown here"}</p>
-{if !empty($test19)}
+<h2>7. gallery_picker</h2>
+<p>{content_module module=ECB2 field=gallery_picker block=test7 dir='on-page-galleries' assign=assn7 label='Test 7: gallery_picker' description="Test description (optional)"}</p>
+{if !empty($assn7)}
 <div class="col-4">
    A functioning gallery should be shown below:<br>
-   {Gallery dir=$test19}
+   {*TODO prevent crash if $assn7 is error message i.e. module N/A Gallery dir=$assn7*}
 </div>
 {/if}<br>
 
-<h2>Test 20: get_dropdown_from_customgs</h2>
-<p>{content_module module='ECB2' field='dropdown_from_customgs' customgs_field='Section Styles' block='test20' assign='test20' label='Test 20: dropdown_from_customgs' description="Test description (optional) can be shown here"}</p>
-<div>selected: '{$test20}'</div>
+<h2>8. get_module</h2>
+<p>{content_module module=ECB2 field=module block=test8 assign=assn8 label='Test 8: module selector' description="Test description (optional)"}</p>
 
-<h2>Test 20A: get_dropdown_from_customgs - Compact display of selection</h2>
-<p>Multiple Select with compact display of options & edit</p>
-<p>{content_module module='ECB2' field='dropdown_from_customgs' customgs_field='Section Styles' dir='on-page-galleries' block='test20A' assign='test20A' label='Test 20A: dropdown_from_customgs' compact=1 description='Multiple Select with compact display of options & edit' multiple=1 size=0}</p>
-<div>selected: '{$test20A}'</div>
+<h2>9. get_dropdown_from_customgs</h2>
+<p>{content_module module=ECB2 field=dropdown_from_customgs customgs_field='Section Styles' block=test9 assign=assn9 label='Test 9: dropdown_from_customgs' description="Test description (optional)"}</p>
+<div>selected: '{$assn9}'</div>
 
-<h2>Test 21: Test for error - field not specified or not correctly named</h2>
-<p>{content_module module='ECB2' block='test21' assign='test21' label='Test 21: Test for error - field not specified or not correctly named'}</p>
-<div>selected: '{$test21}'</div>
+<h2>10. get_dropdown_from_customgs - Compact display</h2>
+<p>Multiple select with compact display of options & edit</p>
+<p>{content_module module=ECB2 field=dropdown_from_customgs customgs_field='Section Styles' dir='on-page-galleries' block=test10 assign=assn10 label='Test 10: dropdown_from_customgs' compact=1 description='Multiple Select with compact display of options & edit' multiple=1 size=0}</p>
+<div>selected: '{$assn10}'</div>
 
-<h2>Test 22: input_repeater</h2>
-<p>{$input_repeater_test="||"|explode:"{content_module module='ECB2' field='input_repeater' label='Test 22: input_repeater' block='test22' size=100 max_length=255 default_value='fill it' description='Press (+) and (-) to add and remove additional input fields'}" scope=global}</p>
+<h2>11. dropdown_from_udt</h2>
+<p>(i) Style default:'{content_module module=ECB2 field=dropdown_from_udt block=test11a label='Test 11A: dropdown_from_udt' udt='ecb2_sortable_udt_test' description="Test description (optional)"}'</p>
+<p>(ii) Style with first_value:'{content_module module=ECB2 field=dropdown_from_udt block=test11b label='Test 11B: dropdown_from_udt (with first_value)' udt='ecb2_sortable_udt_test' first_value="=select=" multiple=1 description="Test description (optional)"}'</p>
+<p>(iii) Style compact:'{content_module module=ECB2 field=dropdown_from_udt block=test11c label='Test 11C: dropdown_from_udt - compact' udt='ecb2_sortable_udt_test' multiple=1 compact=1 description="Test description (optional)"}'</p>
+
+<h2>12. checkbox</h2>
+<p>{content_module module=ECB2 field=checkbox block=test12a label="Test 12A: checkbox - no choice" default_value="1" description="Test description (optional)"}</p>
+<p>{content_module module=ECB2 field=checkbox block=test12b label="Test 12B: checkbox - not checked" value="0" default_value="1"}</p>
+<p>{content_module module=ECB2 field=checkbox block=test12c label="Test 12C: checkbox - checked" value="1" default_value="1"}</p>
+
+<h2>13. radio</h2>
+<p>{content_module module=ECB2 field=radio block=test13a label="Test 13A: radio - no choice" values="Apple=apple,Orange=orange,Kiwifruit=kiwifruit" description="Test description (optional)"}</p>
+<p>{content_module module=ECB2 field=radio block=test13b label="Test 13B: radio" values="Apple=apple,Orange=orange,Kiwifruit=kiwifruit" default_value='Orange' description="Test description (optional)"}</p>
+
+<h2>14. module_link</h2>
+<p>{content_module module=ECB2 field=module_link label="Test 14: module_link:Gallery" block=test14 mod="Gallery" text="Edit Galleries" description="Test description (optional)"}</p>
+
+<h2>15. link</h2>
+<p>{content_module module=ECB2 field=link label="Test 15: link" block=test15 target="_blank" link="http://www.bing.com" text="bing search" description="Test description (optional)"}</p>
+
+<h2>16. timepicker</h2>
+<p>{content_module module=ECB2 field=timepicker label="Test 16: timepicker" block=test16 description="Test description (optional)"}</p>
+
+<h2>17. datepicker</h2>
+<p>{content_module module=ECB2 field=datepicker label="Test 17: datepicker" block=test17 description="Test description (optional)"}</p>
+
+<h2>18. input</h2>
+<p>{content_module module=ECB2 field=input label="Test 18: input" block=test18 size=55 max_length=55 default_value="fill it" description="Test description (optional)"}</p>
+
+<h2>19. input without default value</h2>
+<p>{content_module module=ECB2 field=input label="Test 19: input without default" block=test19 size=55 max_length=55 description="Test description (optional)"}</p>
+
+<h2>20. textarea</h2>
+<p>{content_module module=ECB2 field=textarea label="Test 20: textarea" block=test20 rows=10 cols=40 default_value="fill it" description="Test description (optional)"}</p>
+
+<h2>21. editor</h2>
+<p>{content_module module=ECB2 field=editor label="Test 21: html editor" block=test21 rows=10 cols=40 default_value="fill it" description="Test description (optional)"}</p>
+
+<h2>22. text</h2>
+{content_module module=ECB2 field=text label="Test 22: specified text" block=test22 text="Hello word!" description="Test description (optional)"}
+
+<h2>23. pages</h2>
+<p>{content_module module=ECB2 field=pages label="Test 23: pages" block=test23 description="Test description (optional)"}</p>
+
+<h2>24. hr</h2>
+<p>{content_module module=ECB2 field=hr label="Test 24: hr" block=test24 description="Test description (optional)"}</p>
+
+<h2>25. sortablelist</h2>
+{content_module module=ECB2 field=sortablelist block=test25 udt='ecb2_sortable_udt_test' label='Test25: sortablelist' label_left='Selected Widgets' label_right='Available Widgets' description="Test description (optional), using 'udt' option"}
+
+<h2>26. sortablelist 2</h2>
+{content_module module=ECB2 field=sortablelist block=test26 values='apple=Apple,orange=Orange,green=Green,value=Label' label='Test26: sortablelist' description="Test using default labels, 2nd sortable - so should be no lib output, uses values (not udt)"}
+
+<h2>27. input without description</h2>
+<p>{content_module module=ECB2 field=input label="Test 27: no description" block=test27 size=55 max_length=55 default_value="check for no description on this field"}</p>
+
+<h2>28. hidden input</h2>
+<p>{content_module module=ECB2 field=hidden block=test28 label='Test 28: hidden input' description='Hidden: would not normally use a description field!' value="markervalue"}</p>
+
+<h2>29. input_repeater</h2>
+<p>{$input_repeater_test="||"|explode:"{content_module module=ECB2 field=input_repeater label='Test 29: input_repeater' block=test29 size=100 max_length=255 default_value='fill it' description='Click (+) or (-) to add or remove field'}" scope=global}</p>
 <div class="pre">$input_repeater_test:{$input_repeater_test|print_r}</div>
 
-<br><br><p>That's it. All Tests done :)</p>
+<h2>30. error - invalid field</h2>
+<p>{content_module module=ECB2 block=test30a assign=assn30a label='Test 30A: error - field not specified'}</p>
+<div>selected: '{$assn30a}'</div>
+<p>{content_module module=ECB2 block=test30b field=woowoo assign=assn30b label='Test 30B: error - field misnamed'}</p>
+<div>selected: '{$assn30b}'</div>
 
+<br><br><p>All tests done :)</p>
 
          </div>
       </div>
    </div>
 </div><!-- main-->
-
-
-{*global_content name='footer'*}
-
-{cgjs_render addkey='19Oct18'}
 
 </body>
 </html>

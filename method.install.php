@@ -6,6 +6,4 @@
  * Licence: GNU General Public License version 3 or later
  *  see <https://www.gnu.org/licenses/gpl-3.0.txt>
  */
-if (!isset($gCms)) exit;
-
-$this->RegisterModulePlugin(TRUE);
+// nothing here
