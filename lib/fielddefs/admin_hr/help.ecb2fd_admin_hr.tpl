@@ -5,7 +5,7 @@
     {$fielddef->get_demo_input()}
 </fieldset>
 
-<pre>{literal}{content_module module=ECB2 field=admin_hr block=test17 description='Can also add a description in here :)'}{/literal}</pre>
+<pre>{literal}{ECB2 field=admin_hr block=test17 description='Can also add a description in here :)'}{/literal}</pre>
 
 <p>Parameters:</p>
 <ul>

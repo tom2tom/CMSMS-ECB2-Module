@@ -9,7 +9,7 @@
     ])}
 </fieldset>
 
-<pre>{literal}{content_module module=ECB2 field=gallery block=test20a label='A sample Gallery' assign=test20a
+<pre>{literal}{ECB2 field=gallery block=test20a label='A sample Gallery' assign=test20a
 sub1_field=textinput sub1_name=title sub1_label='Title'
 sub2_field=editor sub2_name=description sub2_label='Description'
 sub3_field=page_picker sub3_name=link_to sub3_label='Select a page'}{/literal}</pre>

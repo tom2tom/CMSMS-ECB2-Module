@@ -1,4 +1,4 @@
-{* input.ecb2fd_textinput.tpl - v1.0 - 25Jun22 
+{* input.ecb2fd_textinput.tpl - v1.0 - 25Jun22
 
 ***************************************************************************************************}
 {if !empty($description)}
@@ -9,7 +9,7 @@
     {if is_null($sub_row_number)}{* output template field *}
         <input type="text" id="" name="" class="{$class}" value="" size="{$size}" maxlength="{$max_length}" data-repeater="#{$block_name}-repeater" data-field-name="{$block_name}"/>
 
-    {else}    
+    {else}
         <input type="text" id="{$subFieldId}" name="{$subFieldName}" class="{$class}" value="{$value|escape}" size="{$size}" maxlength="{$max_length}"/>
 
     {/if}
@@ -19,7 +19,7 @@
         <input type="text" name="{$block_name}" size="{$size}" maxlength="{$max_length}" value="{$value|escape}"/>
 
     {else}
-        <input type="text" name="{$block_name}[]" size="{$size}" maxlength="{$max_length}" value="{$values[0]|escape}"/>
+        <input type="text" name="{$block_name}[]" size="{$size}" maxlength="{$max_length}" value="{$values.0|escape}"/>
     {/if}
 
 {else}{* is repeater *}
@@ -28,9 +28,9 @@
             {$mod->Lang('error_assign_required')}
         </div><br>
     {/if}
-        
-        <div id="{$block_name}-repeater" class="ecb_repeater sortable" data-block-name="{$block_name}" data-highest-row="{$values|@count}" {if $max_blocks>0}data-max-blocks="{$max_blocks}"{/if}>
-        
+
+        <div id="{$block_name}-repeater" class="ecb_repeater sortable" data-block-name="{$block_name}" data-highest-row="{count($values)}"{if $max_blocks>0} data-max-blocks="{$max_blocks}"{/if}>
+
             <div class="repeater-wrapper-template" style="display:none;">
                 <div class="drag-panel handle">
                     <span class="ecb2-icon-grip-dots-vertical-solid"></span>
@@ -41,7 +41,7 @@
                 </div>
             </div>
 
-            <button class="ecb2-repeater-add ecb2-btn ecb2-btn-default" data-repeater="#{$block_name}-repeater" title="{$mod->Lang('add_line')}" role="button" {if !empty($max_blocks) && $values|count>=$max_blocks} disabled aria-disabled="true"{else}aria-disabled="false"{/if}><span class="ecb2-icon-plus"></span>&nbsp;&nbsp;{$mod->Lang('add_item')}</button>
+            <button class="ecb2-repeater-add ecb2-btn ecb2-btn-default" data-repeater="#{$block_name}-repeater" title="{$mod->Lang('add_line')}" role="button" {if !empty($max_blocks) && count($values)>=$max_blocks}disabled aria-disabled="true"{else}aria-disabled="false"{/if}><span class="ecb2-icon-plus"></span>&nbsp;&nbsp;{$mod->Lang('add_item')}</button>
 
         {foreach $values as $value}
             <div class="repeater-wrapper">

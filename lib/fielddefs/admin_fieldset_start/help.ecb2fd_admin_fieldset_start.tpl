@@ -6,7 +6,7 @@
     some admin fields can go in here :)
     </fieldset>
 
-<pre>{literal}{content_module module=ECB2 field=admin_fieldset_start block=test label='15: admin_fieldset_start'}{/literal}</pre>
+<pre>{literal}{ECB2 field=admin_fieldset_start block=test label='15: admin_fieldset_start'}{/literal}</pre>
 
 <p>TIP: set label='&nbsp;' to not show the field label.</p>
 

@@ -5,7 +5,7 @@
     {$fielddef->get_demo_input(['link'=>"http://www.bing.com", 'text'=>"bing search", 'target'=>"_blank"])}
 </fieldset>
 
-<pre>{literal}{content_module module=ECB2 field=admin_link block=test17 target='_blank' link='http://www.bing.com' text='bing search' label='17: admin_link' description='Test description (optional) can be shown here'}{/literal}</pre>
+<pre>{literal}{ECB2 field=admin_link block=test17 target='_blank' link='http://www.bing.com' text='bing search' label='17: admin_link' description='Test description (optional) can be shown here'}{/literal}</pre>
 
 <p>Parameters:</p>
 <ul>

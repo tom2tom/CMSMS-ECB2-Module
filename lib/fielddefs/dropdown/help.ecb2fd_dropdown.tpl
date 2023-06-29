@@ -11,19 +11,19 @@
     <li>field (required) - '<b>dropdown</b>', or alias: '<b>select</b>', '<b>dropdown_from_module</b>', '<b>dropdown_from_udt</b>', '<b>dropdown_from_gbc</b>', '<b>dropdown_from_customgs</b>'</li>
     <li>block (required) - the name of the content block</li>
     <li>values (*) - comma separated string of 'Text' or 'Text=value'. Example: 'Apple=apple,Orange=orange,Green=green'<br>
-        <pre>{content_module module=ECB2 block=test5 field=dropdown1 values='Apple=apple,Orange=orange' first_value='select fruit' label='Fruit'}</pre>
+        <pre>{ECB2 block=test5 field=dropdown1 values='Apple=apple,Orange=orange' first_value='select fruit' label='Fruit'}</pre>
     </li>
     <li>mod (*) - specifies the name of a module to call to get the option values. The module call needs to either: set an array $options of 'value' => 'Text' with scope=global, or return a comma separated list of 'Text,...' or 'Text=value,...'. Any additional parameters are also passed onto the specified module. You may want to include 'action' and 'template' parameters.<br>
-        <pre>{content_module module=ECB2 block=dropdown2 field=dropdown mod=LISEProjects template_summary='item_dropdown' pagelimit=2 label='Dropdown - from module'}</pre>
+        <pre>{ECB2 block=dropdown2 field=dropdown mod=LISEProjects template_summary='item_dropdown' pagelimit=2 label='Dropdown - from module'}</pre>
     </li>
     <li>udt (*) - specifies the name of a User Defined Tag to call to get the option values. The UDT should either return an array of 'Text' => 'value', or return a comma separated string of 'Text' or 'Text=value'.<br>
-        <pre>{content_module module=ECB2 block=dropdown3 field=dropdown udt='ecb2_test_udt_options' label='Dropdown - from udt'}</pre>
+        <pre>{ECB2 block=dropdown3 field=dropdown udt='ecb2_test_udt_options' label='Dropdown - from udt'}</pre>
     </li>
     <li>template (*) - (alias: '<b>gcb</b>') - specifies the name of a smarty template from Design Manager to call to get the option values. The template call needs to either: set an array $options of 'value' => 'Text' with scope=global, or return a comma separated list of 'Text,...' or 'Text=value,...'. <br>
-        <pre>{content_module module=ECB2 block=dropdown4 field=dropdown template='ECB2_test_template_options' label='Dropdown - from template'}</pre>
+        <pre>{ECB2 block=dropdown4 field=dropdown template='ECB2_test_template_options' label='Dropdown - from template'}</pre>
     </li>
     <li>customgs_field (*) - name of customgs_field to retrieve (with spaces, not underscores) e.g. 'Section Styles'. This needs to be a CustomGS 'textarea' containing a set of 'Text' or 'Text=value', either on separate lines or separated by commas.<br>
-        <pre>{content_module module=ECB2 block=dropdown3 field=dropdown customgs_field='Section Styles'  label='Dropdown - from CustomGS'}</pre>
+        <pre>{ECB2 block=dropdown3 field=dropdown customgs_field='Section Styles'  label='Dropdown - from CustomGS'}</pre>
     </li>
     <li>first_value (optional) - sets an text sting for the first blank value, e.g. '--- select one ---'</li>
     <li>flip_values (optional) - swaps the dropdowns values <-> text</li>

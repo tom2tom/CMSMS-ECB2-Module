@@ -5,7 +5,7 @@
     {$fielddef->get_demo_input(['mod'=>"CMSContentManager", 'text'=>"Edit Content Pages", 'target'=>'_blank'])}
 </fieldset>
 
-<pre>{literal}{content_module module=ECB2 field=admin_module_link block=test18 mod=CMSContentManager text='Edit Content Pages' label='18: module_link:ContentManager' target='_blank' description='Test description (optional) can be shown here'}{/literal}</pre>
+<pre>{literal}{ECB2 field=admin_module_link block=test18 mod=CMSContentManager text='Edit Content Pages' label='18: module_link:ContentManager' target='_blank' description='Test description (optional) can be shown here'}{/literal}</pre>
 
 <p>Parameters:</p>
 <ul>

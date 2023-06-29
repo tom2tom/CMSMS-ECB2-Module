@@ -6,7 +6,7 @@
     {$fielddef->get_demo_input(['default'=>1])}
 </fieldset>
 
-<pre>{literal}{content_module module=ECB2 field=checkbox block=test5 label='Test checkbox' default=1}{/literal}</pre>
+<pre>{literal}{ECB2 field=checkbox block=test5 label='Test checkbox' default=1}{/literal}</pre>
 
 <p>Parameters:</p>
 <ul>

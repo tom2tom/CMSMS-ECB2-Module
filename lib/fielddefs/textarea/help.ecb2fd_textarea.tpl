@@ -5,7 +5,7 @@
 {$fielddef->get_demo_input(['rows'=>3, 'cols'=>100, 'default'=>'a sample textarea'])}
 </fieldset>
 
-<pre>{literal}{content_module module=ECB2 field=textarea label='Textarea' block=test6 rows=3 cols=100 default='a sample textarea'}{/literal}</pre>
+<pre>{literal}{ECB2 field=textarea label='Textarea' block=test6 rows=3 cols=100 default='a sample textarea'}{/literal}</pre>
 
 <p>Parameters:</p>
 <ul>

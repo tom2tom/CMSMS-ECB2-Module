@@ -5,7 +5,7 @@
     {$fielddef->get_demo_input()}
 </fieldset>
 
-<pre>{literal}{content_module module=ECB2 field=gallery_picker block=pageTopGallery label='Page Top Gallery' dir='page-top-galleries'}{/literal}</pre>
+<pre>{literal}{ECB2 field=gallery_picker block=pageTopGallery label='Page Top Gallery' dir='page-top-galleries'}{/literal}</pre>
 
 <p>Parameters:</p>
 <ul>

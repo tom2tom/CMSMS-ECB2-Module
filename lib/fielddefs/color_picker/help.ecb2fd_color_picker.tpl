@@ -5,7 +5,7 @@
     {$fielddef->get_demo_input([ 'default'=>'#3338c4'])}
 </fieldset>
 
-<pre>{literal}{content_module module=ECB2 field=color_picker block=test7 label='Color' default='#3338c4'}{/literal}</pre>
+<pre>{literal}{ECB2 field=color_picker block=test7 label='Color' default='#3338c4'}{/literal}</pre>
 
 <p>Parameters:</p>
 <ul>

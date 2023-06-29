@@ -1,15 +1,15 @@
-{* input.ecb2fd_textarea.tpl - v1.0 - 25Jun22 
+{* input.ecb2fd_textarea.tpl - v1.0 - 25Jun22
 
 ***************************************************************************************************}
 {if !empty($description)}
         {$description}<br>
 {/if}
 
-{if $is_sub_field}      
+{if $is_sub_field}
     {if is_null($sub_row_number)}{* output template field *}
         <textarea id="" name="" class="{$class}" cols="{$cols}" rows="{$rows}" data-repeater="#{$block_name}-repeater" data-field-name="{$block_name}" {if $wysiwyg}style="display:none;"{/if}></textarea>
 
-    {else}    
+    {else}
         {cms_textarea id=$subFieldId name=$subFieldName enablewysiwyg=$wysiwyg rows=$rows cols=$cols value=$value class=$class}
 
     {/if}
@@ -26,8 +26,8 @@
             {$mod->Lang('error_assign_required')}
         </div><br>
     {/if}
-        
-        <div id="{$block_name}-repeater" class="ecb_repeater sortable {if $wysiwyg}wysiwyg{/if}" data-block-name="{$block_name}" data-highest-row="{$values|@count}" {if $max_blocks>0}data-max-blocks="{$max_blocks}"{/if}>
+
+        <div id="{$block_name}-repeater" class="ecb_repeater sortable {if $wysiwyg}wysiwyg{/if}" data-block-name="{$block_name}" data-highest-row="{count($values)}"{if $max_blocks>0} data-max-blocks="{$max_blocks}"{/if}>
 
             <div class="repeater-wrapper-template" style="display:none;">
                 <div class="drag-panel handle">
@@ -39,7 +39,7 @@
                 </div>
             </div>
 
-            <button class="ecb2-repeater-add ecb2-btn ecb2-btn-default" data-repeater="#{$block_name}-repeater" title="{$mod->Lang('add_line')}" role="button" {if !empty($max_blocks) && $values|count>=$max_blocks} disabled aria-disabled="true"{else}aria-disabled="false"{/if}><span class="ecb2-icon-plus"></span>&nbsp;&nbsp;{$mod->Lang('add_item')}</button>
+            <button class="ecb2-repeater-add ecb2-btn ecb2-btn-default" data-repeater="#{$block_name}-repeater" title="{$mod->Lang('add_line')}" role="button" {if !empty($max_blocks) && count($values)>=$max_blocks}disabled aria-disabled="true"{else}aria-disabled="false"{/if}><span class="ecb2-icon-plus"></span>&nbsp;&nbsp;{$mod->Lang('add_item')}</button>
 
         {foreach $values as $value}
             <div class="repeater-wrapper">

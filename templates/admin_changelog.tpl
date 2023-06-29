@@ -1,9 +1,22 @@
 {* ECB2 admin_changelog.tpl *}
 
+<h3>Version 2.4 - 24Jul23</h3>
+<ul>
+    <li>Support tags like {literal}{ECB2 ...params}{/literal}</li>
+    <li>PHP 8.2 compatibility</li>
+    <li>Bug fixes
+    <ul>
+      <li>admin panel popup help</li>
+      <li>menu-section selector</li>
+      <li>compatible method signature</li>
+    </ul>
+    </li>
+</ul>
+<br>
 
 <h3>Version 2.3 - 24Jun23</h3>
 <ul>
-    <li>NEW field type: file_picker - implements the core FilePicker but with the added addition of a thumbnail</li>
+    <li>NEW field type: file_picker - implements the core FilePicker but with the addition of a thumbnail</li>
     <li>minor help tweaks</li>
     <li>Bug fix - make output values more robust, including handling change of field type and options, e.g. input_repeater to input.</li>
     <li>Bug fix - 'dropdown' compact option - update selection on change + minor layout tweak</li>

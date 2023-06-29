@@ -1,4 +1,4 @@
-{* input.ecb2fd_sortablelist.tpl - v1.0 - 29Jun22 
+{* input.ecb2fd_sortablelist.tpl - v1.0 - 29Jun22
 
 ***************************************************************************************************}
 {if !empty($description)}
@@ -12,7 +12,7 @@
             <div id="selected-items">
                 <ul class="sortable-ecb2-list sortable-list selected-items" data-cmsms-cb-input="{$selectarea_prefix}"
                 {if $maxNumber} data-max-number="{$maxNumber}"{/if}{if $requiredNumber} data-required-number="{$requiredNumber}"{/if}>
-                    <li class="placeholder no-sort {if $selected|@count>0} hidden{/if}">{if $requiredNumber}{$mod->Lang('drop_required_items', $requiredNumber)}{else}{$mod->Lang('drop_items')}{/if}</li>
+                    <li class="placeholder no-sort{if count($selected)>0} hidden{/if}">{if $requiredNumber}{$mod->Lang('drop_required_items', $requiredNumber)}{else}{$mod->Lang('drop_items')}{/if}</li>
                     {foreach $selected as $alias => $name}
                         <li class="ui-state-default cf sortable-item" data-cmsms-item-id="{$alias}">
                             {$name}

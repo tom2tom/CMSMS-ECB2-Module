@@ -5,7 +5,7 @@
     {$fielddef->get_demo_input(['text'=>'Simply add some text into the admin pages to give some guidance to the editors, or whatever else you want really :).'])}
 </fieldset>
 
-<pre>{literal}{content_module module=ECB2 field=admin_text text='Simply add some text into the admin pages to give some guidance to the editors, or whatever else you want really :).' block=test16 label='16: Text'}{/literal}</pre>
+<pre>{literal}{ECB2 field=admin_text text='Simply add some text into the admin pages to give some guidance to the editors, or whatever else you want really :).' block=test16 label='16: Text'}{/literal}</pre>
 
 <p>Parameters:</p>
 <ul>

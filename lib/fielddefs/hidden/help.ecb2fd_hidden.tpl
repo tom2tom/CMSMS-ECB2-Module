@@ -6,7 +6,7 @@
     {$fielddef->get_demo_input()}
 </fieldset>
 
-<pre>{literal}{content_module module=ECB2 field=hidden block=test label='Test' default='fill it'}{/literal}</pre>
+<pre>{literal}{ECB2 field=hidden block=test label='Test' default='fill it'}{/literal}</pre>
 
 <p>Parameters:</p>
 <ul>

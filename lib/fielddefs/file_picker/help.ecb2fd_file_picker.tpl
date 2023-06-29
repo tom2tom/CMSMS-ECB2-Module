@@ -7,7 +7,7 @@
     {$fielddef->get_demo_input([])}
 </fieldset>
 
-<pre>{literal}{content_module module=ECB2 field=file_picker block=test}{/literal}</pre>
+<pre>{literal}{ECB2 field=file_picker block=test}{/literal}</pre>
 
 <p>Parameters:</p>
 <ul>

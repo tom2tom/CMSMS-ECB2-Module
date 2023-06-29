@@ -1,11 +1,11 @@
-{* input.ecb2fd_gallery.tpl - v1.0 - 25Jun22 
+{* input.ecb2fd_gallery.tpl - v1.0 - 25Jun22
 
 ***************************************************************************************************}
 {if !empty($description)}
         {$description}<br>
 {/if}
 
-<div class="ecb2-dropzone {if $max_files!=1}sortable{/if} dropzone-previews" data-dropzone-url="{$action_url}" data-block-name="{$block_name}" data-location="{$location}" data-dropzone-values="{$json_filenames|cms_escape}" data-dropzone-thumbnail-width="{$thumbnail_width}" data-dropzone-thumbnail-height="{$thumbnail_height}" data-dropzone-thumbnail-prefix="{$thumbnail_prefix}"{if $resize_width} data-dropzone-resize-width="{$resize_width}"{/if}{if $resize_height} data-dropzone-resize-height="{$resize_height}"{/if}{if $resize_method} data-dropzone-resize-method="{$resize_method}"{/if}{if $max_files>0} data-dropzone-max-files="{$max_files}"{/if} data-dropzone-max-files-text="{$max_files_text}" data-highest-row="{$values|@count}">
+<div class="ecb2-dropzone {if $max_files!=1}sortable{/if} dropzone-previews" data-dropzone-url="{$action_url}" data-block-name="{$block_name}" data-location="{$location}" data-dropzone-values="{$json_filenames|cms_escape}" data-dropzone-thumbnail-width="{$thumbnail_width}" data-dropzone-thumbnail-height="{$thumbnail_height}" data-dropzone-thumbnail-prefix="{$thumbnail_prefix}"{if $resize_width} data-dropzone-resize-width="{$resize_width}"{/if}{if $resize_height} data-dropzone-resize-height="{$resize_height}"{/if}{if $resize_method} data-dropzone-resize-method="{$resize_method}"{/if}{if $max_files>0} data-dropzone-max-files="{$max_files}"{/if} data-dropzone-max-files-text="{$max_files_text}" data-highest-row="{count($values)}">
     <div class="fallback ecb2-fallback">
         <input name="file" type="file" multiple />
     </div>
@@ -15,7 +15,7 @@
             <input id="" name="" class="dz-input-filename" type="hidden" value=""/>
             <div class="dz-image" style="{if $thumbnail_width}width:{$thumbnail_width}px;{/if}{if $thumbnail_height} height:{$thumbnail_height}px;{/if}">
                 <img data-dz-thumbnail="">
-            </div>  
+            </div>
             <div class="dz-details">
                 <div class="dz-filename"><span data-dz-name></span></div>
                 <div class="dz-size" data-dz-size></div>

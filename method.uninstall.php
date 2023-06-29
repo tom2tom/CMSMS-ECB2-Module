@@ -1,23 +1,24 @@
 <?php
-#---------------------------------------------------------------------------------------------------
+#---------------------------------------------------------------------
 # Module: ECB2 - Extended Content Blocks 2
 # Author: Chris Taylor
-# Copyright: (C) 2016 Chris Taylor, chris@binnovative.co.uk
+# Copyright: (C) 2016 Chris Taylor, TODOchris@cmsmadesimple.org
 # Licence: GNU General Public License version 3
-#          see /ECB2/lang/LICENCE.txt or <http://www.gnu.org/licenses/>
-#---------------------------------------------------------------------------------------------------
+#          see /ECB2/LICENCE or <http://www.gnu.org/licenses/#GPL>
+#---------------------------------------------------------------------
 
-if (!isset($gCms)) exit;
+if (!isset($gCms)) {
+    exit;
+}
 
 // remove the permissions, etc
 $this->RemovePermission(ECB2::MANAGE_PERM);
 $this->RemovePreference();
 $this->DeleteTemplate();
 
-
-
 // remove the database tables & index
 $blocks_table = new ecb2Blocks();
 $blocks_table->remove_database();
 
-
+// remove plugin registration
+$this->RemoveSmartyPlugin();

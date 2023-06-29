@@ -1,4 +1,4 @@
-{* input.ecb2fd_file_picker.tpl - v1.0 - 25Jun22 
+{* input.ecb2fd_file_picker.tpl - v1.0 - 25Jun22
 
 ***************************************************************************************************}
 {if !empty($description)}
@@ -25,6 +25,6 @@
 {/if}
 
 {if $preview}
-        <img class="ecb_file_picker_preview {if !empty($thumbnail_url)}show{/if}" {if !empty($thumbnail_url)}src="{$thumbnail_url}?{$smarty.now}"{/if} alt="{$block_name}" data-ajax-url="{$ajax_url}" data-top-dir="{$top_dir}" data-thumbnail-width="{$thumbnail_width}" data-thumbnail-height="{$thumbnail_height}">
+        <img class="ecb_file_picker_preview{if !empty($thumbnail_url)} show{/if}"{if !empty($thumbnail_url)} src="{$thumbnail_url}?{$smarty.now}"{/if} alt="{$block_name}" data-ajax-url="{$ajax_url}" data-top-dir="{$top_dir}" data-thumbnail-width="{$thumbnail_width}" data-thumbnail-height="{$thumbnail_height}">
 {/if}
     </div>
