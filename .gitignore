@@ -1,0 +1,13 @@
+*~
+*.bak
+\#*\#
+tmp/
+#.htaccess
+#web.config
+index.html
+moduleinfo.ini
+*OLD
+UNUSED*
+HIDE*
+#non-en translations
+ext/
