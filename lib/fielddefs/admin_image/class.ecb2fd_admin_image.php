@@ -7,6 +7,8 @@
 #          see /ECB2/LICENCE or <http://www.gnu.org/licenses/#GPL>
 #-----------------------------------------------------------------------------
 
+//namespace ECB2\fielddefs
+//class admin_image
 class ecb2fd_admin_image extends ecb2_FieldDefBase
 {
     public function __construct($mod, $blockName, $value, $params, $adding, $id = 0)

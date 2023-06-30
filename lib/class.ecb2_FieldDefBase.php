@@ -7,6 +7,8 @@
 #          see /ECB2/LICENCE or <http://www.gnu.org/licenses/#GPL>
 #-----------------------------------------------------------------------------
 
+//namespace ECB2;
+//class FieldDefBase
 abstract class ecb2_FieldDefBase
 {
     public $use_json_format;

@@ -7,6 +7,8 @@
 #          see /ECB2/LICENCE or <http://www.gnu.org/licenses/#GPL>
 #-----------------------------------------------------------------------------
 
+//namespace ECB2\fielddefs
+//class group
 class ecb2fd_group extends ecb2_FieldDefBase
 {
     private $layout_options;

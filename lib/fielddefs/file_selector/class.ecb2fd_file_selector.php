@@ -7,6 +7,8 @@
 #          see /ECB2/LICENCE or <http://www.gnu.org/licenses/#GPL>
 #-----------------------------------------------------------------------------
 
+//namespace ECB2\fielddefs
+//class file_selector
 class ecb2fd_file_selector extends ecb2_FieldDefBase
 {
     public const SUPPORTED_EXTENSIONS = 'jpg,jpeg,png,gif';

@@ -7,6 +7,8 @@
 #          see /ECB2/LICENCE or <http://www.gnu.org/licenses/#GPL>
 #-----------------------------------------------------------------------------
 
+//namespace ECB2\fielddefs
+//class sortablelist
 class ecb2fd_sortablelist extends ecb2_FieldDefBase
 {
     public function __construct($mod, $blockName, $value, $params, $adding, $id = 0)

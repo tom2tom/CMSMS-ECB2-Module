@@ -7,6 +7,8 @@
 #          see /ECB2/LICENCE or <http://www.gnu.org/licenses/#GPL>
 #-----------------------------------------------------------------------------
 
+//namespace ECB2\fielddefs
+//class gallery_picker
 class ecb2fd_gallery_picker extends ecb2_FieldDefBase
 {
     public function __construct($mod, $blockName, $value, $params, $adding, $id = 0)

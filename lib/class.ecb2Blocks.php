@@ -7,6 +7,8 @@
 #          see /ECB2/LICENCE or <http://www.gnu.org/licenses/#GPL>
 #---------------------------------------------------------------------
 
+//namespace ECB2;
+//class Blocks
 class ecb2Blocks
 {
     // private $content_id;

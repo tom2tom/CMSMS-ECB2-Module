@@ -7,6 +7,8 @@
 #          see /ECB2/LICENCE or <http://www.gnu.org/licenses/#GPL>
 #-----------------------------------------------------------------------------
 
+//namespace ECB2;
+//class FileUtils
 class ecb2_FileUtils
 {
     public const ECB2_IMAGE_DIR = '_ecb2_images';
