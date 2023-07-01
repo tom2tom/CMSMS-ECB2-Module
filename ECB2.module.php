@@ -209,9 +209,11 @@ class ECB2 extends CMSModule
             return '';
         }
         $path = $this->GetModuleURLPath();
-        $admin_css_js = '
-            <link rel="stylesheet" type="text/css" href="'.$path.'/lib/css/ecb2_admin.css?v'.self::MODULE_VERSION.'">
-            <script language="javascript" src="'.$path.'/lib/js/ecb2_admin.js?v'.self::MODULE_VERSION.'"></script>';
+        $admin_css_js = <<<EOS
+    <link rel="stylesheet" type="text/css" href="$path/lib/css/module.min.css">
+    <script src="$path/lib/js/module.min.js"></script>
+
+EOS;
         cms_utils::set_app_data('ECB2_js_css_loaded', 1);
         if ($echo_now) {
             echo $admin_css_js;
