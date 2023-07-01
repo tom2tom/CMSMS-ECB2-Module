@@ -27,7 +27,7 @@
 
 use CMSMS\CapabilityType as CmsCoreCapabilities; // remove this for CMSMS2 use
 
-define('ECB2_SANITIZE_STRING', 0x0281); // global const (= FILTER_SANITIZE_STRING + 0x80, unused by PHP)
+define('ECB2_SANITIZE_STRING', 0x281); // global const (= FILTER_SANITIZE_STRING + 0x80, unused by PHP)
 
 class ECB2 extends CMSModule
 {
@@ -93,7 +93,7 @@ class ECB2 extends CMSModule
         'editor' => 'array_or_string',
         'input_repeater' => 'string_separated'
     ];
-
+    //TODO support class namespacing
     public const FIELD_DEF_PREFIX = 'ecb2fd_';
     public const FIELD_DEF_CLASS_PREFIX = 'class.';
     public const INPUT_TEMPLATE_PREFIX = 'input.';
@@ -145,8 +145,7 @@ class ECB2 extends CMSModule
      */
     public function get_admin($help_only = false)
     {
-        $this->get_admin_css_js(true);
-        $output = '';
+        $output = $this->get_admin_css_js(false);
         $smarty = \CmsApp::get_instance()->GetSmarty();
 
         $tpl = $smarty->CreateTemplate($this->GetTemplateResource('admin_default.tpl'), null, null, $smarty);
@@ -204,7 +203,10 @@ class ECB2 extends CMSModule
     public function get_admin_css_js($echo_now = false)
     {
         if (cms_utils::get_app_data('ECB2_js_css_loaded')) {
-            return;
+            if ($echo_now) {
+                echo '';
+            }
+            return '';
         }
         $path = $this->GetModuleURLPath();
         $admin_css_js = '
@@ -213,6 +215,7 @@ class ECB2 extends CMSModule
         cms_utils::set_app_data('ECB2_js_css_loaded', 1);
         if ($echo_now) {
             echo $admin_css_js;
+            return '';
         } else {
             return $admin_css_js;
         }

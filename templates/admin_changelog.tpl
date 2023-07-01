@@ -3,12 +3,13 @@
 <h3>Version 2.4 - 24Jul23</h3>
 <ul>
     <li>Support tags like {literal}{ECB2 ...params}{/literal}</li>
-    <li>PHP 8.2 compatibility</li>
+    <li>PHP 8.2 (and probably 8.3) compatibility</li>
     <li>Bug fixes
     <ul>
       <li>admin panel popup help</li>
       <li>menu-section selector</li>
-      <li>compatible method signature</li>
+      <li>ajax processing</li>
+      <li>compatible PHP method signature</li>
     </ul>
     </li>
 </ul>
