@@ -9,6 +9,7 @@
             {if $field_type==$first_admin_only_field}
             <h5 class="border-bottom m_top_25 p_bottom_5">{$mod->Lang('admin_only_help')}</h5>
             {/if}
+{*useless<li><a class="smooth-scroll" href="#{$field_type}">{$field_type}</a></li>*}
             <li><a class="smooth-scroll" href="javascript:void(0)" onclick="document.location.hash='{$field_type}';">{$field_type}</a></li>
         {/foreach}
         </ul>
