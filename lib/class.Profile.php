@@ -7,16 +7,16 @@
 #          see /ECB2/LICENCE or <http://www.gnu.org/licenses/#GPL>
 #---------------------------------------------------------------------
 
-//namespace ECB2;
+namespace ECB2;
 
-//use ArrayAccess;
+use ArrayAccess;
 use CMSMS\DataException as CmsDataException;
 use CMSMS\Utils as cms_utils;
-//use ECB2; // module class in global namespace
-//use LogicException;
-//use RuntimeException;
-//use UnexpectedValueException;
-//use function cms_to_bool;
+use ECB2; // module class in global namespace
+use LogicException;
+use RuntimeException;
+use UnexpectedValueException;
+use function cms_to_bool;
 
 class Profile implements ArrayAccess
 {
