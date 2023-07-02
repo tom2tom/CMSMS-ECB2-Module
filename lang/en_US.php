@@ -25,11 +25,11 @@ $lang['error_sub_field_type_not_allowed'] = 'The sub field type \'%s\' is not su
 $lang['error_sub_field_name_missing'] = 'The sub field type \'%s\' requires a valid name to be provided.';
 $lang['error_sub_field_name_format'] = 'The sub field name \'%s\', for the field \'%s\' is incorrect. The name must start with a letter followed by any number of letters, numbers or underscores \'_\'.';
 $lang['error_no_sub_fields'] = 'No sub fields defined.';
-$lang['extended_content_blocks'] = 'Component Types';
+$lang['extended_content_blocks'] = 'Field Types';
 
 $lang['fields'] = 'Fields';
 $lang['field_error'] = 'Please specify a correct field parameter for the ECB2 content block \'%s\'.';
-$lang['field_types'] = 'Component types';
+$lang['field_types'] = 'Field types';
 $lang['friendlyname'] = 'Extended Content Blocks';
 
 $lang['gallery_module_error'] = 'Gallery module is not installed.';
@@ -87,10 +87,10 @@ $lang['upgraded'] = 'Module upgraded to version %s.';
 ###    ###   #########   #########  ###
 
 $lang['general_c'] = <<<'EOD'
-<p>The Extended Content Blocks (ECB2) module facilitates website page and template construction. Many tailored html component types may be simply applied.</p>
+<p>The Extended Content Blocks (ECB2) module facilitates website page and template construction. Many tailored html components can be simply applied.</p>
 <br>
 <h3>Usage</h3>
-<p>Use a tag like the following to add each ECB2 component to any page's main-content-area or template.</p>
+<p>Use a tag like the following to add each ECB2 field to any page's main-content-area or template.</p>
 <pre>{ECB2 field=some_field_type block='some name' ...}</pre>
 <p>or use an equivalent CMSMS core <b>{content_module}</b> tag instead.</p>
 <pre>{content_module module=ECB2 field=some_field_type block='some name' ...}</pre>
