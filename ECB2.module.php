@@ -25,7 +25,7 @@
 # If not, see <https://www.gnu.org/licenses/gpl-3.0.html>.
 #-----------------------------------------------------------------------------
 
-use CMSMS\CapabilityType as CmsCoreCapabilities; // remove this for CMSMS2 use
+//use CMSMS\CapabilityType as CmsCoreCapabilities; // remove this for CMSMS2
 
 define('ECB2_SANITIZE_STRING', 0x281); // global const (= FILTER_SANITIZE_STRING + 0x80, unused by PHP)
 

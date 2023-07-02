@@ -11,7 +11,8 @@ namespace ECB2;
 
 use cms_utils;
 use CmsApp;
-use CMSMS\UserTagOperations; //just UserTagOperations for CSMS2
+//use CMSMS\UserTagOperations; //for CSMS3
+use UserTagOperations; //for CSMS2
 use stdClass;
 use const ECB2_SANITIZE_STRING;
 use function get_userid;

@@ -10,8 +10,10 @@
 namespace ECB2;
 
 use ArrayAccess;
-use CMSMS\DataException as CmsDataException;
-use CMSMS\Utils as cms_utils;
+//use CMSMS\DataException as CmsDataException; // for CMSMS3
+use CmsDataException; // for CMSMS2
+//use CMSMS\Utils as cms_utils; // for CMSMS3
+use cms_utils; // for CMSMS2
 use ECB2; // module class in global namespace
 use LogicException;
 use RuntimeException;
