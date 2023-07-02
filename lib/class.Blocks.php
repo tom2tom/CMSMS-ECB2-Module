@@ -7,9 +7,13 @@
 #          see /ECB2/LICENCE or <http://www.gnu.org/licenses/#GPL>
 #---------------------------------------------------------------------
 
-//namespace ECB2;
-//class Blocks
-class ecb2Blocks
+namespace ECB2;
+
+use CmsApp;
+use const CMS_DB_PREFIX;
+use function NewDataDictionary;
+
+class Blocks
 {
     // private $content_id;
     // private $properties;

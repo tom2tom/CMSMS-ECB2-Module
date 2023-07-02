@@ -7,9 +7,17 @@
 #          see /ECB2/LICENCE or <http://www.gnu.org/licenses/#GPL>
 #-----------------------------------------------------------------------------
 
-//namespace ECB2\fielddefs
-//class file_picker
-class ecb2fd_file_picker extends ecb2_FieldDefBase
+namespace ECB2\fielddefs;
+
+use cms_utils;
+use CmsApp;
+use ECB2\FieldDefBase;
+use ECB2\FileUtils;
+use const ECB2_SANITIZE_STRING;
+use function cms_join_path;
+use function cmsms;
+
+class file_picker extends FieldDefBase
 {
     public function __construct($mod, $blockName, $value, $params, $adding, $id = 0)
     {
@@ -60,7 +68,7 @@ class ecb2fd_file_picker extends ecb2_FieldDefBase
     {
         if (!empty($this->options['admin_groups']) &&
              !$this->is_valid_group_member($this->options['admin_groups'])) {
-            return $this->ecb2_hidden_field();
+            return $this->hidden_field();
         }
 
         $thumbnail_url = '';
@@ -71,7 +79,7 @@ class ecb2fd_file_picker extends ecb2_FieldDefBase
             $profile = $FPmod->get_profile_or_default($this->options['profile']);
             $top_dir = $this->options['top'] ? $this->options['top'] : $profile->reltop;
             $img_src = cms_join_path($config['uploads_path'], $top_dir, $this->value);
-            $thumbnail_url = ecb2_FileUtils::get_thumbnail_url(
+            $thumbnail_url = FileUtils::get_thumbnail_url(
                 $img_src,
                 $this->options['thumbnail_width'],
                 $this->options['thumbnail_height']
@@ -81,7 +89,7 @@ class ecb2fd_file_picker extends ecb2_FieldDefBase
         }
 
         $class = '';
-        $smarty = \CmsApp::get_instance()->GetSmarty();
+        $smarty = CmsApp::get_instance()->GetSmarty();
         $tpl = $smarty->CreateTemplate('string:'.$this->get_template(), null, null, $smarty);
         $tpl->assign('block_name', $this->block_name);
         $tpl->assign('value', $this->value);
@@ -115,7 +123,7 @@ class ecb2fd_file_picker extends ecb2_FieldDefBase
      *  Data entered by the editor is processed before its saved in props table
      *  This method, if required, overides the parent class method, to enable additional processing
      *  before the data is saved.
-     *  Can be omitted and ecb2_FieldDefBase will handle default processing
+     *  Can be omitted and ECB2\FieldDefBase will handle default processing
      *
      *  @return string formatted json containing all field data ready to be saved & output
      * /

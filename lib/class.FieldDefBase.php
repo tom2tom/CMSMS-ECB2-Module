@@ -7,72 +7,80 @@
 #          see /ECB2/LICENCE or <http://www.gnu.org/licenses/#GPL>
 #-----------------------------------------------------------------------------
 
-//namespace ECB2;
-//class FieldDefBase
-abstract class ecb2_FieldDefBase
+namespace ECB2;
+
+use cms_utils;
+use CmsApp;
+use CMSMS\UserTagOperations; //just UserTagOperations for CSMS2
+use stdClass;
+use const ECB2_SANITIZE_STRING;
+use function get_userid;
+use function munge_string_to_url;
+
+abstract class FieldDefBase
 {
-    public $use_json_format;
     public $allowed_sub_fields;
+    public $use_json_format;
     protected $mod;
     protected $block_name;
-    protected $id;
-    protected $field;
-    protected $value;               // used when using single string values ECB2 v1 format
-    protected $values;              // used when json format
-    protected $sub_fields;          // when multiple fields of different types
-    protected $field_object;        // stdClass object that contains all values for saving
+    protected $value;        // used when using single string values ECB2 v1 format
+    protected $values;       // used when json format
     protected $adding;
-    protected $default_parameters;
-    protected $options;
+    protected $id;
     protected $alias;
-    protected $restrict_params;
-    protected $field_alias_used;
-    protected $parameter_aliases;
+    protected $cached_template;
+    protected $default_parameters;
     protected $demo_count;
     protected $error;
+    protected $field;
+    protected $field_alias_used;
+    protected $field_object; // stdClass object that contains all values for saving
     protected $is_sub_field;
+    protected $options;
+    protected $parameter_aliases;
+    protected $restrict_params;
+    protected $sub_fields;   // when multiple fields of different types
+    protected $sub_fields_ignored_names;
+    protected $sub_fields_ignored_params;
+    protected $sub_fields_required;
     protected $sub_parent_block;
     protected $sub_row_number;
-    protected $sub_fields_ignored_params;
-    protected $sub_fields_ignored_names;
-    protected $sub_fields_required;
-    protected $cached_template;
 
     /**
-     *  @param string $mod - ECB2 module class
+     *  @param object $mod ECB2 module
      *  @param string $blockName
-     *  @param string $id - content page id (poss module item id - in the future)
      *  @param string $value
      *  @param array $params
      *  @param boolean $adding
+     *  @param mixed $id - int|string content page id (poss module item id - in the future)
      */
     public function __construct($mod, $blockName, $value, $params, $adding, $id = 0)
     {
         $this->mod = $mod;
         $this->block_name = $blockName;
-        $this->id = $id;
-        $this->value = null;
-        $this->values = [];
-        $this->sub_fields = null;
-        $this->field_object = null;
-        $this->alias = munge_string_to_url($blockName, true);
+        $this->value = null; // TODO $value ?
         $this->adding = $adding;
-        $this->field = '';
-        $this->default_parameters = [];
-        $this->options = [];
-        $this->restrict_params = true;
+        $this->id = $id;
+        $this->alias = munge_string_to_url($blockName, true);
         $this->allowed_sub_fields = [];
+        $this->default_parameters = [];
+        $this->demo_count = 0;
+        $this->field = '';
+        $this->field_object = null;
         $this->is_sub_field = false;
-        $this->sub_parent_block = '';
-        $this->sub_row_number = null;
-        $this->sub_fields_ignored_params = [];
+        $this->options = [];
+        $this->parameter_aliases = [];
+        $this->restrict_params = true;
+        $this->sub_fields = []; // TODO relevant falsy value (c.f. is_null() checks in templates
         $this->sub_fields_ignored_names = [];
+        $this->sub_fields_ignored_params = [];
         $this->sub_fields_required = false;
+        $this->sub_parent_block = '';
+        $this->sub_row_number = null; // TODO relevant falsy value
+        $this->values = [];
         if (isset($params['field_alias_used'])) {
             $this->field_alias_used = $params['field_alias_used'];
         }
-        $this->parameter_aliases = [];
-        $this->demo_count = 0;
         $this->use_json_format = false;     // single value stored as string ECB2 v1 format for simple fields
         //   once stored as json always stored as jason (output as object not string) - changed to output set by fieldtype
         //if ( !empty($params['repeater']) ) $this->use_json_format = TRUE; // move into fielddef
@@ -86,13 +94,13 @@ abstract class ecb2_FieldDefBase
 
     /**
      *  create a set of sub_fields from Content Block subX_params ...
-     *  sets $this->sub_fields with array of sub_field ecb2_FieldDef's
+     *  sets $this->sub_fields with array of sub_field ECB2\FieldDef's
      *  @param array $params - all Content Block params
      */
     public function create_sub_fields($params)
     {
         $sub_params = [];
-        $sub_field_list = [];
+        $sub_field_list = []; //UNUSED
         $sub_fields = [];
         // get all sub_params that specify sub_fields options
         foreach ($params as $key => $value) {
@@ -224,10 +232,10 @@ abstract class ecb2_FieldDefBase
     {
         $help_filename = $this->mod->GetModulePath() .DIRECTORY_SEPARATOR. 'lib' .DIRECTORY_SEPARATOR.
             'fielddefs' .DIRECTORY_SEPARATOR. $this->field .DIRECTORY_SEPARATOR.
-            $this->mod::HELP_TEMPLATE_PREFIX . $this->mod::FIELD_DEF_PREFIX . $this->field . '.tpl';
+            $this->mod::HELP_TEMPLATE_PREFIX . $this->field . '.tpl';
         $field_help = (is_readable($help_filename)) ? @file_get_contents($help_filename) : '';
 
-        $smarty = \CmsApp::get_instance()->GetSmarty();
+        $smarty = CmsApp::get_instance()->GetSmarty();
         $tpl = $smarty->CreateTemplate('string:'.$field_help, null, null, $smarty);
         $tpl->assign('fielddef', $this);
         return $tpl->fetch();
@@ -239,11 +247,11 @@ abstract class ecb2_FieldDefBase
     public function get_demo_input($params = [])
     {
         $params['field'] = $this->field;
-        $this->value = null;
+        $this->value = '';
         ++$this->demo_count;
         $this->block_name = $this->mod::DEMO_BLOCK_PREFIX.$this->field.$this->demo_count;
         if ($this->error == $this->mod->Lang('error_no_sub_fields')) {
-            $this->error = null;    // ignore in demo - create_sub_fields called again below
+            $this->error = '';    // ignore in demo - create_sub_fields called again below
         }
 
         // re-initialise with new $params from help call
@@ -267,7 +275,7 @@ abstract class ecb2_FieldDefBase
 
     /**
      *  Data entered by the editor is processed before its saved in props table
-     *  Method can be overidden by child class, e.g. gallery, group, dropdown
+     *  Method can be overridden by child class, e.g. gallery, group, dropdown
      *
      *  @return string formatted json containing all field data ready to be saved & output
      */
@@ -298,7 +306,7 @@ abstract class ecb2_FieldDefBase
 
     /**
      *  sets $this->value or $this->values from $value saved for the content block - json or string
-     *  Method can be overidden by child class, i.e. gallery
+     *  Method can be overridden by child class, i.e. gallery
      *
      *  @param array $value - saved content block value
      */
@@ -415,13 +423,13 @@ abstract class ecb2_FieldDefBase
         // default input smarty template filename
         $filename = $this->mod->GetModulePath() .DIRECTORY_SEPARATOR. 'lib' .DIRECTORY_SEPARATOR.
             'fielddefs' .DIRECTORY_SEPARATOR. $this->field .DIRECTORY_SEPARATOR.
-            $this->mod::INPUT_TEMPLATE_PREFIX . $this->mod::FIELD_DEF_PREFIX . $this->field . '.tpl';
+            $this->mod::INPUT_TEMPLATE_PREFIX . $this->field . '.tpl';
 
         if (is_readable($filename)) {
             $this->cached_template = @file_get_contents($filename);
             return $this->cached_template;
         }
-        return null;
+        return '';
     }
 
     /**
@@ -448,7 +456,7 @@ abstract class ecb2_FieldDefBase
     /**
      *  @return array $options of 'value' => 'Text'
      *  @param string $module_name
-     *  @param array $module_params  - if provided an array of all paramaters to be passed to the module
+     *  @param array $module_params  - if provided an array of all parameters to be passed to the module
      *                               - if not provided $this->options is used
      *  @param array $exclude_options - excludes any specified options from being passed to the module
      *
@@ -474,7 +482,7 @@ abstract class ecb2_FieldDefBase
             $cms_module_call .= " $key=\"$value\"";
         }
 
-        $smarty = \CmsApp::get_instance()->GetSmarty();
+        $smarty = CmsApp::get_instance()->GetSmarty();
         $module_values = trim(strip_tags($smarty->fetch('string:'.$cms_module_call.'}')));
         $options = $smarty->getTemplateVars('options');
 
@@ -489,7 +497,7 @@ abstract class ecb2_FieldDefBase
 
     /**
      *  @return array $this->options[values] to the result of a call to module $module_name
-     *  @param string $udt_name - udt needs to return either:
+     *  @param string $udt_name - UDT needs to return either:
      *                      - an array of 'Text' => 'value' - don't ask it's a legacy thing!
      *                      - a comma separated list of 'Text,...' or 'Text=value,...'
      */
@@ -517,7 +525,7 @@ abstract class ecb2_FieldDefBase
      */
     protected function get_values_from_template($template_name)
     {
-        $smarty = \CmsApp::get_instance()->GetSmarty();
+        $smarty = CmsApp::get_instance()->GetSmarty();
 
         if (!$smarty->templateExists('cms_template:'.$template_name)) {
             $this->error = $this->mod->Lang('template_error', $template_name);
@@ -561,7 +569,7 @@ abstract class ecb2_FieldDefBase
     }
 
     /**
-     *  @param array $inputArray - 1 or more array items from editing the ecb2 field
+     *  @param array $inputArray - 1 or more array items from editing the ECB2 field
      *  @return stdClass field_object in the format of:
      *        (
      *            [values] => Array {
@@ -618,7 +626,7 @@ abstract class ecb2_FieldDefBase
     }
 
     /**
-     *  @param array $inputArray - 1 or more array items from editing the ecb2 field
+     *  @param array $inputArray - 1 or more array items from editing the ECB2 field
      *  @return string json encoded $this->field_obj
      */
     protected function ECB2_json_encode_field_object()
@@ -703,11 +711,11 @@ abstract class ecb2_FieldDefBase
     /**
      *  returns an empty span that also uses js to hide the content block label
      *
-     *  @return string - ecb2 hidden field template
+     *  @return string - hidden field template
      */
-    protected function ecb2_hidden_field()
+    protected function hidden_field() //TODO c.f. namespacing for other fields
     {
-        $smarty = \CmsApp::get_instance()->GetSmarty();
+        $smarty = CmsApp::get_instance()->GetSmarty();
         $tpl = $smarty->CreateTemplate($this->mod->GetTemplateResource('admin_hidden_field.tpl'), null, null, $smarty);
         return $tpl->fetch();
     }

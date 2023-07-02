@@ -7,9 +7,13 @@
 #          see /ECB2/LICENCE or <http://www.gnu.org/licenses/#GPL>
 #-----------------------------------------------------------------------------
 
-//namespace ECB2\fielddefs
-//class dropdown
-class ecb2fd_dropdown extends ecb2_FieldDefBase
+namespace ECB2\fielddefs;
+
+use CmsApp;
+use ECB2\FieldDefBase;
+use const ECB2_SANITIZE_STRING;
+
+class dropdown extends FieldDefBase
 {
     public function __construct($mod, $blockName, $value, $params, $adding, $id = 0)
     {
@@ -63,7 +67,7 @@ class ecb2fd_dropdown extends ecb2_FieldDefBase
     {
         if (!empty($this->options['admin_groups']) &&
              !$this->is_valid_group_member($this->options['admin_groups'])) {
-            return $this->ecb2_hidden_field();
+            return $this->hidden_field();
         }
 
         // get the dropdown values/options
@@ -106,7 +110,7 @@ class ecb2fd_dropdown extends ecb2_FieldDefBase
             $options = ['' => $this->options['first_value']] + $options;
         }
 
-        $smarty = \CmsApp::get_instance()->GetSmarty();
+        $smarty = CmsApp::get_instance()->GetSmarty();
         $tpl = $smarty->CreateTemplate('string:'.$this->get_template(), null, null, $smarty);
         $tpl->assign('mod', $this->mod);
         $tpl->assign('block_name', $this->block_name);

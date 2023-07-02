@@ -7,9 +7,19 @@
 #          see /ECB2/LICENCE or <http://www.gnu.org/licenses/#GPL>
 #-----------------------------------------------------------------------------
 
-//namespace ECB2;
-//class FileUtils
-class ecb2_FileUtils
+namespace ECB2;
+
+use cms_siteprefs;
+use cms_utils;
+use stdClass;
+use const CMS_ROOT_URL;
+use function cms_join_path;
+use function cms_move_uploaded_file;
+use function cmsms;
+use function endswith;
+use function munge_string_to_url;
+
+class FileUtils
 {
     public const ECB2_IMAGE_DIR = '_ecb2_images';
     public const ECB2_IMAGE_TEMP_DIR = '_tmp';     // sub dir of ECB2_IMAGE_DIR

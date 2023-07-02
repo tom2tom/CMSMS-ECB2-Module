@@ -7,9 +7,13 @@
 #          see /ECB2/LICENCE or <http://www.gnu.org/licenses/#GPL>
 #-----------------------------------------------------------------------------
 
-//namespace ECB2\fielddefs
-//class hidden
-class ecb2fd_hidden extends ecb2_FieldDefBase
+namespace ECB2\fielddefs;
+
+use CmsApp;
+use ECB2\FieldDefBase;
+use const ECB2_SANITIZE_STRING;
+
+class hidden extends FieldDefBase
 {
     public function __construct($mod, $blockName, $value, $params, $adding, $id = 0)
     {
@@ -26,7 +30,7 @@ class ecb2fd_hidden extends ecb2_FieldDefBase
      *  sets the allowed parameters for this field type
      *
      *  $this->default_parameters - array of parameter_names => [ default_value, filter_type ]
-     *      ECB2_SANITIZE_STRING, FILTER_VALIDATE_INT, FILTER_VALIDATE_BOOLEAN, FILTER_SANITIZE_EMAIL 
+     *      ECB2_SANITIZE_STRING, FILTER_VALIDATE_INT, FILTER_VALIDATE_BOOLEAN, FILTER_SANITIZE_EMAIL
      *      see: https://www.php.net/manual/en/filter.filters.php
      *  $this->restrict_params - optionally allow any other parameters to be included, e.g. module calls
      */
@@ -41,11 +45,11 @@ class ecb2fd_hidden extends ecb2_FieldDefBase
     }
 
     /**
-     *  @return string complete content block 
+     *  @return string complete content block
      */
     public function get_content_block_input()
     {
-        $smarty = \CmsApp::get_instance()->GetSmarty();
+        $smarty = CmsApp::get_instance()->GetSmarty();
         $tpl = $smarty->CreateTemplate('string:'.$this->get_template(), null, null, $smarty);
         $tpl->assign('block_name', $this->block_name);
         $tpl->assign('value', $this->options['value']);

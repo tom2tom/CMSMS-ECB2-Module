@@ -7,6 +7,8 @@
 #          see /ECB2/LICENCE or <http://www.gnu.org/licenses/#GPL>
 #---------------------------------------------------------------------
 
+use ECB2\Blocks;
+
 if (!isset($gCms)) {
     exit;
 }
@@ -17,7 +19,7 @@ $this->RemovePreference();
 $this->DeleteTemplate();
 
 // remove the database tables & index
-$blocks_table = new ecb2Blocks();
+$blocks_table = new Blocks();
 $blocks_table->remove_database();
 
 // remove plugin registration

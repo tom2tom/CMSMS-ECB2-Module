@@ -7,13 +7,15 @@
 #          see /ECB2/LICENCE or <http://www.gnu.org/licenses/#GPL>
 #-----------------------------------------------------------------------------
 
+use ECB2\FileUtils;
+
 if (!defined('CMS_VERSION')) {
     exit;
 }
 
 // mimic deprecated filter_var( ,FILTER_SANITIZE_STRING)
 // unlike strip_tags(), this does not remove unclosed tags unless they're PHP tags
-// see also ecb2_FieldDefBase::sanitize_string()
+// see also ECB2\FieldDefBase::sanitize_string()
 $sanitize_fn = function($value)
 {
     if ($value) {
@@ -44,7 +46,7 @@ if (!$thumbnail_height) {
 $config = cmsms()->GetConfig();
 $img_src = cms_join_path($config['uploads_path'], $top_dir, $file_name);
 
-$thumbnail_url = ecb2_FileUtils::get_thumbnail_url($img_src, $thumbnail_width, $thumbnail_height);
+$thumbnail_url = FileUtils::get_thumbnail_url($img_src, $thumbnail_width, $thumbnail_height);
 
 $n = count(ob_list_handlers());
 for ($cnt = 0; $cnt < $n; $cnt++) {

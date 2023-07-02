@@ -7,9 +7,13 @@
 #          see /ECB2/LICENCE or <http://www.gnu.org/licenses/#GPL>
 #-----------------------------------------------------------------------------
 
-//namespace ECB2\fielddefs
-//class color_picker
-class ecb2fd_color_picker extends ecb2_FieldDefBase
+namespace ECB2\fielddefs;
+
+use CmsApp;
+use ECB2\FieldDefBase;
+use const ECB2_SANITIZE_STRING;
+
+class checkbox extends FieldDefBase
 {
     public function __construct($mod, $blockName, $value, $params, $adding, $id = 0)
     {
@@ -26,7 +30,7 @@ class ecb2fd_color_picker extends ecb2_FieldDefBase
      *  sets the allowed parameters for this field type
      *
      *  $this->default_parameters - array of parameter_names => [ default_value, filter_type ]
-     *      ECB2_SANITIZE_STRING, FILTER_VALIDATE_INT, FILTER_VALIDATE_BOOLEAN, FILTER_SANITIZE_EMAIL 
+     *      ECB2_SANITIZE_STRING, FILTER_VALIDATE_INT, FILTER_VALIDATE_BOOLEAN, FILTER_SANITIZE_EMAIL
      *      see: https://www.php.net/manual/en/filter.filters.php
      *  $this->restrict_params - optionally allow any other parameters to be included, e.g. module calls
      */
@@ -36,35 +40,31 @@ class ecb2fd_color_picker extends ecb2_FieldDefBase
             'default_value' => 'default'
         ];
         $this->default_parameters = [
-            'size' => ['default' => 10,    'filter' => FILTER_VALIDATE_INT],
             'label' => ['default' => '',    'filter' => ECB2_SANITIZE_STRING],
-            'no_hash' => ['default' => false, 'filter' => FILTER_VALIDATE_BOOLEAN],
-            'clear_css_cache' => ['default' => false, 'filter' => FILTER_VALIDATE_BOOLEAN],
+            'inline_label' => ['default' => '',    'filter' => ECB2_SANITIZE_STRING],
             'default' => ['default' => '',    'filter' => ECB2_SANITIZE_STRING],
             'admin_groups' => ['default' => '',    'filter' => ECB2_SANITIZE_STRING],
             'description' => ['default' => '',    'filter' => ECB2_SANITIZE_STRING]
         ];
+        // $this->parameter_aliases = [ 'alias' => 'parameter' ];
         // $this->restrict_params = FALSE;    // default: true
     }
 
     /**
-     *  @return string complete content block 
+     *  @return string complete content block
      */
     public function get_content_block_input()
     {
         if (!empty($this->options['admin_groups']) &&
              !$this->is_valid_group_member($this->options['admin_groups'])) {
-            return $this->ecb2_hidden_field();
+            return $this->hidden_field();
         }
 
-        $smarty = \CmsApp::get_instance()->GetSmarty();
-        $class = 'colorpicker';
+        $smarty = CmsApp::get_instance()->GetSmarty();
         $tpl = $smarty->CreateTemplate('string:'.$this->get_template(), null, null, $smarty);
         $tpl->assign('block_name', $this->block_name);
         $tpl->assign('value', $this->value);
-        $tpl->assign('alias', $this->alias);
-        $tpl->assign('size', $this->options['size']);
-        $tpl->assign('no_hash', $this->options['no_hash']);
+        $tpl->assign('inline_label', $this->options['inline_label']);
         $tpl->assign('description', $this->options['description']);
         $tpl->assign('label', $this->options['label']);
         $tpl->assign('is_sub_field', $this->is_sub_field);
@@ -74,9 +74,7 @@ class ecb2fd_color_picker extends ecb2_FieldDefBase
                 $this->block_name.']');
             $tpl->assign('subFieldId', $this->sub_parent_block.'_r_'.$this->sub_row_number.'_'.
                 $this->block_name);
-            $class .= ' repeater-field';
         }
-        $tpl->assign('class', $class);
         return $tpl->fetch();
     }
 }

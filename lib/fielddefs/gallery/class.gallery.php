@@ -7,9 +7,14 @@
 #          see /ECB2/LICENCE or <http://www.gnu.org/licenses/#GPL>
 #-----------------------------------------------------------------------------
 
-//namespace ECB2\fielddefs
-//class gallery
-class ecb2fd_gallery extends ecb2_FieldDefBase
+namespace ECB2\fielddefs;
+
+use CmsApp;
+use ECB2\FieldDefBase;
+use ECB2\FileUtils;
+use const ECB2_SANITIZE_STRING;
+
+class gallery extends FieldDefBase
 {
     public function __construct($mod, $blockName, $value, $params, $adding, $id = 0)
     {
@@ -28,7 +33,7 @@ class ecb2fd_gallery extends ecb2_FieldDefBase
      *  sets the allowed parameters for this field type
      *
      *  $this->default_parameters - array of parameter_names => [ default_value, filter_type ]
-     *      ECB2_SANITIZE_STRING, FILTER_VALIDATE_INT, FILTER_VALIDATE_BOOLEAN, FILTER_SANITIZE_EMAIL 
+     *      ECB2_SANITIZE_STRING, FILTER_VALIDATE_INT, FILTER_VALIDATE_BOOLEAN, FILTER_SANITIZE_EMAIL
      *      see: https://www.php.net/manual/en/filter.filters.php
      *  $this->restrict_params - optionally allow any other parameters to be included, e.g. module calls
      */
@@ -76,24 +81,24 @@ class ecb2fd_gallery extends ecb2_FieldDefBase
     }
 
     /**
-     *  @return string complete content block 
+     *  @return string complete content block
      */
     public function get_content_block_input()
     {
         if (!empty($this->options['admin_groups']) &&
              !$this->is_valid_group_member($this->options['admin_groups'])) {
-            return $this->ecb2_hidden_field();
+            return $this->hidden_field();
         }
 
-        $location = ecb2_FileUtils::ECB2ImagesUrl($this->block_name, $this->id, '', $this->options['dir']);
-        $dir = ecb2_FileUtils::ECB2ImagesPath($this->block_name, $this->id, '', $this->options['dir']);
+        $location = FileUtils::ECB2ImagesUrl($this->block_name, $this->id, '', $this->options['dir']);
+        $dir = FileUtils::ECB2ImagesPath($this->block_name, $this->id, '', $this->options['dir']);
         if ($this->options['auto_add_delete']) {
-            ecb2_FileUtils::autoAddDirImages($this->values, $dir, $this->options['thumbnail_width'], $this->options['thumbnail_height']);
+            FileUtils::autoAddDirImages($this->values, $dir, $this->options['thumbnail_width'], $this->options['thumbnail_height']);
         }
         $resize_method = ($this->options['resize_method'] == 'crop') ? 'crop' : ''; // default: 'contain'
         $thumbnail_width = $this->options['thumbnail_width'];
         $thumbnail_height = $this->options['thumbnail_height'];
-        ecb2_FileUtils::get_required_thumbnail_size($thumbnail_width, $thumbnail_height);
+        FileUtils::get_required_thumbnail_size($thumbnail_width, $thumbnail_height);
         $max_files = $this->options['max_files'];
         if ($max_files > 0) {
             $max_files_text = $this->mod->Lang('max_files_text', $max_files);
@@ -115,7 +120,7 @@ class ecb2fd_gallery extends ecb2_FieldDefBase
             return $this->mod->error_msg($this->error);
         }
 
-        $smarty = \CmsApp::get_instance()->GetSmarty();
+        $smarty = CmsApp::get_instance()->GetSmarty();
         $tpl = $smarty->CreateTemplate('string:'.$this->get_template(), null, null, $smarty);
         $tpl->assign('block_name', $this->block_name);
         $tpl->assign('values', $this->values);
@@ -129,7 +134,7 @@ class ecb2fd_gallery extends ecb2_FieldDefBase
         $tpl->assign('thumbnail_height', $thumbnail_height);
         $tpl->assign('max_files', $max_files);
         $tpl->assign('max_files_text', $max_files_text);
-        $tpl->assign('thumbnail_prefix', ecb2_FileUtils::THUMB_PREFIX);
+        $tpl->assign('thumbnail_prefix', FileUtils::THUMB_PREFIX);
         $tpl->assign('type', $this->field);
         $tpl->assign('action_url', $action_url);
         $tpl->assign('description', $this->options['description']);
@@ -139,7 +144,7 @@ class ecb2fd_gallery extends ecb2_FieldDefBase
     /**
      *  Data entered by the editor is processed before its saved in props table
      *  Method can be overidden by this class (usually also calls parent class)
-     *  
+     *
      *  @return string formatted json containing all field data ready to be saved & output
      */
     public function get_content_block_value($inputArray)
@@ -160,7 +165,7 @@ class ecb2fd_gallery extends ecb2_FieldDefBase
         $this->field_object = $this->create_field_object($inputArray);
         // add 'file_location' field to all gallery items
         if (!empty($this->field_object->sub_fields)) {
-            $galleryRelativeUrl = ecb2_FileUtils::ECB2ImagesRelativeUrl(
+            $galleryRelativeUrl = FileUtils::ECB2ImagesRelativeUrl(
                 $this->block_name,
                 $this->id,
                 '',
@@ -174,7 +179,7 @@ class ecb2fd_gallery extends ecb2_FieldDefBase
         }
 
         // handle moving files from _tmp into galleryDir, create thumbnails & delete any unwanted files
-        $galleryDir = ecb2_FileUtils::ECB2ImagesPath(
+        $galleryDir = FileUtils::ECB2ImagesPath(
             $this->block_name,
             $this->id,
             '',
@@ -186,7 +191,7 @@ class ecb2fd_gallery extends ecb2_FieldDefBase
                 $filenames[] = $fileArray['filename'];
             }
         }
-        ecb2_FileUtils::updateGalleryDir(
+        FileUtils::updateGalleryDir(
             $filenames,
             $galleryDir,
             $this->options['auto_add_delete'],

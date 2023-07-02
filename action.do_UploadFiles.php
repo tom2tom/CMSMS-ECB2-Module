@@ -7,6 +7,8 @@
 #          see /ECB2/LICENCE or <http://www.gnu.org/licenses/#GPL>
 #-----------------------------------------------------------------------------
 
+use ECB2\FileUtils;
+
 if (!defined('CMS_VERSION')) {
     exit;
 }
@@ -18,7 +20,7 @@ if (!empty($_FILES['file'])) {
         $original_filename = $_FILES['file']['name'][$key];
         if ($error == UPLOAD_ERR_OK) {
             $tmp_filename = $_FILES['file']['tmp_name'][$key];
-            $success = ecb2_FileUtils::ECB2MoveUploadedFile($original_filename, $tmp_filename);
+            $success = FileUtils::ECB2MoveUploadedFile($original_filename, $tmp_filename);
         }
         //  $success = FALSE;     // only for testing!
         $result[] = [

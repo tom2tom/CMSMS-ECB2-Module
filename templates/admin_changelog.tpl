@@ -4,6 +4,7 @@
 <ul>
     <li>Support tags like {literal}{ECB2 ...params}{/literal}</li>
     <li>PHP 8.2 (and probably 8.3) compatibility</li>
+    <li>Namespacing for all ECB2-related classes</li>
     <li>Bug fixes
     <ul>
       <li>admin panel popup help</li>

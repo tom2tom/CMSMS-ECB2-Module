@@ -31,26 +31,26 @@ define('ECB2_SANITIZE_STRING', 0x281); // global const (= FILTER_SANITIZE_STRING
 
 class ECB2 extends CMSModule
 {
-    public const MODULE_VERSION = '2.4';
-    public const MANAGE_PERM = 'manage_ecb2';
+    const MODULE_VERSION = '2.4';
+    const MANAGE_PERM = 'manage_ecb2';
 
-    public const FIELD_TYPES = [
-        'textinput',
-        'textarea',
-        'dropdown',
-        'sortablelist',
+    const FIELD_TYPES = [
         'checkbox',
-        'radio',
-        'gallery',
         'color_picker',
         'date_time_picker',
-        'file_selector',
+        'dropdown',
         'file_picker',
-        'page_picker',
+        'file_selector',
+        'gallery',
         'gallery_picker',
-        'module_picker',
-        'hidden',
         'group',
+        'hidden',
+        'module_picker',
+        'page_picker',
+        'radio',
+        'sortablelist',
+        'textarea',
+        'textinput',
         // admin only fields below here... (only because of a help subheading)
         'admin_fieldset_start',
         'admin_fieldset_end',
@@ -60,31 +60,31 @@ class ECB2 extends CMSModule
         'admin_module_link',
         'admin_text'
     ];
-    public const FIRST_ADMIN_ONLY_FIELD = 'admin_fieldset_start';  // only to trigger help subheading
-    public const FIELD_ALIASES = [
-        'input' => 'textinput',
-        'editor' => 'textarea',
-        'select' => 'dropdown',
+    const FIRST_ADMIN_ONLY_FIELD = 'admin_fieldset_start';  // only to trigger help subheading
+    const FIELD_ALIASES = [
+        'datepicker' => 'date_time_picker',
+        'dropdown_from_customgs' => 'dropdown',
+        'dropdown_from_gbc' => 'dropdown',
         'dropdown_from_module' => 'dropdown',
         'dropdown_from_udt' => 'dropdown',
-        'dropdown_from_gbc' => 'dropdown',
-        'dropdown_from_customgs' => 'dropdown',
-        'timepicker' => 'date_time_picker',
-        'datepicker' => 'date_time_picker',
-        'pages' => 'page_picker',
-        'module' => 'module_picker',
-        'fieldset_start' => 'admin_fieldset_start',
+        'editor' => 'textarea',
         'fieldset_end' => 'admin_fieldset_end',
+        'fieldset_start' => 'admin_fieldset_start',
         'hr' => 'admin_hr',
-        'text' => 'admin_text',
-        'link' => 'admin_link',
-        'module_link' => 'admin_module_link',
         'image' => 'admin_image',
+        'image' => 'gallery',
+        'input' => 'textinput',
         'input_repeater' => 'textinput',
-        'image' => 'gallery'
+        'link' => 'admin_link',
+        'module' => 'module_picker',
+        'module_link' => 'admin_module_link',
+        'pages' => 'page_picker',
+        'select' => 'dropdown',
+        'text' => 'admin_text',
+        'timepicker' => 'date_time_picker'
     ];
-    public const OUTPUT_FORMAT_DEFAULT = 'string';
-    public const OUTPUT_FORMAT = [ // 'string' (default), 'array', 'array_or_string' or 'object'.
+    const OUTPUT_FORMAT_DEFAULT = 'string';
+    const OUTPUT_FORMAT = [ // 'string' (default), 'array', 'array_or_string' or 'object'.
         'gallery' => 'object',
         'group' => 'object',
         'textinput' => 'array_or_string',
@@ -93,18 +93,18 @@ class ECB2 extends CMSModule
         'editor' => 'array_or_string',
         'input_repeater' => 'string_separated'
     ];
-    //TODO support class namespacing
-    public const FIELD_DEF_PREFIX = 'ecb2fd_';
-    public const FIELD_DEF_CLASS_PREFIX = 'class.';
-    public const INPUT_TEMPLATE_PREFIX = 'input.';
-    public const HELP_TEMPLATE_PREFIX = 'help.';
-    public const DEMO_BLOCK_PREFIX = 'demo_';
+
+    const FIELD_DEF_PREFIX = 'ECB2\fielddefs\\';
+//  const FIELD_DEF_CLASS_PREFIX = 'class.';
+    const INPUT_TEMPLATE_PREFIX = 'input.';
+    const HELP_TEMPLATE_PREFIX = 'help.';
+    const DEMO_BLOCK_PREFIX = 'demo_';
 
     public function __construct()
     {
         parent::__construct();
 
-        spl_autoload_register([$this, '_autoloader']);
+        spl_autoload_register([$this, 'AutoLoader']);
 
         \CMSMS\HookManager::add_hook('Core::ContentEditPre', [$this, 'ContentEditPre']);
     }
@@ -146,7 +146,7 @@ class ECB2 extends CMSModule
     public function get_admin($help_only = false)
     {
         $output = $this->get_admin_css_js(false);
-        $smarty = \CmsApp::get_instance()->GetSmarty();
+        $smarty = CmsApp::get_instance()->GetSmarty();
 
         $tpl = $smarty->CreateTemplate($this->GetTemplateResource('admin_default.tpl'), null, null, $smarty);
         $tpl->assign('mod', $this);
@@ -212,7 +212,6 @@ class ECB2 extends CMSModule
         $admin_css_js = <<<EOS
     <link rel="stylesheet" type="text/css" href="$path/lib/css/module.min.css">
     <script src="$path/lib/js/module.min.js"></script>
-
 EOS;
         cms_utils::set_app_data('ECB2_js_css_loaded', 1);
         if ($echo_now) {
@@ -404,22 +403,40 @@ EOS;
     }
 
     /**
-     *  Internal autoloader
+     * Register a modifier plugin to be used instead of deprecated
+     * direct use of a PHP callable as a modifier
+     * @param string name
+     * @param callable  function name or array or
+     *  static method identifier like classname::method
      */
-    private function _autoloader($classname)
+    public function register_modifier($name, $handler)
     {
-        $parts = explode('\\', $classname);
-        $classname = end($parts);
-        $fielddef_dir = str_replace(self::FIELD_DEF_PREFIX, '', $classname);
-        $fn = cms_join_path(
-            __DIR__,
-            'lib',
-            'fielddefs',
-            $fielddef_dir,
-            self::FIELD_DEF_CLASS_PREFIX.$classname.'.php'
-        );
-        if (file_exists($fn)) {
-            require_once $fn;
+        static $regdone = [];
+        if (!isset($regdone[$name])) {
+            $smarty = CmsApp::get_instance()->GetSmarty();
+            $smarty->registerPlugin('modifier', $name, $handler);
+            $regdone[$name] = true;
+        }
+    }
+
+    /**
+     *  ECB2 module classes autoloader
+     *  Sooner or later, the main CMSMS autoloader will handle this sort of thing
+     */
+    private function AutoLoader($classname)
+    {
+        if (($p = strpos($classname, 'ECB2\\')) === 0 || ($p == 1 && $classname[0] == '\\')) {
+            $fp = __DIR__.DIRECTORY_SEPARATOR.'lib';
+            if ($p == 0) {
+                $fp .= DIRECTORY_SEPARATOR;
+            }
+            $sp = substr($classname, $p+5);
+            $fp .= strtr($sp, '\\', DIRECTORY_SEPARATOR);
+            $base = basename($fp);
+            $fp = dirname($fp) . DIRECTORY_SEPARATOR . $base . DIRECTORY_SEPARATOR . 'class.' . $base . '.php';
+            if (@file_exists($fp)) {
+                require_once $fp;
+            }
         }
     }
 
@@ -447,7 +464,7 @@ EOS;
 
     /**
      *  @return string 'string' (default), 'string_separated', 'array' or 'object'.
-     *                  note: not 'array_or_string' - this method decides which is required
+     *   note: not 'array_or_string' - this method decides which is required
      *  @param array $blockparams - options set for this field block
      */
     private function OutputFormat($blockparams)

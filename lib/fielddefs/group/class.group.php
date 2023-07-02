@@ -7,9 +7,13 @@
 #          see /ECB2/LICENCE or <http://www.gnu.org/licenses/#GPL>
 #-----------------------------------------------------------------------------
 
-//namespace ECB2\fielddefs
-//class group
-class ecb2fd_group extends ecb2_FieldDefBase
+namespace ECB2\fielddefs;
+
+use CmsApp;
+use ECB2\FieldDefBase;
+use const ECB2_SANITIZE_STRING;
+
+class group extends FieldDefBase
 {
     private $layout_options;
 
@@ -30,7 +34,7 @@ class ecb2fd_group extends ecb2_FieldDefBase
      *  sets the allowed parameters for this field type
      *
      *  $this->default_parameters - array of parameter_names => [ default_value, filter_type ]
-     *      ECB2_SANITIZE_STRING, FILTER_VALIDATE_INT, FILTER_VALIDATE_BOOLEAN, FILTER_SANITIZE_EMAIL 
+     *      ECB2_SANITIZE_STRING, FILTER_VALIDATE_INT, FILTER_VALIDATE_BOOLEAN, FILTER_SANITIZE_EMAIL
      *      see: https://www.php.net/manual/en/filter.filters.php
      *  $this->restrict_params - optionally allow any other parameters to be included, e.g. module calls
      */
@@ -72,13 +76,13 @@ class ecb2fd_group extends ecb2_FieldDefBase
     }
 
     /**
-     *  @return string complete content block 
+     *  @return string complete content block
      */
     public function get_content_block_input()
     {
         if (!empty($this->options['admin_groups']) &&
              !$this->is_valid_group_member($this->options['admin_groups'])) {
-            return $this->ecb2_hidden_field();
+            return $this->hidden_field();
         }
 
         if (empty($this->values)) {
@@ -89,7 +93,7 @@ class ecb2fd_group extends ecb2_FieldDefBase
             return $this->mod->error_msg($this->error);
         }
 
-        $smarty = \CmsApp::get_instance()->GetSmarty();
+        $smarty = CmsApp::get_instance()->GetSmarty();
         $tpl = $smarty->CreateTemplate('string:'.$this->get_template(), null, null, $smarty);
         $tpl->assign('block_name', $this->block_name);
         // $tpl->assign( 'value', $this->value );
@@ -107,7 +111,7 @@ class ecb2fd_group extends ecb2_FieldDefBase
 
     /**
      *  Data entered by the editor is processed before its saved in props table
-     *  This method,  overides the parent class method, to enable additional processing 
+     *  This method,  overides the parent class method, to enable additional processing
      *  before the data is saved.
      *
      *  @return string formatted json containing all field data ready to be saved & output

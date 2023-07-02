@@ -7,9 +7,13 @@
 #          see /ECB2/LICENCE or <http://www.gnu.org/licenses/#GPL>
 #-----------------------------------------------------------------------------
 
-//namespace ECB2\fielddefs
-//class admin_fieldset_end
-class ecb2fd_admin_fieldset_end extends ecb2_FieldDefBase
+namespace ECB2\fielddefs;
+
+use CmsApp;
+use ECB2\FieldDefBase;
+use const ECB2_SANITIZE_STRING;
+
+class admin_fieldset_end extends FieldDefBase
 {
     public function __construct($mod, $blockName, $value, $params, $adding, $id = 0)
     {
@@ -26,7 +30,7 @@ class ecb2fd_admin_fieldset_end extends ecb2_FieldDefBase
      *  sets the allowed parameters for this field type
      *
      *  $this->default_parameters - array of parameter_names => [ default_value, filter_type ]
-     *      ECB2_SANITIZE_STRING, FILTER_VALIDATE_INT, FILTER_VALIDATE_BOOLEAN, FILTER_SANITIZE_EMAIL 
+     *      ECB2_SANITIZE_STRING, FILTER_VALIDATE_INT, FILTER_VALIDATE_BOOLEAN, FILTER_SANITIZE_EMAIL
      *      see: https://www.php.net/manual/en/filter.filters.php
      *  $this->restrict_params - optionally allow any other parameters to be included, e.g. module calls
      */
@@ -40,16 +44,16 @@ class ecb2fd_admin_fieldset_end extends ecb2_FieldDefBase
     }
 
     /**
-     *  @return string complete content block 
+     *  @return string complete content block
      */
     public function get_content_block_input()
     {
         if (!empty($this->options['admin_groups']) &&
              !$this->is_valid_group_member($this->options['admin_groups'])) {
-            return $this->ecb2_hidden_field();
+            return $this->hidden_field();
         }
 
-        $smarty = \CmsApp::get_instance()->GetSmarty();
+        $smarty = CmsApp::get_instance()->GetSmarty();
         $tpl = $smarty->CreateTemplate('string:'.$this->get_template(), null, null, $smarty);
         $tpl->assign('is_demo', $this->demo_count > 0);
         return $tpl->fetch();

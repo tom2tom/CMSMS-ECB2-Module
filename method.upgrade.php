@@ -7,6 +7,9 @@
 #          see /ECB2/LICENCE or <http://www.gnu.org/licenses/#GPL>
 #---------------------------------------------------------------------
 
+use ECB2\Blocks;
+use ECB2\FileUtils;
+
 if (!isset($gCms)) {
     exit;
 }
@@ -64,7 +67,7 @@ if (version_compare($oldversion, '2.0') < 0) {
         @unlink($module_path.$delFile);
     }
 
-    ecb2_FileUtils::CreateImagesDir();
+    FileUtils::CreateImagesDir();
 }
 
 if (version_compare($oldversion, '1.99.3') < 0) {
@@ -73,7 +76,7 @@ if (version_compare($oldversion, '1.99.3') < 0) {
 
 if (version_compare($oldversion, '1.99.5') < 0) {
     //  create module_ecb2_blocks table
-    $blocks_table = new ecb2Blocks();
+    $blocks_table = new Blocks();
     $blocks_table->create_database();
 }
 

@@ -7,6 +7,9 @@
 #          see /ECB2/LICENCE or <http://www.gnu.org/licenses/#GPL>
 #---------------------------------------------------------------------
 
+use ECB2\Blocks;
+use ECB2\FileUtils;
+
 if (!isset($gCms)) {
     exit;
 }
@@ -15,10 +18,10 @@ if (!isset($gCms)) {
 $this->CreatePermission(ECB2::MANAGE_PERM, 'Extended Content Blocks 2 - Manage');
 
 // create module_ecb2_blocks table
-$blocks_table = new ecb2Blocks();
+$blocks_table = new Blocks();
 $blocks_table->create_database();
 
 // support simple-format tags
 $this->RegisterModulePlugin(true);
 
-ecb2_FileUtils::CreateImagesDir();
+FileUtils::CreateImagesDir();

@@ -7,9 +7,14 @@
 #          see /ECB2/LICENCE or <http://www.gnu.org/licenses/#GPL>
 #-----------------------------------------------------------------------------
 
-//namespace ECB2\fielddefs
-//class radio
-class ecb2fd_radio extends ecb2_FieldDefBase
+namespace ECB2\fielddefs;
+
+use cms_utils;
+use CmsApp;
+use ECB2\FieldDefBase;
+use const ECB2_SANITIZE_STRING;
+
+class gallery_picker extends FieldDefBase
 {
     public function __construct($mod, $blockName, $value, $params, $adding, $id = 0)
     {
@@ -26,21 +31,15 @@ class ecb2fd_radio extends ecb2_FieldDefBase
      *  sets the allowed parameters for this field type
      *
      *  $this->default_parameters - array of parameter_names => [ default_value, filter_type ]
-     *      ECB2_SANITIZE_STRING, FILTER_VALIDATE_INT, FILTER_VALIDATE_BOOLEAN, FILTER_SANITIZE_EMAIL 
+     *      ECB2_SANITIZE_STRING, FILTER_VALIDATE_INT, FILTER_VALIDATE_BOOLEAN, FILTER_SANITIZE_EMAIL
      *      see: https://www.php.net/manual/en/filter.filters.php
      *  $this->restrict_params - optionally allow any other parameters to be included, e.g. module calls
      */
     public function set_field_parameters()
     {
-        $this->parameter_aliases = [
-            'default_value' => 'default'
-        ];
         $this->default_parameters = [
-            'values' => ['default' => '',    'filter' => ECB2_SANITIZE_STRING],
             'label' => ['default' => '',    'filter' => ECB2_SANITIZE_STRING],
-            'inline' => ['default' => false, 'filter' => FILTER_VALIDATE_BOOLEAN],
-            'flip_values' => ['default' => false, 'filter' => FILTER_VALIDATE_BOOLEAN],
-            'default' => ['default' => '',    'filter' => ECB2_SANITIZE_STRING],
+            'dir' => ['default' => '',    'filter' => ECB2_SANITIZE_STRING],
             'admin_groups' => ['default' => '',    'filter' => ECB2_SANITIZE_STRING],
             'description' => ['default' => '',    'filter' => ECB2_SANITIZE_STRING]
         ];
@@ -49,27 +48,49 @@ class ecb2fd_radio extends ecb2_FieldDefBase
     }
 
     /**
-     *  @return string complete content block 
+     *  @return string complete content block
      */
     public function get_content_block_input()
     {
         if (!empty($this->options['admin_groups']) &&
              !$this->is_valid_group_member($this->options['admin_groups'])) {
-            return $this->ecb2_hidden_field();
+            return $this->hidden_field();
         }
 
-        $options = $this->get_array_from_csl($this->options['values']);
-        if ($this->options['flip_values'] && !empty($options)) {
-            $options = array_flip($options);
+        $dir = $this->options['dir'].'/';    // default dir (needs '/' at end)
+        $GalleryModule = cms_utils::get_module('Gallery');
+        if (!is_object($GalleryModule)) {
+            $this->error = $this->mod->Lang('gallery_module_error');
+            return $this->mod->error_msg($this->error);
         }
-        $separator = ($this->options['inline']) ? '&nbsp;&nbsp;&nbsp;&nbsp;' : '<br>';
 
-        $smarty = \CmsApp::get_instance()->GetSmarty();
+        $galleries = Gallery_utils::GetGalleries();
+        $galleryArray = ['' => $this->mod->Lang('none_selected')];
+
+        foreach ($galleries as $gallery) {
+            if ($gallery['filename'] != '') {    // ignores default gallery
+                if ($dir != '/') {
+                    // only select sub-galleries of $dir
+                    $isSubDir = stripos($gallery['filepath'], $dir);
+
+                    if ($isSubDir !== false && $isSubDir == 0) {
+                        $gallery_dir = $gallery['filepath'].rtrim($gallery['filename'], '/');
+                        $galleryArray[$gallery_dir] = $gallery['title'];
+                    }
+                } else {
+                    // select all galleries
+                    $gallery_dir = $gallery['filepath'].rtrim($gallery['filename'], '/');
+                    $galleryArray[$gallery_dir] = $gallery['title'];
+                }
+            }
+        }
+
+        $class = '';
+        $smarty = CmsApp::get_instance()->GetSmarty();
         $tpl = $smarty->CreateTemplate('string:'.$this->get_template(), null, null, $smarty);
         $tpl->assign('block_name', $this->block_name);
         $tpl->assign('value', $this->value);
-        $tpl->assign('options', $options);
-        $tpl->assign('separator', $separator);
+        $tpl->assign('galleryArray', $galleryArray);
         $tpl->assign('description', $this->options['description']);
         $tpl->assign('label', $this->options['label']);
         $tpl->assign('is_sub_field', $this->is_sub_field);
@@ -79,7 +100,9 @@ class ecb2fd_radio extends ecb2_FieldDefBase
                 $this->block_name.']');
             $tpl->assign('subFieldId', $this->sub_parent_block.'_r_'.$this->sub_row_number.'_'.
                 $this->block_name);
+            $class .= ' repeater-field';
         }
+        $tpl->assign('class', $class);
         return $tpl->fetch();
     }
 }

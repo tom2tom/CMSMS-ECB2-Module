@@ -7,9 +7,13 @@
 #          see /ECB2/LICENCE or <http://www.gnu.org/licenses/#GPL>
 #-----------------------------------------------------------------------------
 
-//namespace ECB2\fielddefs
-//class sortablelist
-class ecb2fd_sortablelist extends ecb2_FieldDefBase
+namespace ECB2\fielddefs;
+
+use CmsApp;
+use ECB2\FieldDefBase;
+use const ECB2_SANITIZE_STRING;
+
+class sortablelist extends FieldDefBase
 {
     public function __construct($mod, $blockName, $value, $params, $adding, $id = 0)
     {
@@ -62,7 +66,7 @@ class ecb2fd_sortablelist extends ecb2_FieldDefBase
     {
         if (!empty($this->options['admin_groups']) &&
              !$this->is_valid_group_member($this->options['admin_groups'])) {
-            return $this->ecb2_hidden_field();
+            return $this->hidden_field();
         }
 
         // get the dropdown values/options
@@ -120,7 +124,7 @@ class ecb2fd_sortablelist extends ecb2_FieldDefBase
             $this->options['required_number'] = '';
         }
 
-        $smarty = \CmsApp::get_instance()->GetSmarty();
+        $smarty = CmsApp::get_instance()->GetSmarty();
         $tpl = $smarty->CreateTemplate('string:'.$this->get_template(), null, null, $smarty);
         $tpl->assign('mod', $this->mod);
         $tpl->assign('block_name', $this->block_name);
@@ -160,7 +164,7 @@ class ecb2fd_sortablelist extends ecb2_FieldDefBase
                     $cms_module_call .= " $key=$value";
                 };
                 $cms_module_call .= "}";
-                $smarty = \CmsApp::get_instance()->GetSmarty();
+                $smarty = CmsApp::get_instance()->GetSmarty();
                 $this->options["values"] = strip_tags($smarty->fetch('string:'.$cms_module_call));
             }
         }
@@ -198,7 +202,7 @@ class ecb2fd_sortablelist extends ecb2_FieldDefBase
         if ($this->options["max_number"]) {
             $this->options["required_number"] = ""; // max_number takes precidence if both set
         }
-        $smarty = Smarty_CMS::get_instance();
+        $smarty = CmsApp::get_instance()->GetSmarty();
         $tpl = $smarty->CreateTemplate($mod->GetTemplateResource('sortablelist_template.tpl'), null, null, $smarty);
         $tpl->assign('selectarea_prefix',$this->block_name);
         $tpl->assign('selected_str',$this->value);
