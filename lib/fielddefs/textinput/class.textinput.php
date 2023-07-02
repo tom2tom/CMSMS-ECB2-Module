@@ -23,6 +23,7 @@ class textinput extends FieldDefBase
         if (!empty($params['repeater']) ||
              (isset($params['field_alias_used']) && $params['field_alias_used'] == 'input_repeater')) {
             $this->use_json_format = true;
+            $mod->register_modifier('explode', '\ECB2\fielddefs\textinput::modifier');
         }
 
         $this->get_values($value);              // common FieldDefBase method
@@ -80,7 +81,6 @@ class textinput extends FieldDefBase
             $this->values[] = null;
         }
 
-        $class = '';
         $smarty = CmsApp::get_instance()->GetSmarty();
         $tpl = $smarty->CreateTemplate('string:'.$this->get_template(), null, null, $smarty);
         $tpl->assign('mod', $this->mod);
@@ -98,6 +98,7 @@ class textinput extends FieldDefBase
         $tpl->assign('field_alias_used', $this->field_alias_used);
         $tpl->assign('use_json_format', $this->use_json_format);
         $tpl->assign('is_sub_field', $this->is_sub_field);
+        $class = '';
         if ($this->is_sub_field) {
             $tpl->assign('sub_row_number', $this->sub_row_number);
             $tpl->assign('subFieldName', $this->sub_parent_block.'[r_'.$this->sub_row_number.']['.
@@ -108,5 +109,17 @@ class textinput extends FieldDefBase
         }
         $tpl->assign('class', $class);
         return $tpl->fetch();
+    }
+
+    /**
+     * Smarty modifier-plugin handler for in-template 'explode' processing
+     * @param string $delimiter
+     * @param string $value
+     * @param int $limit optional max number of parts in the result
+     * @return array
+     */
+    public static function modifier($delimiter, $value, $limit = PHP_INT_MAX)
+    {
+        return explode((string)$delimiter, (string)$value, $limit);
     }
 }
