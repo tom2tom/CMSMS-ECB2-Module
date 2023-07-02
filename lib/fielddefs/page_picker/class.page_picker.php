@@ -10,14 +10,16 @@
 namespace ECB2\fielddefs;
 
 use CmsApp;
-use CMSMS\ContentOperations; // just ContentOperations for CMSMS2
+use CMSMS\ContentOperations; // for CMSMS3
+//use ContentOperations;  // for CMSMS2
 use ECB2\FieldDefBase;
 use const ECB2_SANITIZE_STRING;
 
 class page_picker extends FieldDefBase
 {
     //NOTE picker component display uses admin plugin {page_selector}
-    // and that might assume that relevant js is already available
+    // and that might assume that relevant js (e.g. jquery.cmsms_hierselector.js)
+    // is already available
     public function __construct($mod, $blockName, $value, $params, $adding, $id = 0)
     {
         parent::__construct($mod, $blockName, $value, $params, $adding, $id);
