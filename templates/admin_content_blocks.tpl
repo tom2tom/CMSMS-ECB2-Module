@@ -9,14 +9,14 @@
             {if $field_type==$first_admin_only_field}
             <h5 class="border-bottom m_top_25 p_bottom_5">{$mod->Lang('admin_only_help')}</h5>
             {/if}
-            <li><a class="smooth-scroll" href="#{$field_type}">{$field_type}</a></li>   
+            <li><a class="smooth-scroll" href="javascript:void(0)" onclick="document.location.hash='{$field_type}';">{$field_type}</a></li>
         {/foreach}
         </ul>
     </div>
 
     <div class="help-content">
         {$mod->Lang('general_c')}
-        
+
         <h2 class="border-bottom p_bottom_5 m_bottom_15">{$mod->Lang('field_types')}</h2>
 
     {foreach $field_help as $field_type => $help_content}
