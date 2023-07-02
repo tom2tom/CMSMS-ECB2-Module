@@ -25,11 +25,11 @@ $lang['error_sub_field_type_not_allowed'] = 'The sub field type \'%s\' is not su
 $lang['error_sub_field_name_missing'] = 'The sub field type \'%s\' requires a valid name to be provided.';
 $lang['error_sub_field_name_format'] = 'The sub field name \'%s\', for the field \'%s\' is incorrect. The name must start with a letter followed by any number of letters, numbers or underscores \'_\'.';
 $lang['error_no_sub_fields'] = 'No sub fields defined.';
-$lang['extended_content_blocks'] = 'Extended Content Blocks';
+$lang['extended_content_blocks'] = 'Component Types';
 
 $lang['fields'] = 'Fields';
 $lang['field_error'] = 'Please specify a correct field parameter for the ECB2 content block \'%s\'.';
-$lang['field_types'] = 'Field types';
+$lang['field_types'] = 'Component types';
 $lang['friendlyname'] = 'Extended Content Blocks';
 
 $lang['gallery_module_error'] = 'Gallery module is not installed.';
@@ -46,7 +46,7 @@ $lang['installed'] = 'Module version %s installed.';
 
 $lang['max_files_text'] = 'You have already uploaded the maximum of %s files';
 $lang['max_files_unlimited_text'] = 'You have already uploaded the maximum of unlimited files';
-$lang['module_description'] = 'This module enables extra types of content block for page templates';
+$lang['module_description'] = 'Simply add customised elements to pages and page templates';
 $lang['module_error'] = 'The \'%s\' module is not available.';
 
 $lang['need_permission'] = 'You need permission to use this module';
@@ -56,8 +56,8 @@ $lang['options'] = 'Options';
 $lang['options_saved'] = 'Options saved';
 
 $lang['parameter_missing'] = 'Please specify a \'%s\' parameter for the ECB2 content block \'%s\'.';
-$lang['postinstall'] = 'Extended Content Blocks was successful installed';
-$lang['postuninstall'] = 'Extended Content Blocks was successful uninstalled';
+$lang['postinstall'] = 'Extended Content Blocks was successfully installed';
+$lang['postuninstall'] = 'Extended Content Blocks was successfully uninstalled';
 
 $lang['really_uninstall'] = 'Really? Are you sure you want to uninstall the ECB2 module?';
 $lang['remove'] = 'Remove';
@@ -87,15 +87,14 @@ $lang['upgraded'] = 'Module upgraded to version %s.';
 ###    ###   #########   #########  ###
 
 $lang['general_c'] = <<<'EOD'
-<p>The Extended Content Blocks (ECB2) module gives you more page editing options. Many aditional content block types are available to use in each page template e.g. dropdown, colour picker, checkbox, radio button, and many more.</p>
+<p>The Extended Content Blocks (ECB2) module facilitates website page and template construction. Many tailored html component types may be simply applied.</p>
 <br>
-
 <h3>Usage</h3>
-<p>Use a tag like the following to add each ECB2 content block to any page template.</p>
+<p>Use a tag like the following to add each ECB2 component to any page's main-content-area or template.</p>
 <pre>{ECB2 field=some_field_type block='some name' ...}</pre>
 <p>or use an equivalent CMSMS core <b>{content_module}</b> tag instead.</p>
 <pre>{content_module module=ECB2 field=some_field_type block='some name' ...}</pre>
-<p>All ECB2 content blocks must or may include the following parameters:</p>
+<p>All ECB2 tags must, or may, include the following parameters:</p>
 <ul>
     <li>module (required if using {content_module} - 'ECB2'</li>
     <li>field (required) - one of ECB2 field types below</li>
