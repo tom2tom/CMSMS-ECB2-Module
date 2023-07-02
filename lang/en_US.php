@@ -103,10 +103,10 @@ $lang['general_c'] = <<<'EOD'
     <li>required (optional) - Allows specifying that the content block must contain some text.</li>
     <li>tab (optional) - The desired tab to display this field on in the edit form.<br>Use the following to show on a core tab: tab='zz_1nav_tab__', 'zz_2logic_tab__', or 'zz_3options_tab__'.</li>
     <li>priority (optional) integer - Allows specifying an integer priority for the block within the tab.</li>
-    <li>assign (optional) string - Assign the results to a smarty variable with that name.</li>
+    <li>assign (optional) string - Assign the results to a Smarty variable with that name.</li>
 </ul>
 
-<p><b>Smarty tips</b>: Parameter values that are single-word strings do not have to be quoted e.g. field=checkbox is the same as field='checkbox'. If parameter values are with double quotes simple smarty variables or tags can be included like var="test $foo {counter} test".<br>See <a href="//www.smarty.net/docs/en/language.syntax.quotes.tpl" target="_blank">Smarty docs for details</a>.</p>
+<p><b>Smarty tips</b>: parameter values that are single-word strings do not have to be quoted e.g. field=checkbox is the same as field='checkbox'. If parameter values have double quotes, simple Smarty variables or tags may be included, like var="test $foo {counter} test".<br>See <a href="//www.smarty.net/docs/en/language.syntax.quotes.tpl" target="_blank">Smarty docs</a> for details.</p>
 
 <br><br>
 EOD;
