@@ -16,6 +16,8 @@ use const ECB2_SANITIZE_STRING;
 
 class page_picker extends FieldDefBase
 {
+    //NOTE picker component display uses admin plugin {page_selector}
+    // and that might assume that relevant js is already available
     public function __construct($mod, $blockName, $value, $params, $adding, $id = 0)
     {
         parent::__construct($mod, $blockName, $value, $params, $adding, $id);
