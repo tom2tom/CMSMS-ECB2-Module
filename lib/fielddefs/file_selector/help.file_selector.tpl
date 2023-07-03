@@ -1,5 +1,5 @@
 {* help.file_selector.tpl *}
-<p>The file_selector field enables a file to be selected from a set directory and can optionally show a thumbnail.</p>
+<p>This type of field enables a file to be selected from a set directory and can optionally show a thumbnail.</p>
 
 <fieldset>
     {$fielddef->get_demo_input(['filetypes'=>"jpg,gif,png", 'excludeprefix'=>"thumb_", 'preview'=>1, 'recurse'=>1])}

@@ -1,5 +1,5 @@
 {* help.radio.tpl *}
-<p>The radio field creates a simple text input, for storing a single string.</p>
+<p>This type of field creates a simple text input, for storing a single string.</p>
 
 <fieldset>
     {$fielddef->get_demo_input(['values'=>"Apple=apple,Orange=orange,Kiwifruit=kiwifruit", 'default'=>"orange"])}

@@ -1,5 +1,5 @@
 {* help.admin_text.tpl *}
-<p>The admin_text field just adds text into the admin page.</p>
+<p>This type of field just adds text into the admin page.</p>
 
 <fieldset>
     {$fielddef->get_demo_input(['text'=>'Simply add some text into the admin pages to give some guidance to the editors, or whatever else you want really :).'])}

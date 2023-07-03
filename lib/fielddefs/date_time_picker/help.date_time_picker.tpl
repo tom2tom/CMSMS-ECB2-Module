@@ -1,5 +1,5 @@
 {* help.date_time_picker.tpl *}
-<p>The date_time_picker field creates a popup for selecting a date, a time, or both.</p>
+<p>This type of field creates a popup for selecting a date, a time, or both.</p>
 
 <fieldset>
     {$fielddef->get_demo_input()}

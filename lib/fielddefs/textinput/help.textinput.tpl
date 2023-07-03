@@ -1,5 +1,5 @@
 {* help.textinput.tpl *}
-<p>The textinput field creates a simple text input, for storing a single string. Either just create a simple single text input or use the repeater option to create an unlimited number of sortable inputs.</p>
+<p>This type of field creates a simple text input, for storing a single string. Either just create a simple single text input or use the repeater option to create an unlimited number of sortable inputs.</p>
 
 <fieldset>
 {$fielddef->get_demo_input(['size'=>55, 'max_length'=>55, 'default'=>"a sample textinput"])}

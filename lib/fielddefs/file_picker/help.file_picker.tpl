@@ -1,5 +1,5 @@
 {* help.file_picker.tpl *}
-<p>The file_picker field enables the editor to select an image (or file) from specified directory, to use on a page. Plus a thumbnail of the selected image is shown (if an image is selected).</p>
+<p>This type of field enables the editor to select an image (or file) from specified directory, to use on a page. Plus a thumbnail of the selected image is shown (if an image is selected).</p>
 <p>This functionality is provided by the core FilePicker module, with the addition of the thumbnail. If you don't want the thumbnail it's better to just use the FilePicker content block: <code>{literal}{content_module module=FilePicker block=string [profile=string]}{/literal}</code> See the FilePicker module for details.</p>
 <p>Note: this field type can not yet be used as a sub_field in a 'group' or 'gallery'.</p>
 

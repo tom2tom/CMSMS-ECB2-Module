@@ -1,5 +1,5 @@
 {* help.admin_fieldset_start.tpl *}
-<p>Creates the start of a fieldset for grouping relavant admin fields together. Note: a matching 'admin_fieldset_end' block is required for each 'admin_fieldset_start'.</p>
+<p>This type of field creates the start of a fieldset for grouping relavant admin fields together. Note: a matching 'admin_fieldset_end' block is required for each 'admin_fieldset_start'.</p>
 
 
 {$fielddef->get_demo_input(['legend'=>'A sample fieldset with legend'])}

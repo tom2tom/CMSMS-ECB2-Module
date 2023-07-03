@@ -1,5 +1,5 @@
 {* help.admin_module_link.tpl *}
-<p>The admin_module_link field creates a link on the admin page to the specified module.</p>
+<p>This type of field creates a link on the admin page to the specified module.</p>
 
 <fieldset>
     {$fielddef->get_demo_input(['mod'=>"CMSContentManager", 'text'=>"Edit Content Pages", 'target'=>'_blank'])}

@@ -1,5 +1,5 @@
 {* help.admin_image.tpl *}
-<p>Displays an image on an admin page only. Usefully to provide extra guidance to editors.</p>
+<p>This type of field displays an image on an admin page only. Useful to provide extra guidance to editors.</p>
 
 <fieldset>
     {$fielddef->get_demo_input(['image'=>'sample_admin_only_image.png', 'description'=>"This is an admin only image"])}

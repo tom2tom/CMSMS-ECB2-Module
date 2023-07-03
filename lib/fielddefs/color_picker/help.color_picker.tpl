@@ -1,5 +1,5 @@
 {* help.color_picker.tpl *}
-<p>The color_picker field provides a simple option for selecting a HEX color code.</p>
+<p>This type of field provides a simple option for selecting a HEX color code.</p>
 
 <fieldset>
     {$fielddef->get_demo_input([ 'default'=>'#3338c4'])}

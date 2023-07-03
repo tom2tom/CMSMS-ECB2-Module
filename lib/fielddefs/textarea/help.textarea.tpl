@@ -1,5 +1,5 @@
 {* help.textarea.tpl *}
-<p>The textarea field creates either a simple textarea input, for paragraphs of text, or optionally a full WYSIWYG editor to create formatted html.</p>
+<p>This type of field creates either a simple textarea input, for paragraphs of text, or optionally a full WYSIWYG editor to create formatted html.</p>
 
 <fieldset>
 {$fielddef->get_demo_input(['rows'=>3, 'cols'=>100, 'default'=>'a sample textarea'])}

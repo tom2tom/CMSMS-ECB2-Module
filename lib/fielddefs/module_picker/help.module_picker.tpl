@@ -1,5 +1,5 @@
 {* help.module_picker.tpl *}
-<p>The module_picker field creates a dropdown of all installed modules to select from.</p>
+<p>This type of field creates a dropdown of all installed modules to select from.</p>
 
 <fieldset>
     {$fielddef->get_demo_input()}

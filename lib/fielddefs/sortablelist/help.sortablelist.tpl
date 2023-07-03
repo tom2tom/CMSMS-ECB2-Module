@@ -1,5 +1,5 @@
 {* help.sortablelist.tpl *}
-<p>Creates a sortablelist that the editor can drag-and-drop to select from the list. The options can be created from a: comma separated list (values), module call (mod), User Defined Tag (udt), or a smarty template (template / udt). One of these parameters must be used (*).</p>
+<p>This type of field creates a sortable list that the editor can drag-and-drop to select from the list. The options can be created from a: comma separated list (values), module call (mod), User Defined Tag (udt), or a smarty template (template / udt). One of these parameters must be used (*).</p>
 
 <fieldset>
 {$fielddef->get_demo_input(['values'=>'apple=Apple,orange=Orange,green=Green,value=Label', 'default'=>'orange'])}
@@ -12,8 +12,8 @@
     <li>block (required) - the name of the content block</li>
     <li>values (*) - comma separated string of 'Text' or 'value=Text'. (Note: this is reversed compared to 'dropdown' values - use flip_values if necessary) e.g:<br>
         <pre>{ECB2 field=sortablelist block=test4 label='Fruit' values='apple=Apple,orange=Orange,green=Green,value=Label'}</pre>
-    </li>   
-    <li>mod (*) - specifies the name of a module to call to get the option values. 
+    </li>
+    <li>mod (*) - specifies the name of a module to call to get the option values.
     The template call needs to either: set an array $options of 'value' => 'Text' with scope=global, or return a comma separated list of 'Text,...' or 'Text=value,...'. Any additional parameters are also passed onto the specified module. You may want to include 'action' and 'template' parameters. e.g:<br>
         <pre>{ECB2 field=sortablelist block=test4a label='Sortable List - from module' mod=LISEProjects template_summary='item_dropdown' pagelimit=2}</pre>
     </li>

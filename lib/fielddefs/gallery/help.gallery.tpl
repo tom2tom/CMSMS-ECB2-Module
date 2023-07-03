@@ -1,5 +1,5 @@
 {* help.gallery.tpl *}
-<p>The gallery field enables multiple images to added by dragging and dropping or uploading. Thumbnails of the images are displayed and created on the server and images can optionally be automatically resized before they are uploaded. Each image can also have multiple sub-fields. If more than 1 image is uploaded they can also be dragged and dropped to reorder the images.</p>
+<p>This type of field enables multiple images to added by dragging and dropping or uploading. Thumbnails of the images are displayed and created on the server and images can optionally be automatically resized before they are uploaded. Each image can also have multiple sub-fields. If more than 1 image is uploaded they can also be dragged and dropped to reorder the images.</p>
 
 <fieldset>
     {$fielddef->get_demo_input(['assign' => 'test20a',

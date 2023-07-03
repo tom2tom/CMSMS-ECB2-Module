@@ -1,5 +1,5 @@
 {* help.hidden.tpl *}
-<p>The hidden field creates a simple hidden input, for storing a single string.</p>
+<p>This type of field creates a simple hidden input, for storing a single string.</p>
 
 <fieldset>
     <legend>nothing to see here!</legend>

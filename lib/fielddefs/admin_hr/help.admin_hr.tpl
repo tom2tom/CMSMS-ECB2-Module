@@ -1,5 +1,5 @@
 {* help.admin_hr.tpl *}
-<p>Displays an 'hr' on the admin page.</p>
+<p>This type of field displays an 'hr' on the admin page.</p>
 
 <fieldset>
     {$fielddef->get_demo_input()}

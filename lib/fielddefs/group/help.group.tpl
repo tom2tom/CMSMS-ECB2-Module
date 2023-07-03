@@ -1,5 +1,5 @@
 {* help.group.tpl *}
-<p>The group field creates a group of one or more sub fields. An unlimited number of groups can be added by the editors, sorted or deleted. Can be displayed in table or block layout.</p>
+<p>This type of field creates a group of one or more sub fields. An unlimited number of groups can be added by the editors, sorted or deleted. Can be displayed in table or block layout.</p>
 
 <fieldset>
     {$fielddef->get_demo_input(['assign'=>'test20',

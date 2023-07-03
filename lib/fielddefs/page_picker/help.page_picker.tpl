@@ -1,5 +1,5 @@
 {* help.page_picker.tpl *}{* TODO backend uses page_selector tag which is an admin-only plugin *}
-<p>The page_picker field creates a hierarchy of dropdowns to select a content page.</p>
+<p>This type of field creates a hierarchy of dropdowns to select a content page.</p>
 
 <fieldset>
     {$fielddef->get_demo_input()}

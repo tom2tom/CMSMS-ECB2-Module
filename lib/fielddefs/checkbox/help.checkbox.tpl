@@ -1,5 +1,5 @@
 {* help.checkbox.tpl *}
-<p>The checkbox field creates a simple check-able input.</p>
+<p>This type of field creates a simple check-able input.</p>
 
 <fieldset>
     <p class="pagetext">Test checkbox</p>

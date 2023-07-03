@@ -1,5 +1,5 @@
 {* help.admin_link.tpl *}
-<p>The admin_link field creates a link on the admin page to any specified url.</p>
+<p>This type of field creates a link on the admin page to any specified url.</p>
 
 <fieldset>
     {$fielddef->get_demo_input(['link'=>"http://www.bing.com", 'text'=>"bing search", 'target'=>"_blank"])}
