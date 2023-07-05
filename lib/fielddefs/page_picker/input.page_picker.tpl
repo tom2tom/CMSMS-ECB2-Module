@@ -12,6 +12,6 @@
     {page_selector id=$subFieldId name=$subFieldName value=$value}{* class not supported - use js to add *}
     {/if}
 {else}
-    {* {$contentOps->CreateHierarchyDropdown('', $value, $block_name, 1, 1)} *}
+    {*$contentOps->CreateHierarchyDropdown('', $value, $block_name, 1, 1)*}
     {page_selector name=$block_name value=$value allowcurrent=1}
 {/if}
