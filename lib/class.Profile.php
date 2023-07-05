@@ -10,10 +10,10 @@
 namespace ECB2;
 
 use ArrayAccess;
-//use CMSMS\DataException as CmsDataException; // for CMSMS3
-use CmsDataException; // for CMSMS2
-//use CMSMS\Utils as cms_utils; // for CMSMS3
-use cms_utils; // for CMSMS2
+use CMSMS\DataException as CmsDataException; // for CMSMS3
+//use CmsDataException; // for CMSMS2
+use CMSMS\Utils as cms_utils; // for CMSMS3
+//use cms_utils; // for CMSMS2
 use ECB2; // module class in global namespace
 use LogicException;
 use RuntimeException;
@@ -62,17 +62,21 @@ class Profile implements ArrayAccess
 		case 'allowcssoverride':
 		case 'system':
 			if( isset($this->_data[$key]) ) return (bool)$this->_data[$key];
+			return false;
 
 		case 'formats':
 			if( isset($this->_data[$key]) ) return $this->_data[$key];
+			return [];
 
 		case 'name':
 		case 'dfltstylesheet':
 			if( isset($this->_data[$key]) ) return trim($this->_data[$key]);
+			return '';
 
 		case 'label':
 			if( isset($this->_data[$key]) ) return $this->_data[$key];
-			return $this['name'];
+			if( isset($this->_data['name']) ) return trim($this->_data['name']);
+			return '';
 
 		default:
 			throw new LogicException("'$key' is not a property of ".__CLASS__.' objects');
