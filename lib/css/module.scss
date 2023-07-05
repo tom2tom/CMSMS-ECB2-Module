@@ -11,73 +11,68 @@ $color_2: #212529;
 $color_11: rgba(0, 0, 0, .9);
 /*
 white
-rgba(255, 255, 255, 1)
-background-color: #fff;
-background: #f3f3f3;
-border: 1px solid #ebebeb;
-border-color: #d8d8d8;
-background-color: #d8d8d8;
-background-color: #f4f4f4;
-background-color: #fffbe4;
-border-bottom: 1px solid #dee2e6 !important;
-border: 1px solid #bdbdbd;
-border: 1px solid #bbb;
-outline: 1px solid #aaa;
-border: 1px solid #8f8f8f;
-border-left: 7px solid #858585;
-rgba(255, 255, 255, 0)
+#ffffff
+#fffbe4
+#fff
+#f4f4f4
+#f3f3f3
+#efefef
+#eee 
+#ebebeb
+#dee2e6
+#ddd
+#d8d8d8
+#bdbdbd
+#bbb
+#b8b8b8
+#aaa
+#999
+#959595
+#8f8f8f
+#858585
+#7a7a7a
+#777
+#6c6c6c
+#696969
+#585858
+#555
+#444
+#333
+#2d2d2d
+#2a2a2a
+#212529
+#161616
+#131313
+#101010
+#00000000
+#000000
+black
+rgba(0, 0, 0, .3)
+rgba(0, 0, 0, .5)
+rgba(0, 0, 0, .8)
+rgba(0, 0, 0, .9)
 rgba(0, 0, 0, 0)
 rgba(0, 0, 0, 1)
-black
-background: #f3f3f3;
-border: 1px solid #bdbdbd;
-border-color: #999;
-border-right: 1px solid #bdbdbd;
-border-bottom: 4px solid #959595;
-border: 1px solid #8f8f8f;
-background: #161616;
-border-color: #2a2a2a;
-outline-color: #333;
-border-color: #555;
-background: #101010;
-border-color: #2d2d2d;
-background: #101010;
-border-color: #2d2d2d;
-background: #131313;
-border-color: #2d2d2d;
-border-bottom-color: #696969;
-border-top-color: #696969;
-border-color: #444;
-background: #131313;
-border-color: #2d2d2d;
-background-color: #101010;
-border-color: #444;
-background-color: rgba(255, 255, 255, .4);
-border: 1px solid rgba(200, 200, 200, .8);
-background-color: rgba(255, 255, 255, .8);
-rgba(0, 0, 0, .8)
-background: #999;
-background: linear-gradient(to bottom, #eee, #ddd);
-background-color: #f4f4f4;
-background-color: #fffbe4;
+rgba(200, 200, 200, .8)
+rgba(255, 255, 255, .4)
+rgba(255, 255, 255, .8)
+rgba(255, 255, 255, 0)
+rgba(255, 255, 255, 1)
 
-border: 1px solid #fa6704;
-background: #fa8004;
-background-color: #ffca95;
-border: 1px solid #ffc39d;
-        &:not(disabled) {
-                background: #fa8004;
-                border: 1px solid #fa6704;
-border: 1px solid #fcefa1;
-border: 1px solid #fcefa1;
-background: #f00;
-background: #b10606;
-border-bottom: 6px solid #b10606;
+#ffca95
+#ffc39d
+#fcefa1
+#fa8004
+#fa8004
+#fa6704
+#f00
+#b10606
+#00ffffff
 */
 
 $font-family_1: 'icomoon';
 $font-family_2: inherit;
-$font-family_3: Arial, Helvetica, sans-serif;
+/*$font-family_3: Arial, Helvetica, sans-serif; INHERIT */
 
 /* ecb2_admin.css - v1.3 - 24Jun23
 
@@ -189,7 +184,7 @@ $font-family_3: Arial, Helvetica, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
-[class*='ecb2-icon-'] {
+[class*=' ecb2-icon-'] {
 	font-family: $font-family_1 !important;
 	font-weight: normal;
 	font-style: normal;
@@ -824,7 +819,7 @@ $font-family_3: Arial, Helvetica, sans-serif;
 		background: transparent;
 		border: none;
 		font-size: 12px;
-		font-family: $font-family_3;
+/*		font-family: $font-family_3; INHERIT */
 		color: $color_8;
 		text-align: right;
 		outline: none;
@@ -855,7 +850,7 @@ $font-family_3: Arial, Helvetica, sans-serif;
 		background: transparent;
 		border: none;
 		font-size: 12px;
-		font-family: $font-family_3;
+/*		font-family: $font-family_3; INHERIT*/
 		color: $color_8;
 		text-align: right;
 		outline: none;
