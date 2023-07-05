@@ -6,7 +6,6 @@
 # Licence: GNU General Public License version 3
 #          see /ECB2/LICENCE or <http://www.gnu.org/licenses/#GPL>
 #-----------------------------------------------------------------------------
-// this class uses Collator, so it needs PHP's Intl extension
 
 namespace ECB2\fielddefs;
 
@@ -14,6 +13,7 @@ use cms_utils;
 use CmsApp;
 use Collator;
 use ECB2\FieldDefBase;
+use Exception;
 use const ECB2_SANITIZE_STRING;
 use function cmsms;
 
@@ -21,6 +21,11 @@ class module_picker extends FieldDefBase
 {
     public function __construct($mod, $blockName, $value, $params, $adding, $id = 0)
     {
+        // this class uses a Collator, so it needs PHP's Intl extension
+        if (!class_exists('Collator', false) {
+            throw new Exception(__CLASS__.' requires PHP\'s Intl extension');
+        }
+
         parent::__construct($mod, $blockName, $value, $params, $adding, $id);
 
         $this->get_values($value);              // common FieldDefBase method
