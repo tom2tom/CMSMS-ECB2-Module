@@ -1,6 +1,6 @@
 {* help.module_picker.tpl *}
 <p>This type of field creates a dropdown of all installed modules to select from.</p>
-<p>The operation of a module picker involves PHP's Collator class, so the Intl extension must be available.<p>
+<p>Module pickers like to use PHP's Collator class for sorting, so the Intl extension should preferably be available.<p>
 
 <fieldset>
     {$fielddef->get_demo_input()}

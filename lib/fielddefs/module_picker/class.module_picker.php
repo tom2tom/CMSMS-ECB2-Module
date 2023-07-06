@@ -17,15 +17,12 @@ use Exception;
 use const ECB2_SANITIZE_STRING;
 use function cmsms;
 
+// this class prefers to use a Collator, in which case it needs PHP's Intl extension
+
 class module_picker extends FieldDefBase
 {
     public function __construct($mod, $blockName, $value, $params, $adding, $id = 0)
     {
-        // this class uses a Collator, so it needs PHP's Intl extension
-        if (!class_exists('Collator', false) {
-            throw new Exception(__CLASS__.' requires PHP\'s Intl extension');
-        }
-
         parent::__construct($mod, $blockName, $value, $params, $adding, $id);
 
         $this->get_values($value);              // common FieldDefBase method
