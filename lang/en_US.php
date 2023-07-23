@@ -154,7 +154,7 @@ The module author is not obligated to provide support for this code. However you
 <p>If you would like a new field or feature added to this module, please contact me. You can sponsor development from £50.</p><br>
 
 <h3>Copyright &amp; Licence</h3>
-<p>Copyright © 2019-2023, Chris Taylor < chris at cmsmadesimple dot org >. All rights reserved.</p><br>
+<p>Copyright © 2019-2023, Chris Taylor < chris at binnovative dot co dot uk >. All rights reserved.</p><br>
 <p>This module has been released under the GNU General Public License v3.</p><br>
 <br>
 EOD;
