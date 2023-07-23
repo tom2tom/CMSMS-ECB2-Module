@@ -15,7 +15,14 @@
     </li>
 </ul>
 <br>
-
+<h3>Version 2.3.1 - 11Jul23</h3>
+<ul>
+    <li>Group - bug fix - dropdown multiple options stopped new groups being added and saved correctly</li>
+    <li>Group - bug fix - testing for empty group now correctly tests page_picker</li>
+    <li>Gallery - bug fix - after sorting, only show upload prompt if max_files not exceeded</li>
+    <li>removed test templates &amp; notes from within module folders</li>
+</ul>
+<br>
 <h3>Version 2.3 - 24Jun23</h3>
 <ul>
     <li>NEW field type: file_picker - implements the core FilePicker but with the addition of a thumbnail</li>

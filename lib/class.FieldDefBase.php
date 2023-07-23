@@ -2,17 +2,17 @@
 #-----------------------------------------------------------------------------
 # Module: ECB2 - Extended Content Blocks 2
 # Author: Chris Taylor
-# Copyright: (C) 2016 Chris Taylor, TODOchris@cmsmadesimple.org
+# Copyright: (C) 2016-2023 Chris Taylor, chris@binnovative.co.uk
 # Licence: GNU General Public License version 3
-#          see /ECB2/LICENCE or <http://www.gnu.org/licenses/#GPL>
+#          see /ECB2/LICENCE or <http://www.gnu.org/licenses/gpl-3.0.html>
 #-----------------------------------------------------------------------------
 
 namespace ECB2;
 
 use cms_utils;
 use CmsApp;
-//use CMSMS\UserTagOperations; //for CSMS3
-use UserTagOperations; //for CSMS2
+use CMSMS\UserTagOperations; //for CSMS3
+//use UserTagOperations; //for CSMS2
 use stdClass;
 use const ECB2_SANITIZE_STRING;
 use function get_userid;
@@ -174,6 +174,8 @@ abstract class FieldDefBase
      */
     public function set_sub_field_value($fields, $row_number)
     {
+        $this->value = ''; // reset
+        $this->values = ''; // reset
         // set value to default
         if (isset($this->options['default'])) {
             $this->value = $this->options['default'];
@@ -595,12 +597,13 @@ abstract class FieldDefBase
     protected function create_field_object($inputArray = [])
     {
         $field_object = new stdClass();
-        $sub_fields = [];
+//      $sub_fields = [];
         if (empty($inputArray) || (count($inputArray) == 1 && isset($inputArray['empty']))) {
             $field_object->sub_fields = [];
         }
         if (!empty($inputArray)) {
             foreach ($inputArray as $key => $value) {
+                $sub_fields = [];
                 if (preg_match('/^(r_)?[0-9]+$/', $key)) { // is a value or child: r_0 or 0
                     if (is_array($value)) {   // sub_fields
                         foreach ($value as $field_name => $child_value) {

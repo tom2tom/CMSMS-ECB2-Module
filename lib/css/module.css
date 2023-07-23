@@ -1,12 +1,13 @@
-/* ecb2_admin.css - v1.3 - 24Jun23
+/* ecb2_admin.css - v1.4 - 24Jul23
 
-    - v1.3 - 24Jun23 - addd woff2 fonticons
-    - v1.2 - 24Mar22 - addd in colpick css
+    - v1.4 - 24Jul23 - bugfixes
+    - v1.3 - 24Jun23 - add woff2 fonticons
+    - v1.2 - 24Mar22 - add in colpick css
     - v1.1 - 16Feb19 - ecb_repeater added & began consolidating CSS into this file
     - v1.0 - 18Apr17 - initial css file
 
 *******************************************************************************/
-/*! ecb2_admin.css - v1.3 - 24Jun23 */
+/*! ecb2_admin.css - v1.4 - 24Jul23 */
 /* TODO px dimensions to em/rem where appropriate */
 .sortable-ecb2-list tr {
 	cursor: move
@@ -376,6 +377,15 @@
 	display: none
 }
 
+.ecb_repeater.block-layout .sub-field {
+	margin-bottom: 5px
+}
+
+.ecb_repeater.block-layout .sub_field_label {
+	display: block;
+	padding-bottom: 0
+}
+
 .ecb_repeater.block-layout .repeater-wrapper {
 	display: flex;
 	flex-direction: column;
@@ -411,9 +421,13 @@
 	display: none
 }
 
+.sub-field .ecb_file_selector_preview {
+	margin-left: 8px
+}
+
 .ecb_file_picker_preview {
 	margin-top: .25rem;
-	border-radius: .25rem
+	border-radius: 0.25rem
 }
 
 .ecb_file_picker_preview:not(.show) {

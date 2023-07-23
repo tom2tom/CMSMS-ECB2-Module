@@ -48,6 +48,9 @@
             </div>
 
         {foreach $sub_fields as $field_def}
+{* <pre>
+$field_def:{$field_def|adjust:'print_r'}
+</pre> *}
             <div class="sub-field row{$fields@iteration} col{$field_def@iteration} sub-field-{$field_def->get_type()}">
                 <label class="sub_field_label">{$field_def->get_field_label()}:</label>
                 {$field_def->set_sub_field_value($fields, $row)}

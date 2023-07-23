@@ -20,7 +20,7 @@
         {/if}
         {* uses json format *}
             {strip}<select class="cms_dropdown repeater-field"
-            name="{if $not_sub_field_template}{$sub_parent_block}[r_{$sub_row_number}][{$block_name}][]{/if}" multiple size="{$size}">{/strip}
+            name="{if $not_sub_field_template}{$sub_parent_block}[r_{$sub_row_number}][{$block_name}][]{/if}" data-field-name="{$block_name}" multiple size="{$size}">{/strip}
             {foreach $options as $value => $text}
                 <option value="{$value|escape}"{if isset($selected_keys.$value)} selected{/if}>{$text|default:$value|escape}</option>
             {/foreach}
