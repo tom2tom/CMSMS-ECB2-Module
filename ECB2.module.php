@@ -2,9 +2,9 @@
 #-----------------------------------------------------------------------------
 # Module: ECB2 - Extended Content Blocks 2
 # Author: Chris Taylor
-# Copyright: (C) 2016-2023 Chris Taylor, TODOchris@cmsmadesimple.org
+# Copyright: (C) 2016-2023 Chris Taylor, chris@binnovative.co.uk
 # Licence: GNU General Public License version 3
-#          see /ECB2/LICENCE or <http://www.gnu.org/licenses/#GPL>
+#          see /ECB2/LICENCE or <http://www.gnu.org/licenses/gpl-3.0.html>
 # Homepage: http://dev.cmsmadesimple.org/projects/ecb2
 #-----------------------------------------------------------------------------
 # A fork of module: Extended Content Blocks (ECB)
@@ -25,7 +25,7 @@
 # If not, see <https://www.gnu.org/licenses/gpl-3.0.html>.
 #-----------------------------------------------------------------------------
 
-//use CMSMS\CapabilityType as CmsCoreCapabilities; // remove this for CMSMS2
+use CMSMS\CapabilityType as CmsCoreCapabilities; // remove this for CMSMS2
 
 define('ECB2_SANITIZE_STRING', 0x281); // global const (= FILTER_SANITIZE_STRING + 0x80, unused by PHP)
 
@@ -84,7 +84,7 @@ class ECB2 extends CMSModule
         'timepicker' => 'date_time_picker'
     ];
     const OUTPUT_FORMAT_DEFAULT = 'string';
-    const OUTPUT_FORMAT = [ // 'string' (default), 'array', 'array_or_string' or 'object'.
+    const OUTPUT_FORMAT = [ // 'string' (default), 'array','array_or_string','object','string_separated'
         'gallery' => 'object',
         'group' => 'object',
         'textinput' => 'array_or_string',
@@ -104,7 +104,7 @@ class ECB2 extends CMSModule
     {
         parent::__construct();
 
-        spl_autoload_register([$this, 'AutoLoader']);
+//        spl_autoload_register([$this, 'AutoLoader']); // for CMSMS2
 
         \CMSMS\HookManager::add_hook('Core::ContentEditPre', [$this, 'ContentEditPre']);
     }
@@ -112,10 +112,10 @@ class ECB2 extends CMSModule
     public function GetName() { return 'ECB2'; }
     public function GetFriendlyName() { return $this->Lang('friendlyname'); }
     public function GetVersion() { return self::MODULE_VERSION; }
-    public function MinimumCMSVersion() { return '2.0'; }
-    public function LazyLoadFrontend() { return true; } // CHECKME ??
+    public function MinimumCMSVersion() { return '2.2.19'; }
+//  public function LazyLoadFrontend() { return true; } // probably required for most pages
     public function GetAuthor() { return 'Chris Taylor'; }
-    public function GetAuthorEmail() { return 'TODOchris@cmsmadesimple.org'; }
+    public function GetAuthorEmail() { return 'chris@binnovative.co.uk'; }
     public function GetChangeLog() { return $this->ProcessTemplate('admin_changelog.tpl'); }
     public function GetDescription() { return $this->Lang('module_description'); }
     public function GetHelp() { return $this->get_admin(true); }
@@ -419,10 +419,10 @@ EOS;
         }
     }
 
-    /**
-     *  ECB2 module classes autoloader
+    /* *
+     *  ECB2 module classes autoloader for CMSMS2
      *  Sooner or later, the main CMSMS autoloader will handle this sort of thing
-     */
+     * /
     private function AutoLoader($classname)
     {
         if (($p = strpos($classname, 'ECB2\\')) === 0 || ($p == 1 && $classname[0] == '\\')) {
@@ -439,7 +439,7 @@ EOS;
             }
         }
     }
-
+*/
     /**
      *  shamelessly copied from CustomGS - thanks Rolf & Jos :)
      */
