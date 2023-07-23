@@ -1,5 +1,5 @@
 {* help.gallery_picker.tpl *}
-<p>The gallery_picker creates a dropdown to choose from a selection of galleries in the Gallery module.</p>
+<p>This type of field creates a dropdown to choose from a selection of galleries in the Gallery module.</p>
 
 <fieldset>
     {$fielddef->get_demo_input()}

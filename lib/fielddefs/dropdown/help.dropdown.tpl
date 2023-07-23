@@ -1,5 +1,5 @@
 {* help.dropdown.tpl *}
-<p>Creates a dropdown (or select) that the editor can choose from the provided options. The dropdown options can be from a: comma separated list (values), module call (mod), User Defined Tag (udt), or a smarty template (template / udt). One of these parameters must be used (*).</p>
+<p>This type of field creates a dropdown (or select) that the editor can choose from the provided options. The dropdown options can be from a: comma separated list (values), module call (mod), User Defined Tag (udt), or a smarty template (template / udt). One of these parameters must be used (*).</p>
 
 <fieldset>
 {$fielddef->get_demo_input(['values'=>'Apple=apple,Orange=orange,Kiwifruit=kiwifruit', 'first_value'=>'select fruit'])}
