@@ -20,7 +20,7 @@
     <li>admin_groups (optional) - a comma separated list of admin groups that can view & edit this field</li>
     <li>description (optional) - adds additional text explanation for editor</li>
 </ul>
-<p>Note: for backwards compatibility, an '<b>input_repeater</b>' field will still be output as a single string, with each separate field delimited by '||'. To make the output a more useful array use 'explode', e.g. {literal}{"||"|explode:$content_block_name}{/literal}. To output as an array, use the '<b>assign</b>' parameter.</p>
+<p>Note: for backwards compatibility, an '<b>input_repeater</b>' field will still be output as a single string, with each separate field delimited by '||'. To make the output a more useful array use 'explode', e.g. {literal}{'||'|adjust:'explode':$content_block_name}{/literal}. To output as an array, use the '<b>assign</b>' parameter.</p>
 
 
 <fieldset>
