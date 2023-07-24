@@ -25,10 +25,7 @@ if (version_compare($oldversion, '1.8') < 0) {
     // remove sub dirs
     $dirsToRemove = ['/lib/js/images', '/icons'];
     foreach ($dirsToRemove as $delDir) {
-        foreach (glob($module_path.$delDir.'/*.*') as $filename) {
-            @unlink($filename);
-        }
-        @rmdir($module_path.$delDir);
+        recursive_delete($module_path.$delDir);
     }
     // individual files to remove
     $filesToRemove = ['/lib/js/mColorPicker.min.js', '/changelog.inc', '/lib/js/jquery-ui-timepicker-addon.js',
@@ -42,12 +39,7 @@ if (version_compare($oldversion, '2.0') < 0) {
     // remove sub dirs
     $dirsToRemove = ['/lib/fielddefs/input_repeater'];
     foreach ($dirsToRemove as $delDir) {
-        if (file_exists($module_path.$delDir)) {
-            foreach (glob($module_path.$delDir.'/*.*') as $filename) {
-                @unlink($filename);
-            }
-            @rmdir($module_path.$delDir);
-        }
+        recursive_delete($module_path.$delDir);
     }
     // individual files to remove
     $filesToRemove = [
@@ -84,8 +76,7 @@ if (version_compare($oldversion, '2.3') <= 0) { // if v2.3 or lower
     $dirsToRemove = ['/test'];
     foreach ($dirsToRemove as $delDir) {
         if (file_exists($module_path.$delDir)) {
-            foreach (glob($module_path.$delDir.'/*.*') as $filename) @unlink($filename);
-            @rmdir($module_path.$delDir);
+            recursive_delete($module_path.$delDir);
         }
     }
     $filesToRemove = ['/templates/ECB2_Test_Template.tpl'];
