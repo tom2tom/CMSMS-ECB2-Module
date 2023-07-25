@@ -96,14 +96,14 @@ $lang['general_c'] = <<<'EOD'
 <pre>{content_module module=ECB2 field=some_field_type block='some name' ...}</pre>
 <p>All ECB2 tags must, or may, include the following parameters:</p>
 <ul>
-    <li>module (required if using {content_module} - 'ECB2'</li>
-    <li>field (required) - one of ECB2 field types below</li>
-    <li>block (required) - the name of the content block</li>
-    <li>label (optional) - A label for the content block for use when editing the page.</li>
-    <li>required (optional) - Allows specifying that the content block must contain some text.</li>
-    <li>tab (optional) - The desired tab to display this field on in the edit form.<br>Use the following to show on a core tab: tab='zz_1nav_tab__', 'zz_2logic_tab__', or 'zz_3options_tab__'.</li>
-    <li>priority (optional) integer - Allows specifying an integer priority for the block within the tab.</li>
-    <li>assign (optional) string - Assign the results to a Smarty variable with that name.</li>
+    <li>module (required if using {content_module}) - 'ECB2'.</li>
+    <li>field (required) - one of the ECB2 field types below.</li>
+    <li>block (required) - the name of the content block.</li>
+    <li>label (optional) - a label for the content block for use when editing the page.</li>
+    <li>required (optional) - allows specifying that the content block must contain some text.</li>
+    <li>tab (optional) - the desired tab to display this field on in the edit form.<br>Use the following to show on a core tab: tab='zz_1nav_tab__', 'zz_2logic_tab__', or 'zz_3options_tab__'.</li>
+    <li>priority (optional) integer - allows specifying an integer priority for the block within the tab.</li>
+    <li>assign (optional) string - assign the results to a Smarty variable with that name.</li>
 </ul>
 
 <p><b>Smarty tips</b>: parameter values that are single-word strings do not have to be quoted e.g. field=checkbox is the same as field='checkbox'. If parameter values have double quotes, simple Smarty variables or tags may be included, like var="test $foo {counter} test".<br>See <a href="//www.smarty.net/docs/en/language.syntax.quotes.tpl" target="_blank">Smarty docs</a> for details.</p>
