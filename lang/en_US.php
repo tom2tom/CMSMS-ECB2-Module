@@ -97,7 +97,7 @@ $lang['general_c'] = <<<'EOD'
 <p>All ECB2 tags must, or may, include the following parameters:</p>
 <ul>
     <li>module (required if using {content_module}) - 'ECB2'.</li>
-    <li>field (required) - one of the ECB2 field types below.</li>
+    <li>field (required) - one of the listed ECB2 field types.</li>
     <li>block (required) - the name of the content block.</li>
     <li>label (optional) - a label for the content block for use when editing the page.</li>
     <li>required (optional) - allows specifying that the content block must contain some text.</li>
