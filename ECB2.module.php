@@ -104,7 +104,7 @@ class ECB2 extends CMSModule
     {
         parent::__construct();
 
-//        spl_autoload_register([$this, 'AutoLoader']); // for CMSMS2
+        spl_autoload_register([$this, 'AutoLoader']);
 
         \CMSMS\HookManager::add_hook('Core::ContentEditPre', [$this, 'ContentEditPre']);
     }
@@ -419,10 +419,9 @@ EOS;
         }
     }
 
-    /* *
-     *  ECB2 module classes autoloader for CMSMS2
-     *  Sooner or later, the main CMSMS autoloader will handle this sort of thing
-     * /
+    /**
+     *  ECB2 module classes autoloader
+     */
     private function AutoLoader($classname)
     {
         if (($p = strpos($classname, 'ECB2\\')) === 0 || ($p == 1 && $classname[0] == '\\')) {
@@ -439,7 +438,7 @@ EOS;
             }
         }
     }
-*/
+
     /**
      *  shamelessly copied from CustomGS - thanks Rolf & Jos :)
      */
