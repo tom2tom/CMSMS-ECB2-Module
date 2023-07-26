@@ -421,6 +421,8 @@ EOS;
 
     /**
      *  ECB2 module classes autoloader
+     *  Needed because field-class namespaces do not entirely map to
+     *  their directories-tree position
      */
     private function AutoLoader($classname)
     {
