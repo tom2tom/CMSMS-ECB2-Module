@@ -26,7 +26,7 @@ class Blocks
         //  create module_ecb2_blocks table
         $db = CmsApp::get_instance()->GetDb();
         $dict = NewDataDictionary($db);
-        $taboptarray = ['mysql' => 'TYPE=MyISAM'];
+        $taboptarray = ['mysqli' => 'ENGINE=MyISAM', 'mysql' => 'ENGINE=MyISAM'];
         $fields = '
             id       I KEY AUTO,
             type     C(25) NOTNULL,
