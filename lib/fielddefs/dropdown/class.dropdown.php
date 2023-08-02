@@ -34,7 +34,7 @@ class dropdown extends FieldDefBase
      *      see: https://www.php.net/manual/en/filter.filters.php
      *  $this->restrict_params - optionally allow any other parameters to be included, e.g. module calls
      */
-    public function set_field_parameters()
+    public function set_field_parameters()//: void
     {
         $this->restrict_params = false;    // default: TRUE - needed for module call
         $this->parameter_aliases = [
@@ -63,7 +63,7 @@ class dropdown extends FieldDefBase
     /**
      *  @return string complete content block
      */
-    public function get_content_block_input()
+    public function get_content_block_input()//: string
     {
         if (!empty($this->options['admin_groups']) &&
              !$this->is_valid_group_member($this->options['admin_groups'])) {
@@ -158,7 +158,7 @@ class dropdown extends FieldDefBase
      *
      *  @return string formatted json containing all field data ready to be saved & output
      */
-    public function get_content_block_value($inputArray)
+    public function get_content_block_value($inputArray)//: string
     {
         if (!$this->is_sub_field) {
             // return comma separated list

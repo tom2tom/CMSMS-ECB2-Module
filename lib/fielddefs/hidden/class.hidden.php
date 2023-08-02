@@ -34,7 +34,7 @@ class hidden extends FieldDefBase
      *      see: https://www.php.net/manual/en/filter.filters.php
      *  $this->restrict_params - optionally allow any other parameters to be included, e.g. module calls
      */
-    public function set_field_parameters()
+    public function set_field_parameters()//: void
     {
         $this->default_parameters = [
             'value' => ['default' => '',    'filter' => ECB2_SANITIZE_STRING],
@@ -47,7 +47,7 @@ class hidden extends FieldDefBase
     /**
      *  @return string complete content block
      */
-    public function get_content_block_input()
+    public function get_content_block_input()//: string
     {
         $smarty = CmsApp::get_instance()->GetSmarty();
         $tpl = $smarty->CreateTemplate('string:'.$this->get_template(), null, null, $smarty);

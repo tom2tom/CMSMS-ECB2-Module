@@ -143,7 +143,7 @@ class ECB2 extends CMSModule
      *  @param boolean $help_only - only output the help tabs
      *  @return string admin page content - uses smarty templates
      */
-    public function get_admin($help_only = false)
+    public function get_admin($help_only = false)//: string
     {
         $output = $this->get_admin_css_js(false);
         $smarty = CmsApp::get_instance()->GetSmarty();
@@ -198,9 +198,9 @@ class ECB2 extends CMSModule
     /**
      *  load ECB2 admin js & css - but only once! - e.g. if first ECB2 content block on the page
      *  all js & css should be in these combined files (for now)
-     *  @return string - html to load js & css
+     *  @return string - html to load js & css or maybe empty
      */
-    public function get_admin_css_js($echo_now = false)
+    public function get_admin_css_js($echo_now = false)//: string
     {
         if (cms_utils::get_app_data('ECB2_js_css_loaded')) {
             if ($echo_now) {
@@ -229,9 +229,9 @@ EOS;
      * @param array $params
      * @param boolean $adding flag whether this a new page is being processed
      * @param object $content_obj the page properties
-     * @return string
+     * @return mixed (here, a string)
      */
-    public function GetContentBlockFieldInput($blockName, $value, $params, $adding, $content_obj)
+    public function GetContentBlockFieldInput(/*string */$blockName, /*mixed */$value, /*array */$params, /*bool*/$adding, /*object*/$content_obj)//: mixed
     {
         if (empty($params['field'])) {
             return $this->error_msg($this->Lang('field_error', $blockName));
@@ -269,7 +269,7 @@ EOS;
      *  @param object $content_obj - The content object being edited.
      *  @return mixed|false The content block value if possible.
      */
-    public function GetContentBlockFieldValue($blockName, $blockParams, $inputParams, $content_obj)
+    public function GetContentBlockFieldValue(/*string */$blockName, /*array */$blockParams, /*array */$inputParams, /*object */$content_obj)//: mixed
     {
         // returned strings are stored in the default 'content_props' table as a string
         // arrays are always stored as json in 'content_props'
@@ -304,7 +304,7 @@ EOS;
      *  @param object $content_obj - The content object being edited.
      *  @return string The content block value if possible.
      */
-    public function RenderContentBlockField($blockName, $value, $blockparams, $content_obj)
+    public function RenderContentBlockField(/*string */$blockName, /*string */$value, /*array */$blockparams, /*object */$content_obj)//: string
     {
         $json_data = json_decode($value);
         if (json_last_error() === JSON_ERROR_NONE && $json_data != $value) {
@@ -313,37 +313,31 @@ EOS;
             switch ($this->OutputFormat($blockparams)) {
                 case 'string':
                     return $json_data->values[0];
-                    break;
 
                 case 'string_separated':      // e.g. 'input_repeater' & 'assign' not set
                     return implode('||', $json_data->values);
-                    break;
 
                 case 'array':
                     return isset($json_data->values) ? $json_data->values : [];
-                    break;
 
                 case 'object':
                     return $json_data;
-                    break;
             }
         } else {    // $value is a string
             switch ($this->OutputFormat($blockparams)) {
                 case 'string':
                     return $value;
-                    break;
 
                 case 'array':
                     return explode('||', $value);
-                    break;
 
                 case 'object':
                     $field_object = new stdClass();
                     $field_object->values[] = $value;
                     return $field_object;
-                    break;
             }
         }
+        return null;
     }
 
 /* not used  ValidateContentBlockFieldValue( $blockName, $value, $blockparams, $content_obj )
@@ -359,7 +353,7 @@ EOS;
      *  @param object $content_obj - The content object being edited.
      *  @return string An error message if the value is invalid, empty otherwise.
      * /
-    public function ValidateContentBlockFieldValue( $blockName, $value, $blockparams, $content_obj )
+    public function ValidateContentBlockFieldValue( $blockName, $value, $blockparams, $content_obj )//: string
     {
         return '';
     }
@@ -368,7 +362,7 @@ EOS;
      *  clears Stylesheet cache if that option is required for an ECB2 field where the value has changed
      *      e.g. color_picker
      */
-    public function ContentEditPre($params)
+    public function ContentEditPre($params)//: void
     {
         $contentId = $params['content']->Id();
         $props = $params['content']->GetEditableProperties();
@@ -397,7 +391,7 @@ EOS;
     /**
      *  @return string html error message
      */
-    public function error_msg($msg)
+    public function error_msg($msg)//: string
     {
         return '<div class="pagewarning">'.$msg.'</div><br>';
     }
@@ -409,7 +403,7 @@ EOS;
      * @param callable  function name or array or
      *  static method identifier like classname::method
      */
-    public function register_modifier($name, $handler)
+    public function register_modifier($name, $handler)//: void
     {
         static $regdone = [];
         if (!isset($regdone[$name])) {
@@ -424,7 +418,7 @@ EOS;
      *  Needed because field-class namespaces do not entirely map to
      *  their directories-tree position
      */
-    private function AutoLoader($classname)
+    private function AutoLoader($classname)//: void
     {
         if (($p = strpos($classname, 'ECB2\\')) === 0 || ($p == 1 && $classname[0] == '\\')) {
             $fp = __DIR__.DIRECTORY_SEPARATOR.'lib';
@@ -444,7 +438,7 @@ EOS;
     /**
      *  shamelessly copied from CustomGS - thanks Rolf & Jos :)
      */
-    private function ClearStylesheetCache()
+    private function ClearStylesheetCache()//: void
     {
         foreach (glob('../tmp/cache/stylesheet_combined_*.css') as $filename) {
             touch($filename, time() - 360000);
@@ -454,7 +448,7 @@ EOS;
     /**
      *  updates params if field alias has been used - also sets 'field_alias_used'
      */
-    private function HandleFieldAliases(&$params)
+    private function HandleFieldAliases(/*array */&$params)//: void
     {
         if (!in_array($params['field'], self::FIELD_TYPES) &&
               array_key_exists($params['field'], self::FIELD_ALIASES)) {
@@ -468,7 +462,7 @@ EOS;
      *   note: not 'array_or_string' - this method decides which is required
      *  @param array $blockparams - options set for this field block
      */
-    private function OutputFormat($blockparams)
+    private function OutputFormat($blockparams)//: string
     {
         if (!isset(self::OUTPUT_FORMAT[$blockparams['field']])) {
             return self::OUTPUT_FORMAT_DEFAULT;
@@ -480,7 +474,6 @@ EOS;
             case 'array':
             case 'object':
                 return self::OUTPUT_FORMAT[$blockparams['field']];
-                break;
 
             case 'array_or_string' :
                 if (empty($blockparams['repeater'])) {
@@ -488,7 +481,6 @@ EOS;
                 } else {
                     return 'array';
                 }
-                break;
 
             default:
                 return self::OUTPUT_FORMAT_DEFAULT;

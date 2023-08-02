@@ -91,14 +91,14 @@ abstract class FieldDefBase
      *  get content block
      *  @return string
      */
-    abstract public function get_content_block_input();
+    abstract public function get_content_block_input();//: string;
 
     /**
      *  create a set of sub_fields from Content Block subX_params ...
      *  sets $this->sub_fields with array of sub_field ECB2\FieldDef's
      *  @param array $params - all Content Block params
      */
-    public function create_sub_fields($params)
+    public function create_sub_fields($params)//: void
     {
         $sub_params = [];
         $sub_field_list = []; //UNUSED
@@ -172,7 +172,7 @@ abstract class FieldDefBase
      *  @param object $fields - all values for the entire row of fields in a group
      *  @param integer $row_number - to be used to group all row values together
      */
-    public function set_sub_field_value($fields, $row_number)
+    public function set_sub_field_value($fields, $row_number)//: void
     {
         $this->value = ''; // reset
         $this->values = ''; // reset
@@ -197,7 +197,7 @@ abstract class FieldDefBase
     /**
      *  @return string Label for the field - defaults to block_name if label not set
      */
-    public function get_field_label()
+    public function get_field_label()//: string
     {
         return (!empty($this->options['label'])) ? $this->options['label'] : $this->block_name;
     }
@@ -205,7 +205,7 @@ abstract class FieldDefBase
     /**
      *  @return stringif i.e. 'inline_label' set return FALSE - default TRUE
      */
-    public function is_field_label_visible()
+    public function is_field_label_visible()//: bool
     {
         return (empty($this->options['inline_label']));
     }
@@ -214,7 +214,7 @@ abstract class FieldDefBase
      *  sets the fielddef as a sub_field and sets the sub_parent_block
      *  @param string $parent_block_name - block_name of the parent block
      */
-    public function set_as_subfield($parent_block_name)
+    public function set_as_subfield($parent_block_name)//: void
     {
         $this->is_sub_field = true;
         $this->sub_parent_block = $parent_block_name;
@@ -223,7 +223,7 @@ abstract class FieldDefBase
     /**
      *  returns the field type
      */
-    public function get_type()
+    public function get_type()//: string
     {
         return $this->field;
     }
@@ -231,7 +231,7 @@ abstract class FieldDefBase
     /**
      *  @return string formatted html from smarty help template
      */
-    public function get_field_help()
+    public function get_field_help()//: string
     {
         $help_filename = $this->mod->GetModulePath() .DIRECTORY_SEPARATOR. 'lib' .DIRECTORY_SEPARATOR.
             'fielddefs' .DIRECTORY_SEPARATOR. $this->field .DIRECTORY_SEPARATOR.
@@ -247,7 +247,7 @@ abstract class FieldDefBase
     /**
      *  @return string formatted html from smarty help template
      */
-    public function get_demo_input($params = [])
+    public function get_demo_input($params = [])//: string
     {
         $params['field'] = $this->field;
         $this->value = '';
@@ -282,7 +282,7 @@ abstract class FieldDefBase
      *
      *  @return string formatted json containing all field data ready to be saved & output
      */
-    public function get_content_block_value($inputArray)
+    public function get_content_block_value($inputArray)//: string
     {
         $this->field_object = $this->create_field_object($inputArray);
 
@@ -301,7 +301,7 @@ abstract class FieldDefBase
     /**
      *  sets the allowed parameters for this field type, $this->parameters & $this->restrict_params
      */
-    abstract protected function set_field_parameters();
+    abstract protected function set_field_parameters();//: void;
 
     /**
      *  COMMON METHODS - may be overridden by some field types
@@ -313,7 +313,7 @@ abstract class FieldDefBase
      *
      *  @param array $value - saved content block value
      */
-    protected function get_values($value)
+    protected function get_values($value)//: void
     {
         if ($value) {
             $json_data = json_decode($value);
@@ -343,7 +343,7 @@ abstract class FieldDefBase
      * @param string $value
      * @return string
      */
-    protected function sanitize_string($value)
+    protected function sanitize_string($value)//: string
     {
         if ($value) {
             $tmp = preg_replace(['/<[^>]*>/','/<\s*\?\s*php.*$/i','/<\s*\?\s*=.*$/'],['','',''],$value);
@@ -356,7 +356,7 @@ abstract class FieldDefBase
      *  sets all defined 'options' and defaults if necessary
      *  @param array $params - all Content Block params
      */
-    protected function initialise_options($params)
+    protected function initialise_options($params)//: void
     {
         $this->field = $params['field'];    // only valid field names can get to here
         unset($params['field']);
@@ -417,7 +417,7 @@ abstract class FieldDefBase
      *  retrieved from cached_template if already read and saved
      *  see LISEFielddefBase for ideas :)
      */
-    protected function get_template()
+    protected function get_template()//: string
     {
         if (!empty($this->cached_template)) {
             return $this->cached_template;
@@ -439,7 +439,7 @@ abstract class FieldDefBase
      *  @return array of 'value' => 'Text'
      *  @param string $comma_separated_list of 'Text' or 'Text=value' e.g. 'Apple=apple,Orange=orange,...'
      */
-    protected function get_array_from_csl($comma_separated_list)
+    protected function get_array_from_csl($comma_separated_list)//: array
     {
         $value_options = [];
         if (!empty($comma_separated_list)) {
@@ -467,7 +467,7 @@ abstract class FieldDefBase
      *                      - set $options array of 'value' => 'Text' with scope=global, or
      *                      - a comma separated list of 'Text,...' or 'Text=value,...'
      */
-    protected function get_values_from_module($module_name, $module_params = [], $exclude_options = [])
+    protected function get_values_from_module($module_name, $module_params = [], $exclude_options = [])//: array
     {
         $module = cms_utils::get_module($module_name);
         if (!$module) {
@@ -504,7 +504,7 @@ abstract class FieldDefBase
      *                      - an array of 'Text' => 'value' - don't ask it's a legacy thing!
      *                      - a comma separated list of 'Text,...' or 'Text=value,...'
      */
-    protected function get_values_from_udt($udt_name)
+    protected function get_values_from_udt($udt_name)//: array
     {
         if (!UserTagOperations::get_instance()->UserTagExists($this->options['udt'])) {
             $this->error = $this->mod->Lang('udt_error', $this->options['udt']);
@@ -526,7 +526,7 @@ abstract class FieldDefBase
      *                      - set $options array of 'value' => 'Text' with scope=global, or
      *                      - a comma separated list of 'Text,...' or 'Text=value,...'
      */
-    protected function get_values_from_template($template_name)
+    protected function get_values_from_template($template_name)//: array
     {
         $smarty = CmsApp::get_instance()->GetSmarty();
 
@@ -552,7 +552,7 @@ abstract class FieldDefBase
      *  @param string $customgs_field - needs to be a 'textarea' containing a set of 'Text' or 'Text=value',
      *      either on separate lines or separated by commas
      */
-    protected function get_values_from_customgs($customgs_field)
+    protected function get_values_from_customgs($customgs_field)//: array
     {
         $CustomGS = cms_utils::get_module('CustomGS');
         if (!is_object($CustomGS)) {
@@ -594,7 +594,7 @@ abstract class FieldDefBase
      *            [param1] => 'some_text_string'
      *        )
      */
-    protected function create_field_object($inputArray = [])
+    protected function create_field_object($inputArray = [])//: stdClass
     {
         $field_object = new stdClass();
 //      $sub_fields = [];
@@ -633,7 +633,7 @@ abstract class FieldDefBase
      *  @param array $inputArray - 1 or more array items from editing the ECB2 field
      *  @return string json encoded $this->field_obj
      */
-    protected function ECB2_json_encode_field_object()
+    protected function ECB2_json_encode_field_object()//: string
     {
         return json_encode($this->field_object, JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
     }
@@ -644,15 +644,15 @@ abstract class FieldDefBase
      *  @param string $valid_admin_groups - comma separated list of admin groups allowed to access this field
      *  @return bool - true if user can view & edit this field / content block
      */
-    protected function is_valid_group_member($valid_admin_groups = '')
+    protected function is_valid_group_member($valid_admin_groups = '')//: bool
     {
         if (!empty($valid_admin_groups) && !$this->mod->CheckPermission('Manage All Content')) {
             // manage all content is just that... manage everything.
             // groups are specified, and we don't get superuser privilege.
             $my_uid = get_userid(false);
             if ($my_uid <= 0) {
-                return false;
-            } // not loggedin?
+                return false; // nobody loggedin?
+            }
 
             $allgroups = [];
             // get a hash of all of the groups and ids.
@@ -717,7 +717,7 @@ abstract class FieldDefBase
      *
      *  @return string - hidden field template
      */
-    protected function hidden_field() //TODO c.f. namespacing for other fields
+    protected function hidden_field()//: string TODO c.f. namespacing for other fields
     {
         $smarty = CmsApp::get_instance()->GetSmarty();
         $tpl = $smarty->CreateTemplate($this->mod->GetTemplateResource('admin_hidden_field.tpl'), null, null, $smarty);

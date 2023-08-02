@@ -51,7 +51,7 @@ class Profile implements ArrayAccess
 	}
 
 	#[\ReturnTypeWillChange]
-	public function offsetGet(/*mixed */$key)// : mixed
+	public function offsetGet(/*mixed */$key)//: mixed
 	{
 		switch( $key ) {
 		case 'menubar':
@@ -84,7 +84,7 @@ class Profile implements ArrayAccess
 	}
 
 	#[\ReturnTypeWillChange]
-	public function offsetSet(/*mixed */$key,$value)// : void
+	public function offsetSet(/*mixed */$key,$value)//: void
 	{
 		switch( $key ) {
 		case 'menubar':
@@ -114,7 +114,7 @@ class Profile implements ArrayAccess
 	}
 
 	#[\ReturnTypeWillChange]
-	public function offsetExists(/*mixed */$key)// : bool
+	public function offsetExists(/*mixed */$key)//: bool
 	{
 		if( in_array($key, self::KEYS) ) return isset($this->_data[$key]);
 
@@ -122,7 +122,7 @@ class Profile implements ArrayAccess
 	}
 
 	#[\ReturnTypeWillChange]
-	public function offsetUnset(/*mixed */$key)// : void
+	public function offsetUnset(/*mixed */$key)//: void
 	{
 		switch( $key ) {
 		case 'menubar':
@@ -146,7 +146,7 @@ class Profile implements ArrayAccess
 		}
 	}
 
-	public function save()// : void
+	public function save()//: void
 	{
 		if( !isset($this->_data['name']) || $this->_data['name'] == '' ) {
 			throw new CmsDataException('No name provided for ECB2 profile');
@@ -156,14 +156,14 @@ class Profile implements ArrayAccess
 		self::_get_module()->SetPreference('profile_'.$this->_data['name'],$data);
 	}
 
-	public function delete()// : void
+	public function delete()//: void
 	{
 		if( $this['name'] == '' ) return;
 		self::_get_module()->RemovePreference('profile_'.$this['name']);
 		unset($this->_data['name']);
 	}
 
-	private static function _load_from_data($data)// : Profile
+	private static function _load_from_data($data)//: Profile
 	{
 		if( !$data || !is_array($data) ) { throw new LogicException('Invalid data provided to '.__METHOD__); }
 
@@ -175,12 +175,12 @@ class Profile implements ArrayAccess
 		return $obj;
 	}
 
-	public static function set_module(ECB2 $module)// : void
+	public static function set_module(ECB2 $module)//: void
 	{
 		self::$_module = $module;
 	}
 
-	private static function _get_module()// : ECB2
+	private static function _get_module()//: ECB2
 	{
 		if( !is_object(self::$_module) ) {
 			self::$_module = cms_utils::get_module('ECB2');
@@ -198,9 +198,9 @@ class Profile implements ArrayAccess
 	 * @return mixed self|null
 	 * @throws UnexpectedValueException
 	 */
-	public static function load($name)// : mixed
+	public static function load($name)//: mixed
 	{
-		if( $name == '' ) return;
+		if( $name == '' ) return null;
 		$data = self::_get_module()->GetPreference('profile_'.$name);
 		if( !$data ) throw new UnexpectedValueException('Unknown ECB2 profile '.$name);
 		$props = json_decode($data,true);

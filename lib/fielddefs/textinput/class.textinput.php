@@ -41,7 +41,7 @@ class textinput extends FieldDefBase
      *      see: https://www.php.net/manual/en/filter.filters.php
      *  $this->restrict_params - optionally allow any other parameters to be included, e.g. module calls
      */
-    public function set_field_parameters()
+    public function set_field_parameters()//: void
     {
         $this->parameter_aliases = [
             'default_value' => 'default'
@@ -64,7 +64,7 @@ class textinput extends FieldDefBase
     /**
      *  @return string complete content block
      */
-    public function get_content_block_input()
+    public function get_content_block_input()//: string
     {
         if (!empty($this->options['admin_groups']) &&
              !$this->is_valid_group_member($this->options['admin_groups'])) {
@@ -118,7 +118,7 @@ class textinput extends FieldDefBase
      * @param int $limit optional max number of parts in the result
      * @return array
      */
-    public static function modifier($delimiter, $value, $limit = PHP_INT_MAX)
+    public static function modifier($delimiter, $value, $limit = PHP_INT_MAX)//: array
     {
         return explode((string)$delimiter, (string)$value, $limit);
     }

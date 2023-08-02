@@ -16,7 +16,7 @@ if (!defined('CMS_VERSION')) {
 // mimic deprecated filter_var( ,FILTER_SANITIZE_STRING)
 // unlike strip_tags(), this does not remove unclosed tags unless they're PHP tags
 // see also ECB2\FieldDefBase::sanitize_string()
-$sanitize_fn = function($value)
+$sanitize_fn = function(/*string */$value)//: string
 {
     if ($value) {
         $tmp = preg_replace(['/<[^>]*>/','/<\s*\?\s*php.*$/i','/<\s*\?\s*=.*$/'], ['','',''], $value);

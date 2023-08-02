@@ -34,7 +34,7 @@ class sortablelist extends FieldDefBase
      *      see: https://www.php.net/manual/en/filter.filters.php
      *  $this->restrict_params - optionally allow any other parameters to be included, e.g. module calls
      */
-    public function set_field_parameters()
+    public function set_field_parameters()//: void
     {
         $this->restrict_params = false;    // default: TRUE - needed for module call
         $this->parameter_aliases = [
@@ -62,7 +62,7 @@ class sortablelist extends FieldDefBase
     /**
      *  @return string complete content block
      */
-    public function get_content_block_input()
+    public function get_content_block_input()//: string
     {
         if (!empty($this->options['admin_groups']) &&
              !$this->is_valid_group_member($this->options['admin_groups'])) {
@@ -174,7 +174,7 @@ class sortablelist extends FieldDefBase
         }
         // create $optionsarray of key => text from comma separated string of 'key=text,key2=text2'
         $optionsarray = explode(',', $this->options["values"]);
-        if (empty($optionsarray)) return;
+        if (empty($optionsarray)) return '';
         foreach ($optionsarray as $option) {
             if ($option!='') {
                 $key_val = explode('=', $option);

@@ -34,7 +34,7 @@ class admin_fieldset_end extends FieldDefBase
      *      see: https://www.php.net/manual/en/filter.filters.php
      *  $this->restrict_params - optionally allow any other parameters to be included, e.g. module calls
      */
-    public function set_field_parameters()
+    public function set_field_parameters()//: void
     {
         $this->default_parameters = [
             'admin_groups' => ['default' => '',    'filter' => ECB2_SANITIZE_STRING]
@@ -46,7 +46,7 @@ class admin_fieldset_end extends FieldDefBase
     /**
      *  @return string complete content block
      */
-    public function get_content_block_input()
+    public function get_content_block_input()//: string
     {
         if (!empty($this->options['admin_groups']) &&
              !$this->is_valid_group_member($this->options['admin_groups'])) {

@@ -21,7 +21,7 @@ class Blocks
     /**
      *  to be used for module install/upgrade only
      */
-    public function create_database()
+    public function create_database()//: void
     {
         //  create module_ecb2_blocks table
         $db = CmsApp::get_instance()->GetDb();
@@ -42,7 +42,7 @@ class Blocks
     /**
      *  to be used for module uninstall only
      */
-    public function remove_database()
+    public function remove_database()//: void
     {
         $db = CmsApp::get_instance()->GetDb();
         $dict = NewDataDictionary($db);

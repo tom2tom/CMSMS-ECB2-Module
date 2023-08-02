@@ -28,7 +28,7 @@ class FileUtils
     /**
      *  @return string path to ECB2 images temp sub dir: /ECB2_IMAGE_DIR/ECB2_IMAGE_TEMP_DIR
      */
-    public static function ECB2ImagesTempPath()
+    public static function ECB2ImagesTempPath()//: string
     {
         $config = cmsms()->GetConfig();
         return cms_join_path(
@@ -45,7 +45,7 @@ class FileUtils
      *  @param string $module - if not Content page (default) - not actually used yet
      *  @param string $uploads_dir - if set is a subdir of /uploads to use
      */
-    public static function ECB2ImagesPath($blockname, $id = '', $module = '', $uploads_dir = '')
+    public static function ECB2ImagesPath($blockname, $id = '', $module = '', $uploads_dir = '')//: string
     {
         $config = cmsms()->GetConfig();
         if (!empty($uploads_dir)) {
@@ -70,7 +70,7 @@ class FileUtils
      *  @param string $module - if not Content page (default) - not actually used yet
      *  @param string $uploads_dir - if set is a subdir of /uploads to use
      */
-    public static function ECB2ImagesUrl($blockname, $id, $module = '', $uploads_dir = '')
+    public static function ECB2ImagesUrl($blockname, $id, $module = '', $uploads_dir = '')//: string
     {
         $config = cmsms()->GetConfig();
         if (!empty($uploads_dir)) {
@@ -95,7 +95,7 @@ class FileUtils
      *  @param string $module - if not Content page (default) - not actually used yet
      *  @param string $uploads_dir - if set is a subdir of /uploads to use
      */
-    public static function ECB2ImagesRelativeUrl($blockname, $id, $module = '', $uploads_dir = '')
+    public static function ECB2ImagesRelativeUrl($blockname, $id, $module = '', $uploads_dir = '')//: string
     {
         $config = cmsms()->GetConfig();
         $relativeUploadsDir = str_replace(CMS_ROOT_URL, '', $config['image_uploads_url']);
@@ -122,7 +122,7 @@ class FileUtils
      *  @param string $module - if not Content page (default) - not actually used yet
      *  @param string $uploads_dir - if set is a subdir of /uploads/images to use (default)
      */
-    public static function CreateImagesDir($blockname = '', $id = '', $module = '', $uploads_dir = '')
+    public static function CreateImagesDir($blockname = '', $id = '', $module = '', $uploads_dir = '')//: bool
     {
         $success = false;
         if (!empty($uploads_dir) || !empty($blockname)) {
@@ -145,10 +145,10 @@ class FileUtils
      *  @param string $uploaded_filename - original filename to make unique
      *  @param string $dir - directory to check for unique filename
      */
-    public static function ECB2UniqueFilename($uploaded_filename, $dir = '')
+    public static function ECB2UniqueFilename($uploaded_filename, $dir = '')//: string
     {
-        if (empty($uploaded_filename)) {
-            return;
+        if (!$uploaded_filename) {
+            return '';
         }
 
         $dir_to_check = (!empty($dir)) ? $dir : self::ECB2ImagesPath();
@@ -172,7 +172,7 @@ class FileUtils
      *  @param string $original_filename - original filename of uploaded file
      *  @param string $tmp_filename - temp filename of the file on the server
      */
-    public static function ECB2MoveUploadedFile($original_filename, $tmp_filename)
+    public static function ECB2MoveUploadedFile($original_filename, $tmp_filename)//: bool
     {
         if (empty($original_filename) || empty($tmp_filename)) {
             return false;
@@ -198,7 +198,7 @@ class FileUtils
         $auto_add_delete,
         $thumb_width = 0,
         $thumb_height = 0
-    )
+    )//: void
     {
         if (empty($values) && !$auto_add_delete) {
             return;
@@ -254,7 +254,7 @@ class FileUtils
      *  @param array $values - filenames of already selected files in the dir
      *  @param string $dir - directory to be used for this gallery
      */
-    public static function autoAddDirImages(&$values, $dir, $thumbnail_width = 0, $thumbnail_height = 0)
+    public static function autoAddDirImages(&$values, $dir, $thumbnail_width = 0, $thumbnail_height = 0)//: void
     {
         $all_filenames = [];
         foreach ($values as $gallery_item) {
@@ -277,7 +277,7 @@ class FileUtils
     /**
      * @return boolean true if $haystack starts with self::THUMB_PREFIX ('thumb_')
      */
-    public static function isECB2Thumb($haystack)
+    public static function isECB2Thumb($haystack)//: bool
     {
         $length = strlen(self::THUMB_PREFIX);
         return strncmp($haystack, self::THUMB_PREFIX, $length) == 0;
@@ -294,7 +294,7 @@ class FileUtils
      *  @return boolean true if new thumbnail created
      *  based on FileManager > class.filemanager_utils
      */
-    public static function create_thumbnail($src, $thumb_width = 0, $thumb_height = 0, $dest = null, $force = false)
+    public static function create_thumbnail($src, $thumb_width = 0, $thumb_height = 0, $dest = null, $force = false)//: bool
     {
         if (!file_exists($src) || !is_file($src)) {
             return false;
@@ -364,7 +364,7 @@ class FileUtils
      *  @param string $thumb_width - width of thumbnail to be created (default: module pref, sitepref)
      *  @param string $thumb_height - height of thumbnail to be created (default: module pref, sitepref)
      */
-    public static function get_required_thumbnail_size(&$thumb_width = 0, &$thumb_height = 0)
+    public static function get_required_thumbnail_size(&$thumb_width = 0, &$thumb_height = 0)//: void
     {
         $thumb_width = (int) $thumb_width;
         $thumb_height = (int) $thumb_height;
@@ -396,7 +396,7 @@ class FileUtils
      *  @param boolean $src_y - 0 or set if height cropping required
      *  based on FileManager > class.filemanager_utils
      */
-    public static function get_thumbnail_size(&$src_width, &$src_height, &$thumb_width = 0, &$thumb_height = 0, &$src_x = 0, &$src_y = 0)
+    public static function get_thumbnail_size(&$src_width, &$src_height, &$thumb_width = 0, &$thumb_height = 0, &$src_x = 0, &$src_y = 0)//: void
     {
         self::get_required_thumbnail_size($thumb_width, $thumb_height);
 
@@ -430,7 +430,7 @@ class FileUtils
      *
      *  @return string url to access given $file
      */
-    public static function path2url($file, $Protocol = '')
+    public static function path2url($file, $Protocol = '')//: string
     {
         if (!$Protocol) {
             $Protocol = cmsms()->is_https_request() ? 'https://' : 'http://';
@@ -450,7 +450,7 @@ class FileUtils
      *  @param boolean $force - if set to TRUE will overwrite any existing thumbnail filename
      *  @return string thumbnail url for given $src image or '' if it doesn't exist
      */
-    public static function get_thumbnail_url($src, $thumb_width = 0, $thumb_height = 0, $dest = '', $force = false)
+    public static function get_thumbnail_url($src, $thumb_width = 0, $thumb_height = 0, $dest = '', $force = false)//: string
     {
         $created = self::create_thumbnail($src, $thumb_width, $thumb_height, $dest, $force);
 

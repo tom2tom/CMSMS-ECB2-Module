@@ -38,7 +38,7 @@ class group extends FieldDefBase
      *      see: https://www.php.net/manual/en/filter.filters.php
      *  $this->restrict_params - optionally allow any other parameters to be included, e.g. module calls
      */
-    public function set_field_parameters()
+    public function set_field_parameters()//: void
     {
         $this->default_parameters = [
             'max_blocks' => ['default' => 0,       'filter' => FILTER_VALIDATE_INT],
@@ -78,7 +78,7 @@ class group extends FieldDefBase
     /**
      *  @return string complete content block
      */
-    public function get_content_block_input()
+    public function get_content_block_input()//: string
     {
         if (!empty($this->options['admin_groups']) &&
              !$this->is_valid_group_member($this->options['admin_groups'])) {
@@ -116,7 +116,7 @@ class group extends FieldDefBase
      *
      *  @return string formatted json containing all field data ready to be saved & output
      */
-    public function get_content_block_value($inputArray)
+    public function get_content_block_value($inputArray)//: string
     {
         // if remove_empty option set - remove any empty groups (where all sub_fields empty)
         // or if only 1 group and it's empty return and empty 'sub_fields' object
@@ -145,7 +145,7 @@ class group extends FieldDefBase
      *
      *  @return boolean true if group is empty
      */
-    public function is_empty_group($groupArray = [])
+    public function is_empty_group($groupArray = [])//: bool
     {
         $isEmpty = true;
         foreach ($groupArray as $value) {
@@ -160,7 +160,7 @@ class group extends FieldDefBase
     /**
      *  some extra tweaks to options in addition to standard initialisation (FieldDefBase)
      */
-    protected function initialise_options($params)
+    protected function initialise_options($params)//: void
     {
         parent::initialise_options($params);
 
