@@ -5,7 +5,7 @@
     {$fielddef->get_demo_input([])}
 </fieldset>
 
-<pre>{literal}{ECB2 field=ZZZ block=test label='Test' default='a sample ZZZ'}{/literal}</pre>
+<pre>{literal}{ECB2 field=ZZZ block=test30 label='Test' default='a sample ZZZ'}{/literal}</pre>
 
 <p>Parameters:</p>
 <ul>

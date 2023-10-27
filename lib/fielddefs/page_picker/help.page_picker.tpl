@@ -5,7 +5,7 @@
     {$fielddef->get_demo_input()}
 </fieldset>
 
-<pre>{literal}{ECB2 field=page_picker label='Select a page' block=test10}{/literal}</pre>
+<pre>{literal}{ECB2 field=page_picker label='Select a page' block=test13}{/literal}</pre>
 <p>Note: sets the content page id.</p>
 
 <p>Parameters:</p>

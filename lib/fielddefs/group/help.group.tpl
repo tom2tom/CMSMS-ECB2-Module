@@ -8,7 +8,7 @@
     'sub3_field' => 'checkbox', 'sub3_name' => 'checkbox1', 'sub3_label' => 'Check this out', 'sub3_default' => '1',
     'sub4_field' => 'radio', 'sub4_name' => 'test7radio', 'sub4_label' => 'A radio', 'sub4_values' => 'Apple,Orange,Kiwifruit', 'sub4_inline' => '1'])}
 </fieldset>
-<pre>{literal}{ECB2 field=group block=test20 assign=test20
+<pre>{literal}{ECB2 field=group block=test10 assign=test10
 sub1_field=textinput sub1_name=height sub1_label='Height' sub1_size=5
 sub2_field=select sub2_name=fruit sub2_label='Fruit' sub2_values='Apple,Orange,Kiwifruit' sub2_first_value='--- select one ---'
 sub3_field=checkbox sub3_name=checkbox1 sub3_label='A checkbox' sub3_default=1

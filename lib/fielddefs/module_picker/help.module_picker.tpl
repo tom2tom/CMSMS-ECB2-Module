@@ -6,7 +6,7 @@
     {$fielddef->get_demo_input()}
 </fieldset>
 
-<pre>{literal}{ECB2 field=module block=test12 label='12: module_picker' default=FormBuilder}{/literal}</pre>
+<pre>{literal}{ECB2 field=module_picker block=test12 label='12: module_picker' default=FormBuilder}{/literal}</pre>
 
 <p>Parameters:</p>
 <ul>

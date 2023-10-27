@@ -5,7 +5,7 @@
     {$fielddef->get_demo_input(['image'=>'sample_admin_only_image.png', 'description'=>"This is an admin only image"])}
 </fieldset>
 
-<pre>{literal}{ECB2 field=admin_image image='sample_admin_only_image.png' block=test19 label="19: admin_image" description="This is an admin only image"}{/literal}</pre>
+<pre>{literal}{ECB2 field=admin_image image='sample_admin_only_image.png' block=test24 label="24: admin_image" description="This is an admin only image"}{/literal}</pre>
 
 <p>Parameters:</p>
 <ul>

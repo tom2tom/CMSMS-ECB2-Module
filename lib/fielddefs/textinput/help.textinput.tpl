@@ -5,7 +5,7 @@
 {$fielddef->get_demo_input(['size'=>55, 'max_length'=>55, 'default'=>"a sample textinput"])}
 </fieldset>
 
-<pre>{literal}{ECB2 field=textinput block=test5 label='Text' size=55 max_length=55 default='a sample textinput'}{/literal}</pre>
+<pre>{literal}{ECB2 field=textinput block=test17 label='Text' size=55 max_length=55 default='a sample textinput'}{/literal}</pre>
 
 <p>Parameters:</p>
 <ul>

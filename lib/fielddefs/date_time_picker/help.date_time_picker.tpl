@@ -5,7 +5,7 @@
     {$fielddef->get_demo_input()}
 </fieldset>
 
-<pre>{literal}{ECB2 field=date_time_picker block='test8' label='Date Time Picker'}{/literal}</pre>
+<pre>{literal}{ECB2 field=date_time_picker block=test4 label='Date Time Picker'}{/literal}</pre>
 
 <p>Parameters:</p>
 <ul>

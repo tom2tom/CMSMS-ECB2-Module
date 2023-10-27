@@ -5,7 +5,7 @@
     {$fielddef->get_demo_input(['filetypes'=>"jpg,gif,png", 'excludeprefix'=>"thumb_", 'preview'=>1, 'recurse'=>1])}
 </fieldset>
 
-<pre>{literal}{ECB2 field=file_selector block=test10 filetypes='jpg,gif,png' excludeprefix='thumb_' recurse=1 preview=1}{/literal}</pre>
+<pre>{literal}{ECB2 field=file_selector block=test7 filetypes='jpg,gif,png' excludeprefix='thumb_' recurse=1 preview=1}{/literal}</pre>
 
 <p>Parameters:</p>
 <ul>

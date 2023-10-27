@@ -5,7 +5,7 @@
     {$fielddef->get_demo_input(['values'=>"Apple=apple,Orange=orange,Kiwifruit=kiwifruit", 'default'=>"orange"])}
 </fieldset>
 
-<pre>{literal}{ECB2 field=radio block=test17 label='Fruit' values='Apple=apple,Orange=orange,Kiwifruit=kiwifruit' default='orange'}{/literal}</pre>
+<pre>{literal}{ECB2 field=radio block=test14 label='Fruit' values='Apple=apple,Orange=orange,Kiwifruit=kiwifruit' default='orange'}{/literal}</pre>
 
 <p>Parameters:</p>
 <ul>
