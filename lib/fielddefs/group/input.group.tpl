@@ -12,7 +12,7 @@
 {/if}
 
 {if $layout!='table'}
-    <div id="{$block_name}-repeater" class="ecb_repeater {$layout}-layout sortable" data-block-name="{$block_name}" data-highest-row="{$values|@count}" {if $max_blocks>0}data-max-blocks="{$max_blocks}"{/if} data-repeater-add="#{$block_name}-repeater-add">
+    <div id="{$block_name}-repeater" class="ecb_repeater {$layout}-layout sortable" data-block-name="{$block_name}" data-highest-row="{count($values)}"{if $max_blocks>0} data-max-blocks="{$max_blocks}"{/if} data-repeater-add="#{$block_name}-repeater-add">
 
         <div class="repeater-wrapper-template sortable-item" style="display:none;">
             <div class="left-panel handle">
@@ -52,7 +52,7 @@
     </div>
 {else}{* layout 'table' *}
     <div class="table-responsive">
-        <table id="{$block_name}-repeater" class="ecb_repeater sortable {$layout}-layout" data-block-name="{$block_name}" data-highest-row="{$values|@count}" {if $max_blocks>0}data-max-blocks="{$max_blocks}"{/if} data-repeater-add="#{$block_name}-repeater-add">
+        <table id="{$block_name}-repeater" class="ecb_repeater sortable {$layout}-layout" data-block-name="{$block_name}" data-highest-row="{count($values)}"{if $max_blocks>0} data-max-blocks="{$max_blocks}"{/if} data-repeater-add="#{$block_name}-repeater-add">
             <thead>
                 <tr class="repeater-wrapper-header">
                     <th class="left-panel"></th>
@@ -104,5 +104,5 @@
 {/if}
 
     <div class="ecb_repeater_footer">
-        <button id="{$block_name}-repeater-add" class="ecb2-repeater-add ecb2-btn ecb2-btn-default" data-repeater="#{$block_name}-repeater" title="{$mod->Lang('add_line')}" role="button" {if !empty($max_blocks) && $values|count>=$max_blocks} disabled aria-disabled="true"{else}aria-disabled="false"{/if}><span class="ecb2-icon-plus"></span>&nbsp;&nbsp;{$mod->Lang('add_item')}</button>
+        <button id="{$block_name}-repeater-add" class="ecb2-repeater-add ecb2-btn ecb2-btn-default" data-repeater="#{$block_name}-repeater" title="{$mod->Lang('add_line')}" role="button" {if !empty($max_blocks) && count($values)>=$max_blocks}disabled aria-disabled="true"{else}aria-disabled="false"{/if}><span class="ecb2-icon-plus"></span>&nbsp;&nbsp;{$mod->Lang('add_item')}</button>
     </div>
