@@ -25,13 +25,13 @@
 # If not, see <https://www.gnu.org/licenses/gpl-3.0.html>.
 #-----------------------------------------------------------------------------
 
-use CMSMS\CapabilityType as CmsCoreCapabilities; // remove this for CMSMS2
+use CMSMS\CapabilityType as CmsCoreCapabilities; // CMSMS3 disable for CMSMS2
 
 define('ECB2_SANITIZE_STRING', 0x281); // global const (= FILTER_SANITIZE_STRING + 0x80, unused by PHP)
 
 class ECB2 extends CMSModule
 {
-    const MODULE_VERSION = '2.4';
+    const MODULE_VERSION = '2.5';
     const MANAGE_PERM = 'manage_ecb2';
 
     const FIELD_TYPES = [
@@ -104,15 +104,15 @@ class ECB2 extends CMSModule
     {
         parent::__construct();
 
-        spl_autoload_register([$this, 'AutoLoader']);
+        spl_autoload_register([$this, 'AutoLoader']); //CMSMS2
 
-        \CMSMS\HookManager::add_hook('Core::ContentEditPre', [$this, 'ContentEditPre']);
+        \CMSMS\HookManager::add_hook('Core::ContentEditPre', [$this, 'ContentEditPre']); //CMSMS2
     }
 
     public function GetName() { return 'ECB2'; }
     public function GetFriendlyName() { return $this->Lang('friendlyname'); }
     public function GetVersion() { return self::MODULE_VERSION; }
-    public function MinimumCMSVersion() { return '2.2.19'; }
+    public function MinimumCMSVersion() { return '3.0B1'; } // 2.2 for CMSMS2 OR 3.0B1 for CMSMS3
 //  public function LazyLoadFrontend() { return true; } // probably required for most pages
     public function GetAuthor() { return 'Chris Taylor'; }
     public function GetAuthorEmail() { return 'chris@binnovative.co.uk'; }
@@ -210,7 +210,7 @@ class ECB2 extends CMSModule
         }
         $path = $this->GetModuleURLPath();
         $admin_css_js = <<<EOS
-    <link rel="stylesheet" type="text/css" href="$path/lib/css/module.min.css">
+    <link rel="stylesheet" href="$path/lib/css/module.min.css">
     <script src="$path/lib/js/module.min.js"></script>
 EOS;
         cms_utils::set_app_data('ECB2_js_css_loaded', 1);
@@ -228,7 +228,7 @@ EOS;
      * @param mixed $value Might be null
      * @param array $params
      * @param boolean $adding flag whether this a new page is being processed
-     * @param object $content_obj the page properties
+     * @param ContentBase $content_obj the page properties
      * @return mixed (here, a string)
      */
     public function GetContentBlockFieldInput(/*string */$blockName, /*mixed */$value, /*array */$params, /*bool*/$adding, /*object*/$content_obj)//: mixed
@@ -266,7 +266,7 @@ EOS;
      *  @param string $blockName - Content block name
      *  @param array $blockParams - Content block parameters
      *  @param array $inputParams - input parameters
-     *  @param object $content_obj - The content object being edited.
+     *  @param ContentBase $content_obj - The content object being edited.
      *  @return mixed|false The content block value if possible.
      */
     public function GetContentBlockFieldValue(/*string */$blockName, /*array */$blockParams, /*array */$inputParams, /*object */$content_obj)//: mixed
@@ -414,7 +414,7 @@ EOS;
     }
 
     /**
-     *  ECB2 module classes autoloader
+     *  ECB2 module classes autoloader for CMSMS2
      *  Needed because field-class namespaces do not entirely map to
      *  their directories-tree position
      */
