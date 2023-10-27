@@ -106,13 +106,13 @@ class ECB2 extends CMSModule
 
         spl_autoload_register([$this, 'AutoLoader']); //CMSMS2
 
-        \CMSMS\HookManager::add_hook('Core::ContentEditPre', [$this, 'ContentEditPre']); //CMSMS2
+        CMSMS\HookManager::add_hook('Core::ContentEditPre', [$this, 'ContentEditPre']); //CMSMS2
     }
 
     public function GetName() { return 'ECB2'; }
     public function GetFriendlyName() { return $this->Lang('friendlyname'); }
     public function GetVersion() { return self::MODULE_VERSION; }
-    public function MinimumCMSVersion() { return '3.0B1'; } // 2.2 for CMSMS2 OR 3.0B1 for CMSMS3
+    public function MinimumCMSVersion() { return '3.0B1'; } //2.2 CMSMS2 OR 3.0B1 CMSMS3
 //  public function LazyLoadFrontend() { return true; } // probably required for most pages
     public function GetAuthor() { return 'Chris Taylor'; }
     public function GetAuthorEmail() { return 'chris@binnovative.co.uk'; }
@@ -196,8 +196,9 @@ class ECB2 extends CMSModule
     }
 
     /**
-     *  load ECB2 admin js & css - but only once! - e.g. if first ECB2 content block on the page
-     *  all js & css should be in these combined files (for now)
+     *  load ECB2 admin js & css - but only once! - e.g. upon first ECB2
+     *  content block on the page all js & css should be in these combined
+     *  files (for now, individual resources TODO)
      *  @return string - html to load js & css or maybe empty
      */
     public function get_admin_css_js($echo_now = false)//: string
