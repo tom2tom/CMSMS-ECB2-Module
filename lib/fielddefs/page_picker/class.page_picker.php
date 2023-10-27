@@ -11,7 +11,7 @@ namespace ECB2\fielddefs;
 
 use CmsApp;
 use CMSMS\ContentOperations; // for CMSMS3
-//use ContentOperations;  // for CMSMS2
+//use ContentOperations; // for CMSMS2
 use ECB2\FieldDefBase;
 use const ECB2_SANITIZE_STRING;
 
