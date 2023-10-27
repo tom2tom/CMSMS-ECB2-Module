@@ -72,7 +72,7 @@ if (version_compare($oldversion, '1.99.5') < 0) {
     $blocks_table->create_database();
 }
 
-if (version_compare($oldversion, '2.3') <= 0) { // if v2.3 or lower
+if (version_compare($oldversion, '2.3') <= 0) {
     $dirsToRemove = ['/test'];
     foreach ($dirsToRemove as $delDir) {
         if (file_exists($module_path.$delDir)) {
@@ -85,7 +85,7 @@ if (version_compare($oldversion, '2.3') <= 0) { // if v2.3 or lower
     }
 }
 
-if (version_compare($oldversion, '2.4') < 0) {
+if (version_compare($oldversion, '2.4') <= 0) {
     // support simple-format tags
     $this->RegisterModulePlugin(true);
 }
