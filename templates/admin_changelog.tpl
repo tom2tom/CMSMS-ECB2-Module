@@ -1,6 +1,6 @@
 {* ECB2 admin_changelog.tpl *}
 
-<h3>Version 2.4 (fork) - 26Oct23</h3>
+<h3>Version 2.5 (fork) - 26Oct23</h3>
 <ul>
     <li>Support tags like {literal}{ECB2 ...params}{/literal}</li>
     <li>PHP 8.2 (and probably 8.3) compatibility</li>
@@ -16,6 +16,18 @@
     </li>
 </ul>
 <br>
+
+<h3>Version 2.4 - 14Sep23</h3>
+<ul>
+    <li>file_picker can now be used as a sub field in group and gallery fields</li>
+    <li>file_picker field - improved layout, with similar style to 'gallery' plus shows a simple file icon if a thumbnail cannot be generated</li>
+    <li>file_selector field now uses actual thumbnails & bug fix for when used as gallery sub field</li>
+    <li>gallery field - dir option help updated - to correct top level path to be image_uploads_path (default is: /uploads/images)</li>
+    <li>group field - page_picker sub field bug fix - deleting last group row now works correctly</li>
+    <li>page_picker field - parameters 'allow_all' & 'allowcurrent' added to match core functionality (bug in core to be fixed for next release)</li>
+</ul>
+<br>
+
 <h3>Version 2.3.2 - 12Aug23</h3>
 <ul>
     <li>bug fix - Admin Description works</li>
@@ -43,13 +55,11 @@
 </ul>
 <br>
 
-
 <h3>Version 2.2.1 - 05Apr23</h3>
 <ul>
     <li>'gallery' Bug Fix - when using multiple gallery fields on the one page the upload dialog now adds the image/s to the correct gallery</li>
 </ul>
 <br>
-
 
 <h3>Version 2.2 - 27Feb23</h3>
 <ul>
@@ -58,7 +68,6 @@
     <li>Bug fix for 'dropdown' multiple for output to be comma separated list as previously (was broken in v2.0 when group type added).</li>
 </ul>
 <br>
-
 
 <h3>Version 2.1 - 01Feb23</h3>
 <ul>
@@ -72,8 +81,6 @@
     <li>Bug fix removing 1st image when max_files=1 - can now add another one</li>
 </ul>
 <br>
-
-
 
 <h3>Version 2.0 - 10Jan23</h3>
 <ul>
@@ -92,7 +99,6 @@
 </ul>
 <br>
 
-
 <h3>Version 1.99.3 - 06Jul22</h3>
 <ul>
    <li>add in module 'Manage' permissions for access to module admin page</li>
@@ -100,14 +106,12 @@
 </ul>
 <br>
 
-
 <h3>Version 1.99.1 - 06Jul22</h3>
 <ul>
    <li>about tweaks</li>
    <li>admin_image - error message added if image file not found plus add in sample image for help page.</li>
 </ul>
 <br>
-
 
 <h3>Version 1.99 - 05Jul22</h3>
 <ul>
@@ -134,7 +138,6 @@
 </ul>
 <br>
 
-
 <h3>Version 1.8 - 22Jun22</h3>
 <ul>
    <li>dropdown & sortablelist - 'mod' option added - can load options directly from a modules template</li>
@@ -146,14 +149,12 @@
 </ul>
 <br>
 
-
 <h3>Version 1.7 - 20Jun22</h3>
 <ul>
    <li>color_picker - changed to use colpick for consistency with LISE & CustomGS, added options: clear_css_cache & no_hash</li>
    <li>image - added field type for displaying an image on an admin page only. Usefully to provide extra guidance to editors.</li>
 </ul>
 <br>
-
 
 <h3>Version 1.6.2 - 19Jan22</h3>
 <ul>
@@ -163,14 +164,12 @@
 </ul>
 <br>
 
-
 <h3>Version 1.6.1 - 27Jul20</h3>
 <ul>
    <li>move help & changelog into templates</li>
    <li>Bug fix: for 'checkbox' using default of true (checked) - work around for core bug</li>
 </ul>
 <br>
-
 
 <h3>Version 1.6 - 03Jun20</h3>
 <ul>
@@ -181,13 +180,11 @@
 </ul>
 <br>
 
-
 <h3>Version 1.5.3 - 17Jun19</h3>
 <ul>
    <li>minor bug fix in help</li>
 </ul>
 <br>
-
 
 <h3>Version 1.5.2 - 19Feb19</h3>
 <ul>
@@ -259,4 +256,4 @@
     <li>Initial release. A fork of ECB module v1.6, that is compatible with CMSMS v2+</li>
     <li>Added radio field - to provide radio buttons on an admin page</li>
 </ul>
-<br>
+
