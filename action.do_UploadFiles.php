@@ -29,7 +29,7 @@ if (!empty($_FILES['file'])) {
         ];
     }
 
-    header('Content-type: application/json');
+    header('Content-Type: application/json');
     echo json_encode($result);
     exit();
 }
