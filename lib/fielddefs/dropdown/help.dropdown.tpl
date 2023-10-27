@@ -11,7 +11,7 @@
     <li>field (required) - '<b>dropdown</b>', or alias: '<b>select</b>', '<b>dropdown_from_module</b>', '<b>dropdown_from_udt</b>', '<b>dropdown_from_gbc</b>', '<b>dropdown_from_customgs</b>'</li>
     <li>block (required) - the name of the content block</li>
     <li>values (*) - comma separated string of 'Text' or 'Text=value'. Example: 'Apple=apple,Orange=orange,Green=green'<br>
-        <pre>{ECB2 block=test5 field=dropdown1 values='Apple=apple,Orange=orange' first_value='select fruit' label='Fruit'}</pre>
+        <pre>{ECB2 block=dropdown1 field=dropdown values='Apple=apple,Orange=orange' first_value='select fruit' label='Fruit'}</pre>
     </li>
     <li>mod (*) - specifies the name of a module to call to get the option values. The module call needs to either: set an array $options of 'value' => 'Text' with scope=global, or return a comma separated list of 'Text,...' or 'Text=value,...'. Any additional parameters are also passed onto the specified module. You may want to include 'action' and 'template' parameters.<br>
         <pre>{ECB2 block=dropdown2 field=dropdown mod=LISEProjects template_summary='item_dropdown' pagelimit=2 label='Dropdown - from module'}</pre>

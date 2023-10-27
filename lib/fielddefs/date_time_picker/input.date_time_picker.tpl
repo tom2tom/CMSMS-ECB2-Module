@@ -14,7 +14,7 @@
             {if !empty($change_month)} data-change-month="{$change_month}"{/if}
             {if !empty($change_year)} data-change-year="{$change_year}"{/if}
             {if !empty($year_range)} data-year-range="{$year_range}"{/if}
-        />
+        >
 
     {else}
         <input type="text" id="{$subFieldId}" name="{$subFieldName}" class="{$class}" value="{$value}" size="{$size}" maxlength="{$max_length}"
@@ -23,7 +23,7 @@
             {if !empty($change_month)} data-change-month="{$change_month}"{/if}
             {if !empty($change_year)} data-change-year="{$change_year}"{/if}
             {if !empty($year_range)} data-year-range="{$year_range}"{/if}
-        />
+        >
 
     {/if}
 
@@ -35,6 +35,6 @@
             {if !empty($change_month)} data-change-month="{$change_month}"{/if}
             {if !empty($change_year)} data-change-year="{$change_year}"{/if}
             {if !empty($year_range)} data-year-range="{$year_range}"{/if}
-        />
+        >
 {/if}
 {/strip}

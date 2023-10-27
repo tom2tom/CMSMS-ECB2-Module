@@ -1,4 +1,4 @@
-{* input.gallery.tpl - v1.0 - 25Jun22
+{* input.gallery.tpl - v1.1 - 14Sep23
 
 ********************************************************************}
 {if !empty($description)}
@@ -7,13 +7,13 @@
 
 <div class="ecb2-dropzone {if $max_files!=1}sortable{/if} dropzone-previews" data-dropzone-url="{$action_url}" data-block-name="{$block_name}" data-location="{$location}" data-dropzone-values="{$json_filenames|cms_escape}" data-dropzone-thumbnail-width="{$thumbnail_width}" data-dropzone-thumbnail-height="{$thumbnail_height}" data-dropzone-thumbnail-prefix="{$thumbnail_prefix}"{if $resize_width} data-dropzone-resize-width="{$resize_width}"{/if}{if $resize_height} data-dropzone-resize-height="{$resize_height}"{/if}{if $resize_method} data-dropzone-resize-method="{$resize_method}"{/if}{if $max_files>0} data-dropzone-max-files="{$max_files}"{/if} data-dropzone-max-files-text="{$max_files_text}" data-highest-row="{count($values)}">
     <div class="fallback ecb2-fallback">
-        <input name="file" type="file" multiple />
+        <input name="file" type="file" multiple>
     </div>
 
     <div class="dropzone-preview-template">
-        <div class="dz-preview dz-file-preview" style="display:none;" data-row="">
-            <input id="" name="" class="dz-input-filename" type="hidden" value=""/>
-            <div class="dz-image" style="{if $thumbnail_width}width:{$thumbnail_width}px;{/if}{if $thumbnail_height} height:{$thumbnail_height}px;{/if}">
+        <div class="dz-preview dz-file-preview {if $thumbnail_width<104}dz-thumb-sm{/if}" style="display:none;" data-row="">
+            <input id="" name="" class="dz-input-filename" type="hidden" value="">
+            <div class="dz-image" style="{if $thumbnail_width}width:{$thumbnail_width}px{/if}{if $thumbnail_height};height:{$thumbnail_height}px{/if}">
                 <img data-dz-thumbnail="">
             </div>
             <div class="dz-details">
@@ -32,9 +32,9 @@
         </div>
     </div>
 
-    <div id="{$block_name}-upload-prompt" class="dz-upload-prompt ecb2-btn ecb2-btn-default" style="{if $thumbnail_height} height:{$thumbnail_height}px;{/if}" title="Drop images here or click to upload">
+    <div id="{$block_name}-upload-prompt" class="dz-upload-prompt ecb2-btn ecb2-btn-default"{if $thumbnail_height} style="height:{$thumbnail_height}px"{/if} title="Drop images here or click to upload">
         <span class="ecb2-icon-plus"></span>
-        <input id="" name="{$block_name}[empty]" class="dz-input-filename" type="hidden" value=""/>{* force input array even if empty - so any deleted images can, if required, be removed from dir *}
+        <input id="" name="{$block_name}[empty]" class="dz-input-filename" type="hidden" value="">{* force input array even if empty - so any deleted images can, if required, be removed from dir *}
     </div>
 </div>
 
@@ -64,11 +64,4 @@
     </div>
     {/foreach}
 </div>
-
-
-
-
-
-
-
 

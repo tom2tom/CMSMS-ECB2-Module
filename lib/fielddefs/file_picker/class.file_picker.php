@@ -13,6 +13,7 @@ use cms_utils;
 use CmsApp;
 use ECB2\FieldDefBase;
 use ECB2\FileUtils;
+use FilePicker\TemporaryProfileStorage;
 use const ECB2_SANITIZE_STRING;
 use function cms_join_path;
 use function cmsms;
@@ -73,11 +74,11 @@ class file_picker extends FieldDefBase
 
         $thumbnail_url = '';
         $ajax_url = '';
+        $FPmod = cms_utils::get_module('FilePicker');
+        $FPprofile = $FPmod->get_profile_or_default($this->options['profile']);
         if ($this->options['preview']) {  // get thumbnail
             $config = cmsms()->GetConfig();
-            $FPmod = cms_utils::get_module('FilePicker');
-            $profile = $FPmod->get_profile_or_default($this->options['profile']);
-            $top_dir = $this->options['top'] ? $this->options['top'] : $profile->reltop;
+            $top_dir = $this->options['top'] ? $this->options['top'] : $FPprofile->reltop;
             $img_src = cms_join_path($config['uploads_path'], $top_dir, $this->value);
             $thumbnail_url = FileUtils::get_thumbnail_url(
                 $img_src,
@@ -112,6 +113,9 @@ class file_picker extends FieldDefBase
                 $this->block_name.']');
             $tpl->assign('subFieldId', $this->sub_parent_block.'_r_'.$this->sub_row_number.'_'.
                 $this->block_name);
+            $profile_sig = TemporaryProfileStorage::set($FPprofile);
+            $tpl->assign('profile_sig', $profile_sig);
+            $tpl->assign('lang_clear', $FPmod->Lang('clear'));
             $class .= ' repeater-field';
         }
         $tpl->assign('class', $class);

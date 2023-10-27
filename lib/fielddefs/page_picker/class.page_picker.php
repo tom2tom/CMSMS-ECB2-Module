@@ -46,6 +46,8 @@ class page_picker extends FieldDefBase
         ];
         $this->default_parameters = [
             'label' => ['default' => '',    'filter' => ECB2_SANITIZE_STRING],
+            'allowcurrent' => ['default' => false,     'filter' => FILTER_VALIDATE_BOOLEAN],
+            'allow_all' => ['default' => false,     'filter' => FILTER_VALIDATE_BOOLEAN],
             'default' => ['default' => '',    'filter' => ECB2_SANITIZE_STRING],
             'admin_groups' => ['default' => '',    'filter' => ECB2_SANITIZE_STRING],
             'description' => ['default' => '',    'filter' => ECB2_SANITIZE_STRING]
@@ -74,6 +76,8 @@ class page_picker extends FieldDefBase
         $tpl->assign('contentOps', $contentOps);
         $tpl->assign('description', $this->options['description']);
         $tpl->assign('label', $this->options['label']);
+        $tpl->assign('allowcurrent', $this->options['allowcurrent']);
+        $tpl->assign('allow_all', $this->options['allow_all']);
         $tpl->assign('is_sub_field', $this->is_sub_field);
         if ($this->is_sub_field) {
             $tpl->assign('sub_row_number', $this->sub_row_number);

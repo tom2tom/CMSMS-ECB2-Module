@@ -4,7 +4,7 @@
 {if !empty($description)}
 {$description}<br>
 {/if}
-<input type="hidden" id="{$selectarea_prefix}" name="{$selectarea_prefix}" value="{$selected_str}" size="100"/>
+<input type="hidden" id="{$selectarea_prefix}" name="{$selectarea_prefix}" value="{$selected_str}" size="100">
 <div class="c_full cf ecb2-cb {$selectarea_prefix}">
     <div class="grid_6 alpha">
         <fieldset>

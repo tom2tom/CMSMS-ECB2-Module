@@ -53,7 +53,7 @@
             {/foreach}
             </select>
         {else}
-            <input type="hidden" id="{$block_name}" class="ecb_select_input" name="{$block_name}" value="{$selected}" />
+            <input type="hidden" id="{$block_name}" class="ecb_select_input" name="{$block_name}" value="{$selected}">
             <select class="cms_dropdown" name="{$block_name}_tmp" multiple size="{$size}">
             {foreach $options as $value => $text}
                 <option value="{$value|escape}"{if isset($selected_keys.$value)} selected{/if}>{$text|default:$value|escape}</option>

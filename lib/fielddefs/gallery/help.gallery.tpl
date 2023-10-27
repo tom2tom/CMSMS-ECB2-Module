@@ -18,7 +18,7 @@ sub3_field=page_picker sub3_name=link_to sub3_label='Select a page'}{/literal}</
 <ul>
     <li>field (required) - 'gallery'</li>
     <li>block (required) - the name of the content block</li>
-    <li>dir (optional) - a sub directory of the uploads directory, if not set a unique directory is created for this content block.</li>
+    <li>dir (optional) - a sub directory of the image_uploads_path (default is: /uploads/images), if not set a unique directory is created for this content block.</li>
     <li>resize_width (optional) - if set, images will be resized to this width before being uploaded. If only one of resize_width or resize_height is set, the original aspect ratio of the image is preserved.</li>
     <li>resize_height (optional) - if set, images will be resized to this height before being uploaded. If only one of resize_width or resize_height is set, the original aspect ratio of the image is preserved.</li>
     <li>resize_method (optional) - 'contain' (default), or 'crop' can be used.</li>

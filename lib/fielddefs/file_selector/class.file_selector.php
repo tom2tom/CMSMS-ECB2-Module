@@ -11,6 +11,7 @@ namespace ECB2\fielddefs;
 
 use CmsApp;
 use ECB2\FieldDefBase;
+use ECB2\FileUtils;
 use const ECB2_SANITIZE_STRING;
 use function cms_join_path;
 use function cmsms;
@@ -50,6 +51,8 @@ class file_selector extends FieldDefBase
             'sortfiles' => ['default' => '',    'filter' => FILTER_VALIDATE_BOOLEAN],
             'dir' => ['default' => '',    'filter' => ECB2_SANITIZE_STRING],
             'preview' => ['default' => '',    'filter' => FILTER_VALIDATE_BOOLEAN],
+            'thumbnail_width'   => ['default' => 0,     'filter' => FILTER_VALIDATE_INT],
+            'thumbnail_height'  => ['default' => 0,     'filter' => FILTER_VALIDATE_INT],
             'admin_groups' => ['default' => '',    'filter' => ECB2_SANITIZE_STRING],
             'description' => ['default' => '',    'filter' => ECB2_SANITIZE_STRING]
         ];
@@ -76,9 +79,9 @@ class file_selector extends FieldDefBase
 
         // Get the directory contents
         $dir = cms_join_path($config['uploads_path'], $adddir);
-        $filetypes = $this->options['filetypes'];
-        if ($filetypes != '') {
-            $filetypes = explode(',', $filetypes);
+        $filetypes = [];
+        if (!empty($this->options['filetypes'])) {
+            $filetypes = explode(',', $this->options['filetypes']);
         }
 
         $excludes = $this->options['excludeprefix'];
@@ -112,6 +115,9 @@ class file_selector extends FieldDefBase
         }
         $opts = ['' => ''] + $opts;
 
+        // preview
+        $thumbnail_url = '';
+        $ajax_url = '';
         $class = 'cms_dropdown';
         $smarty = CmsApp::get_instance()->GetSmarty();
         $tpl = $smarty->CreateTemplate('string:'.$this->get_template(), null, null, $smarty);
@@ -132,7 +138,23 @@ class file_selector extends FieldDefBase
             $class .= ' repeater-field';
         }
         $tpl->assign('class', $class);
-        $tpl->assign('supported_extensions', self::SUPPORTED_EXTENSIONS);
+        // $tpl->assign('supported_extensions', self::SUPPORTED_EXTENSIONS);
+
+        // preview
+        if ($this->options['preview']) {  // get thumbnail
+            $config = cmsms()->GetConfig();
+            $top_dir = $this->options['dir'] ?: '';
+            // note: value includes $top_dir
+            $img_src = cms_join_path($config['uploads_path'], $this->value);
+            $thumbnail_url = FileUtils::get_thumbnail_url($img_src,
+                $this->options['thumbnail_width'], $this->options['thumbnail_height']);
+            $ajax_url = $this->mod->create_url('m1_', 'admin_ajax_get_thumb'); //TODO str_replace('&amp;','&',$url) needed?
+            $tpl->assign('thumbnail_url', $thumbnail_url);
+            $tpl->assign('ajax_url', $ajax_url);
+            $tpl->assign('top_dir', $top_dir);
+            $tpl->assign('thumbnail_width', $this->options['thumbnail_width']);
+            $tpl->assign('thumbnail_height', $this->options['thumbnail_height']);
+        }
         return $tpl->fetch();
     }
 }

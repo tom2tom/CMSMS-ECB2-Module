@@ -1,10 +1,11 @@
 {* ECB2 admin_changelog.tpl *}
 
-<h3>Version 2.4 - 24Jul23</h3>
+<h3>Version 2.4 (fork) - 26Oct23</h3>
 <ul>
     <li>Support tags like {literal}{ECB2 ...params}{/literal}</li>
     <li>PHP 8.2 (and probably 8.3) compatibility</li>
     <li>Namespacing for all ECB2-related classes</li>
+    <li>Reconcile with upstream V.2.4</li>
     <li>Bug fixes
     <ul>
       <li>admin panel popup help</li>
@@ -13,6 +14,13 @@
       <li>compatible PHP method signature</li>
     </ul>
     </li>
+</ul>
+<br>
+<h3>Version 2.3.2 - 12Aug23</h3>
+<ul>
+    <li>bug fix - Admin Description works</li>
+    <li>admin_text - will accept html tags to be displayed on the admin page</li>
+    <li>all 'descriptions' can include html tags (were previously removed)</li>
 </ul>
 <br>
 <h3>Version 2.3.1 - 11Jul23</h3>

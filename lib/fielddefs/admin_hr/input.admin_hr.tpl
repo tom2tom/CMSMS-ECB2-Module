@@ -4,4 +4,4 @@
 {if !empty($description)}
         {$description}<br>
 {/if}
-        <hr style="display:block; border:0 none; background:#ccc;" />
+        <hr style="display:block;border:0 none;background:#ccc">
