@@ -338,7 +338,8 @@ abstract class FieldDefBase
 
     /**
      * Mimic deprecated PHP functionality filter_var(..., FILTER_SANITIZE_STRING)
-     * Unlike strip_tags(), this does not remove unclosed tags unless they're PHP tags
+     * Unlike the original, this does not remove content after '>'
+     * or unclosed tags unless they're PHP tags
      *
      * @param string $value
      * @return string
@@ -346,7 +347,7 @@ abstract class FieldDefBase
     protected function sanitize_string($value)//: string
     {
         if ($value) {
-            $tmp = preg_replace(['/<[^>]*>/','/<\s*\?\s*php.*$/i','/<\s*\?\s*=.*$/'],['','',''],$value);
+            $tmp = preg_replace(['/<[^>]*>/','/<\s*\?\s*php.*$/i','/<\s*\?\s*=?.*$/'],['','',''],$value);
             return strtr($tmp,["\0"=>'',"'"=>'&#39;','"'=>'&#34;']);
         }
         return (string)$value;
