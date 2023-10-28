@@ -465,19 +465,14 @@ table-responsive {
 	display: inline-block
 }
 
-.ecb_file_picker.preview.file-icon .ecb_file_picker_file_icon {
-	display: inline-block
-}
-
 .ecb_file_picker.preview .cmsfp-choose,
 .ecb_file_picker.preview .cmsfp_clear {
 	position: absolute;
 	z-index: 1;
-	width: 32px;
+	width: 2rem;
 	padding: 0;
 	font-size: 0;
 	text-align: center;
-	color: #6c6c6c;
 	border: 0;
 	border-radius: .25rem;
 	background-color: #d8d8d8;
@@ -486,12 +481,14 @@ table-responsive {
 
 .ecb_file_picker.preview .cmsfp-choose {
 	top: 2px;
-	right: 2px
+	right: 2px;
+	color: #6c6c6c
 }
 
 .ecb_file_picker.preview .cmsfp_clear {
 	bottom: 7px;
-	right: 2px
+	right: 2px;
+	color: #db1414
 }
 
 .ecb_file_picker.preview .cmsfp-choose:hover,
@@ -503,11 +500,11 @@ table-responsive {
 .ecb_file_picker.preview .cmsfp-choose::before,
 .ecb_file_picker.preview .cmsfp_clear::before {
 	font-family: 'icomoon' !important;
-	font-size: 16px;
+	font-size: 1rem;
 	font-weight: normal;
 	font-style: normal;
 	font-variant: normal;
-	line-height: 28px;
+	line-height: 1.75rem;
 	-webkit-font-smoothing: antialiased
 }
 
@@ -516,36 +513,38 @@ table-responsive {
 }
 
 .ecb_file_picker.preview .cmsfp_clear::before {
-	content: '\e902'
+	content: '\e902';
 }
 
 .ecb_file_picker.preview.empty .cmsfp-choose {
-	width: 80px
+	width: 5rem
 }
 
 .ecb_file_picker.preview.empty .cmsfp-choose::before {
 	content: '\ea0a';
-	line-height: 32px
+	line-height: 2rem
 }
 
 .ecb_file_picker.preview.file-icon .ecb_file_picker_file_icon {
-	width: 160px;
-	height: 80px;
-	text-align: center;
-	background: #faf6d4;
-	border: 1px solid #efe7a1;
-	border-radius: .25rem
+	display: inline-block;
+	width: 25rem;
+	height: 5rem;
+	padding-left: .25rem;
+	background: #f0f0f0;
+	border: 1px solid #aaa;
+	border-radius: .25rem;
+	text-align: left;
 }
 
 .ecb_file_picker.preview.file-icon .ecb_file_picker_file_icon .ecb2-icon-file-o {
-	font-size: 24px;
-	line-height: 80px;
+	font-size: 1.5rem;
+	line-height: 5rem;
 	color: #6c6c6c;
 	font-weight: 700
 }
 
 .ecb_file_picker.preview.file-icon .cmsfp_clear {
-	bottom: 2px
+	bottom: 2px;
 }
 
 .ecb_file_picker_preview:hover {
@@ -555,11 +554,11 @@ table-responsive {
 .ecb_file_picker_title {
 	display: none;
 	position: absolute;
-	top: 39%;
-	right: 34px;
-	max-width: 110px;
-	padding: 0 .4em;
-	font-size: 13px;
+	top: 2rem;
+	right: 1.75rem;
+	max-width: 21.25rem;
+	padding: 0 .4rem;
+	font-size: .8125rem;
 	border: 1px solid transparent;
 	border-radius: 3px;
 	background-color: rgba(255, 255, 255, .4);
