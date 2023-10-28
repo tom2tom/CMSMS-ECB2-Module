@@ -1,11 +1,11 @@
 /* module.css rtl - v1.5 - 26Oct23
 
-    - v1.5 - 26Oct23 - reconcile with upstream v.2.4
-    - v1.4 - 24Jul23 - bugfixes
-    - v1.3 - 24Jun23 - add woff2 fonticons
-    - v1.2 - 24Mar22 - add in colpick css
-    - v1.1 - 16Feb19 - ecb_repeater added & began consolidating CSS into this file
-    - v1.0 - 18Apr17 - initial css file
+	- v1.5 - 26Oct23 - reconcile with upstream v.2.4
+	- v1.4 - 24Jul23 - bugfixes
+	- v1.3 - 24Jun23 - add woff2 fonticons
+	- v1.2 - 24Mar22 - add in colpick css
+	- v1.1 - 16Feb19 - ecb_repeater added & began consolidating CSS into this file
+	- v1.0 - 18Apr17 - initial css file
 
 *******************************************************************************/
 /*! module.css rtl - v1.5 - 26Oct23 */
@@ -40,7 +40,7 @@
 	font-variant: normal;
 	line-height: 1;
 	text-transform: none;
-	font-size: 16px;
+	font-size: 1rem;
 	color: inherit;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale
@@ -309,11 +309,11 @@ table-responsive {
 }
 
 .ecb_repeater.table-layout .sub-field-file_picker {
-    min-width: 140px
+	min-width: 140px
 }
 
 .ecb_repeater.table-layout .sub-field-textarea {
-    min-width: 500px
+	min-width: 500px
 }
 
 .ecb_repeater.table-layout .sub-field-checkbox:not(.inline-label),
@@ -368,20 +368,20 @@ table-responsive {
 }
 
 .ecb_repeater .repeater-placeholder {
-    height: 40px
+	height: 40px
 }
 
 .ecb_repeater .sub_field_label {
-    font-weight: 700;
-    display: inline-block;
-    width: 150px;
-    padding: 6px 8px;
-    color: #585858
+	font-weight: 700;
+	display: inline-block;
+	width: 150px;
+	padding: 6px 8px;
+	color: #585858
 }
 
 .ecb_repeater.table-layout {
-    overflow-x: auto;
-    overflow-y: hidden
+	overflow-x: auto;
+	overflow-y: hidden
 }
 
 .ecb_repeater.block-layout .sub-field {
@@ -436,7 +436,11 @@ table-responsive {
 	margin-right: 8px
 }
 
-.ecb_file_picker.preview {
+.cmsfp_cont {
+	height: 0
+}
+
+.ecb_file_picker.preview { /* picker-enclosing div when preview is included c.f. ecb_file_picker_preview for the preview img */
 	position: relative;
 	min-height: 32px;
 	margin: 5px 2px
@@ -450,7 +454,7 @@ table-responsive {
 	display: none
 }
 
-.ecb_file_picker_preview {
+.ecb_file_picker_preview { /* preview img only -c.f. ecb_file_picker.preview */
 	position: relative;
 	margin: 0;
 	border-radius: 0.25rem
@@ -547,7 +551,7 @@ table-responsive {
 	bottom: 2px;
 }
 
-.ecb_file_picker_preview:hover {
+.ecb_file_picker_preview:hover { /* preview img only c.f. ecb_file_picker.preview */
 	filter: blur(1px)
 }
 
@@ -1484,9 +1488,9 @@ table-responsive {
 }
 
 .ecb2-dropzone .dz-preview.dz-thumb-sm .dz-edit {
-    top: auto;
-    bottom: 2px;
-    left: 2px
+	top: auto;
+	bottom: 2px;
+	left: 2px
 }
 
 .ecb2-dropzone .dz-preview.dz-processing .dz-progress {
