@@ -10,7 +10,7 @@
 
 {if $is_sub_field}
     {if $multiple}
-        <div class="ecb_multiple_select json cms_dropdown {if $compact}ecb_compact{/if}">
+        <div class="ecb_multiple_select json cms_dropdown{if $compact} ecb_compact{/if}">
         {if $compact}
             {$none_selected=$mod->Lang('none_selected')}
             <div class="ecb_select_summary">
@@ -19,11 +19,10 @@
             </div>
         {/if}
         {* uses json format *}
-            {strip}<select class="cms_dropdown repeater-field"
-            name="{if $not_sub_field_template}{$sub_parent_block}[r_{$sub_row_number}][{$block_name}][]{/if}" data-field-name="{$block_name}" multiple size="{$size}">{/strip}
-            {foreach $options as $value => $text}
+            <select class="cms_dropdown repeater-field" name="{if $not_sub_field_template}{$sub_parent_block}[r_{$sub_row_number}][{$block_name}][]{/if}" data-field-name="{$block_name}" multiple size="{$size}">
+            {strip}{foreach $options as $value => $text}
                 <option value="{$value|escape}"{if isset($selected_keys.$value)} selected{/if}>{$text|default:$value|escape}</option>
-            {/foreach}
+            {/foreach}{/strip}
             </select>
         </div>
     {else}
@@ -38,7 +37,7 @@
 
 {else}{* not $is_sub_field *}
     {if $multiple}
-        <div class="ecb_multiple_select {if $use_json_format}json{/if} cms_dropdown {if $compact}ecb_compact{/if}">
+        <div class="ecb_multiple_select{if $use_json_format} json{/if} cms_dropdown{if $compact} ecb_compact{/if}">
         {if $compact}
             {$none_selected=$mod->Lang('none_selected')}
             <div class="ecb_select_summary">

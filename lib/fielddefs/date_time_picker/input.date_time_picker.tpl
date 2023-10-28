@@ -4,11 +4,10 @@
 {if !empty($description)}
         {$description}<br>
 {/if}
-
         {strip}
 {if $is_sub_field}
     {if is_null($sub_row_number)}{* output template field *}
-        <input type="text" id="" name="" class="{$class|replace:'picker':'picker-template'}" value="" size="{$size}" maxlength="{$max_length}" data-repeater="#{$block_name}-repeater" data-field-name="{$block_name}"
+        <input type="text" id="" name="" class="{$class|replace:'picker':'picker-template'}" size="{$size}" maxlength="{$max_length}" value="" data-repeater="#{$block_name}-repeater" data-field-name="{$block_name}"
             {if !empty($date_format)} data-date-format="{$date_format}"{/if}
             {if !empty($time_format)} data-time-format="{$time_format}"{/if}
             {if !empty($change_month)} data-change-month="{$change_month}"{/if}
@@ -17,7 +16,7 @@
         >
 
     {else}
-        <input type="text" id="{$subFieldId}" name="{$subFieldName}" class="{$class}" value="{$value}" size="{$size}" maxlength="{$max_length}"
+        <input type="text" id="{$subFieldId}" name="{$subFieldName}" class="{$class}" size="{$size}" maxlength="{$max_length}" value="{$value}"
             {if !empty($date_format)} data-date-format="{$date_format}"{/if}
             {if !empty($time_format)} data-time-format="{$time_format}"{/if}
             {if !empty($change_month)} data-change-month="{$change_month}"{/if}
@@ -28,8 +27,7 @@
     {/if}
 
 {else}
-        <input type="text" class="{$class}" name="{$block_name}" size="{$size}" maxlength="{$max_length}"
-            value="{$value}"
+        <input type="text" class="{$class}" name="{$block_name}" size="{$size}" maxlength="{$max_length}" value="{$value}"
             {if !empty($date_format)} data-date-format="{$date_format}"{/if}
             {if !empty($time_format)} data-time-format="{$time_format}"{/if}
             {if !empty($change_month)} data-change-month="{$change_month}"{/if}
