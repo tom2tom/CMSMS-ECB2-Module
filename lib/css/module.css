@@ -442,7 +442,7 @@ table-responsive {
 
 .ecb_file_picker.preview { /* picker-enclosing div when preview is included c.f. ecb_file_picker_preview for the preview img */
 	position: relative;
-	min-height: 32px;
+	min-height: 2rem;
 	margin: 5px 2px
 }
 
@@ -531,7 +531,7 @@ table-responsive {
 
 .ecb_file_picker.preview.file-icon .ecb_file_picker_file_icon {
 	display: inline-block;
-	width: 25rem;
+	width: 24rem;
 	height: 5rem;
 	padding-right: .25rem;
 	background: #f0f0f0;
@@ -560,7 +560,7 @@ table-responsive {
 	position: absolute;
 	top: 2rem;
 	left: 1.75rem;
-	max-width: 21.25rem;
+	max-width: 20.25rem; /* total 22 c.f. .ecb_file_picker_file_icon width - 2 */
 	padding: 0 .4rem;
 	font-size: .8125rem;
 	border: 1px solid transparent;
