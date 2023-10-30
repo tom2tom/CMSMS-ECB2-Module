@@ -11,6 +11,7 @@ namespace ECB2\fielddefs;
 
 use cms_utils;
 use CmsApp;
+use Gallery_utils;
 use ECB2\FieldDefBase;
 use const ECB2_SANITIZE_STRING;
 
