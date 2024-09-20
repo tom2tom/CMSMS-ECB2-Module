@@ -1,6 +1,6 @@
-/* module.css - v1.5 - 26Oct23
+/* module.css - v1.5 - 26Oct24
 
-	- v1.5 - 26Oct23 - reconcile with upstream v.2.4
+	- v1.5 - 26Oct24 - reconcile with upstream v.2.4.2
 	- v1.4 - 24Jul23 - bugfixes
 	- v1.3 - 24Jun23 - add woff2 fonticons
 	- v1.2 - 24Mar22 - add in colpick css
@@ -8,7 +8,7 @@
 	- v1.0 - 18Apr17 - initial css file
 
 *******************************************************************************/
-/*! module.css - v1.5 - 26Oct23 */
+/*! module.css - v1.5 - 26Oct24 */
 /* TODO px dimensions to em/rem where appropriate */
 .sortable-ecb2-list tr {
 	cursor: move
@@ -591,6 +591,7 @@ table-responsive {
 	right: 0;
 	top: 0;
 	float: right;
+	float: inline-end;
 	width: 20%;
 	height: calc(100vh - 3rem);
 	overflow-y: auto
@@ -611,6 +612,13 @@ table-responsive {
 	margin-bottom: .5rem
 }
 
+.ecb2-help .help-content h3,
+.ecb2-help .help-content h4,
+.ecb2-help .help-content h5 {
+	margin-top: .25rem;
+	margin-bottom: .25rem
+}
+
 .ecb2-help p {
 	margin-bottom: .5rem
 }
@@ -619,15 +627,16 @@ table-responsive {
 	margin-top: 0 !important
 }
 
-.ecb2-help .help-toc ul {
-	margin: 0 0 .5rem 0 !important
+.ecb2-help .help-toc > ul {
+	margin: 0 0 .5rem 0 !important;
+	list-style: none
 }
 
-.ecb2-help .help-toc ul li {
+.ecb2-help .help-toc > ul li {
 	margin-bottom: .5rem
 }
 
-.ecb2-help .help-toc ul a {
+.ecb2-help .help-toc > ul a {
 	color: inherit
 }
 
