@@ -2,13 +2,13 @@
 #---------------------------------------------------------------------
 # Module: ECB2 - Extended Content Blocks 2
 # Author: Chris Taylor
-# Copyright: (C) 2016-2023 Chris Taylor, chris@binnovative.co.uk
+# Copyright: (C) 2016-2024 Chris Taylor, chris@binnovative.co.uk
 # Licence: GNU General Public License version 3
-#          see /ECB2/LICENCE or <http://www.gnu.org/licenses/gpl-3.0.html>
+#   see /ECB2/LICENCE or <http://www.gnu.org/licenses/gpl-3.0.html>
 #---------------------------------------------------------------------
 
 use ECB2\Blocks;
-use ECB2\FileUtils;
+use ECB2\Utils;
 
 if (!isset($gCms)) {
     exit;
@@ -59,7 +59,7 @@ if (version_compare($oldversion, '2.0') < 0) {
         @unlink($module_path.$delFile);
     }
 
-    FileUtils::CreateImagesDir();
+    Utils::CreateImagesDir();
 }
 
 if (version_compare($oldversion, '1.99.3') < 0) {
