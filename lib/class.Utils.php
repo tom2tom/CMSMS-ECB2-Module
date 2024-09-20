@@ -2,25 +2,28 @@
 #-----------------------------------------------------------------------------
 # Module: ECB2 - Extended Content Blocks 2
 # Author: Chris Taylor
-# Copyright: (C) 2016-2023 Chris Taylor, chris@binnovative.co.uk
+# Copyright: (C) 2016-2024 Chris Taylor, chris@binnovative.co.uk
 # Licence: GNU General Public License version 3
 #          see /ECB2/LICENCE or <http://www.gnu.org/licenses/gpl-3.0.html>
 #-----------------------------------------------------------------------------
 
 namespace ECB2;
 
-use cms_siteprefs;
-use cms_utils;
+use CMSMS\AppParams as cms_siteprefs;
+use CMSMS\Utils as cms_utils;
+use FileManager\Utils as file_manager_utils;
 use stdClass;
 use const CMS_ROOT_URL;
 use function cms_join_path;
 use function cms_move_uploaded_file;
+use function cms_path_to_url;
 use function cmsms;
 use function endswith;
 use function munge_string_to_url;
 
-class FileUtils
+class Utils
 {
+	//public const for CMSMS3
     public const ECB2_IMAGE_DIR = '_ecb2_images';
     public const ECB2_IMAGE_TEMP_DIR = '_tmp';     // sub dir of ECB2_IMAGE_DIR
     public const THUMB_PREFIX = 'thumb_';
@@ -115,8 +118,8 @@ class FileUtils
 
     /**
      *  creates the unique ECB2 images sub dir - if it doesn't already exist:
-     *          /ECB2_IMAGE_DIR/blockname_module_id
-     *      or the ECB2_IMAGE_DIR/ECB2_IMAGE_TEMP_DIR if params all empty
+     *   /ECB2_IMAGE_DIR/blockname_module_id
+     *   or the ECB2_IMAGE_DIR/ECB2_IMAGE_TEMP_DIR if params all empty
      *  @param string $blockname - name of props blockname
      *  @param string $id - content id - i.e. page id
      *  @param string $module - if not Content page (default) - not actually used yet
@@ -189,8 +192,8 @@ class FileUtils
      *  @param array $values - filenames of all files in the gallery
      *  @param string $dir - directory to be updated with set gallery images
      *  @param boolean $auto_add_delete - if set delete any unused images & thumbnails
-     *  @param boolean $thumb_width - thumbnail width set for this content block
-     *  @param boolean $thumb_height - thumbnail height set for this content block
+     *  @param int $thumb_width - thumbnail width set for this content block
+     *  @param int $thumb_height - thumbnail height set for this content block
      */
     public static function updateGalleryDir(
         $values,
@@ -249,10 +252,12 @@ class FileUtils
     }
 
     /**
-     *  adds any additional files in $dir into $values object ($this->values)
+     *  adds any additional files in $dir into $values array
      *
      *  @param array $values - filenames of already selected files in the dir
      *  @param string $dir - directory to be used for this gallery
+     *  @param int $thumbnail_width - optional thumbnail width set for this content block Default 0
+     *  @param int $thumbnail_height - optional thumbnail height set for this content block Default 0
      */
     public static function autoAddDirImages(&$values, $dir, $thumbnail_width = 0, $thumbnail_height = 0)//: void
     {
@@ -285,84 +290,125 @@ class FileUtils
 
     /**
      *  Creates a thumbnail for the $src file if it doesn't already exist, or is not the required size
+     *  See also file_manager_utils::create_thumbnail()
      *
-     *  @param string $src - filename of file to create thumbnail for
-     *  @param int $thumb_width - width of thumbnail to be created (default: module pref, sitepref)
-     *  @param int $thumb_height - height of thumbnail to be created (default: module pref, sitepref)
-     *  @param string $dest - alternative filename for new thumbnail
-     *  @param boolean $force - if set to TRUE will overwrite any existing thumbnail filename
-     *  @return boolean true if new thumbnail created
-     *  based on FileManager > class.filemanager_utils
+     *  @param string $src - filepath of item to create thumbnail for
+     *  @param int $thumb_width - optional width of thumbnail to be created (default: 0 hence module pref, sitepref)
+     *  @param int $thumb_height - optional height of thumbnail to be created (default: 0 hence module pref, sitepref)
+     *  @param string $dest - optional alternative filename for new thumbnail Default ''
+     *  @param bool $force - optional flag whether to overwrite any existing thumbnail filename Default false
+     *  @return bool indicating whether new thumbnail was created
      */
-    public static function create_thumbnail($src, $thumb_width = 0, $thumb_height = 0, $dest = null, $force = false)//: bool
+    public static function create_thumbnail($src, $thumb_width = 0, $thumb_height = 0, $dest = '', $force = false)//: bool
     {
         if (!file_exists($src) || !is_file($src)) {
             return false;
         }
+        $mime = file_manager_utils::mime_content_type($src);
+        if (!$mime) {
+            return false;
+        }
+        if (!file_manager_utils::is_image_file($src)) {
+            return false;
+        }
+        if ($mime == 'image/svg+xml' || $mime == 'image/svg') {
+            if( $force ) {
+                if( is_file($dest) ) {
+                    unlink($dest);
+                }
+                copy($src, $dest); //TODO suitably replicate content as $dest
+            }
+            elseif( !is_file($dest) ) {
+                copy($src, $dest);
+            }
+            return true;
+        }
+
+        $info = getimagesize($src);
+        if (!$info) {
+            return false;
+        }
+
         if (!$dest) {
             $bn = basename($src);
             $dn = dirname($src);
             $dest = $dn.DIRECTORY_SEPARATOR.self::THUMB_PREFIX.$bn;
         }
-
         if (!$force && (file_exists($dest) && !is_writable($dest))) {
             return false;
         }
 
-        $info = getimagesize($src);
-        if (!$info || !isset($info['mime'])) {
-            return false;
-        }
         $src_width = $info[0];
         $src_height = $info[1];
         $src_x = 0;
         $src_y = 0;
-
         self::get_thumbnail_size($src_width, $src_height, $thumb_width, $thumb_height, $src_x, $src_y);
 
-        // if thumbnail exists and is of correct size - leave as is, unless $force set
-        $thumb_info = getimagesize($dest);
-        if (!$force || !$thumb_info || !isset($thumb_info['mime'])) {
-            if ($thumb_info[0] == $thumb_width && $thumb_info[1] == $thumb_height) {
-                return true;
+        // if suitably-sized for thumbnail, copy it
+        if ($info[0] <= $thumb_width && $info[1] <= $thumb_height) {
+            if ($force) {
+                if (is_file($dest)) {
+                    unlink($dest);
+                }
+                copy($src, $dest);
+            } elseif (!is_file($dest)) {
+                copy($src, $dest);
             }
+            return true;
         }
 
-        // create new thumbnail
         $i_src = imagecreatefromstring(file_get_contents($src));
         $i_dest = imagecreatetruecolor($thumb_width, $thumb_height);
-        imagealphablending($i_dest, false);
-        $color = imagecolorallocatealpha($i_src, 255, 255, 255, 127);
+        //TODO some of the following are type-spacific
+        imagealphablending($i_dest, false); //TODO if relevant format e.g. png, webp avif
+        $color = imageColorAllocateAlpha($i_src, 255, 255, 255, 127);
         imagecolortransparent($i_dest, $color);
         imagefill($i_dest, 0, 0, $color);
-        imagesavealpha($i_dest, true);
+        imagesavealpha($i_dest, true); //TODO for png, webp and avif only
         imagecopyresampled($i_dest, $i_src, 0, 0, $src_x, $src_y, $thumb_width, $thumb_height, $src_width, $src_height);
-
-        $res = null;
-        switch($info['mime']) {
-            case 'image/gif':
-                $res = imagegif($i_dest, $dest);
+        // c.f. typehelper image types 'jpg','jpeg','jpe','bmp','wbmp','gif','png','tiff'.'tif','webp','avif','heif','svg'
+        switch ($mime) {
+        case 'image/gif':
+            $res = imagegif($i_dest, $dest);
+            break;
+        case 'image/png':
+            $res = imagepng($i_dest, $dest, 9);
+            break;
+        case 'image/jpeg':
+            $res = imagejpeg($i_dest, $dest, 80);
+            break;
+        case 'image/bmp':
+        case 'image/x-ms-bmp':
+            if (PHP_VERSION_ID >= 70200) { //for CMSMS2
+                $res = imagebmp($i_dest, $dest);
                 break;
-            case 'image/png':
-                $res = imagepng($i_dest, $dest, 9);
+            } else {
+                return false;
+            }
+            //no break here
+        case 'image/webp':
+            $res = imagewebp($i_dest, $dest, 80);
+            break;
+        case 'image/avif':
+            if (PHP_VERSION_ID >= 80000 && function_exists('imageavif')) {
+                $res = imageavif($i_dest, $dest, 80, 6);
                 break;
-            case 'image/jpeg':
-                $res = imagejpeg($i_dest, $dest, 100);
-                break;
-        }
-
-        if (!$res) {
+            } else {
+                return false;
+            }
+            //no break here
+        default:
             return false;
         }
-        return true;
+        return ($res != false);
     }
 
     /**
-     *  sets provided parameters thumb_width & thumb_height
+     *  sets provided parameters $thumb_width & $thumb_height
      *  based on the provided values, defaulting to module preferences, or global siteprefs
      *
-     *  @param string $thumb_width - width of thumbnail to be created (default: module pref, sitepref)
-     *  @param string $thumb_height - height of thumbnail to be created (default: module pref, sitepref)
+     *  @param int $thumb_width - optional width of thumbnail to be created (default 0: hence module pref, sitepref)
+     *  @param int $thumb_height - optional height of thumbnail to be created (default 0: hence module pref, sitepref)
      */
     public static function get_required_thumbnail_size(&$thumb_width = 0, &$thumb_height = 0)//: void
     {
@@ -383,52 +429,58 @@ class FileUtils
     }
 
     /**
-     *  sets provided parameters thumb_width & thumb_height, src_y, & src_y
+     *  sets provided parameters $src_width | $src_height, $thumb_width & $thumb_height, $src_y, & $src_y
      *  based on the provided values, defaulting to module preferences, or global siteprefs
      *  if only width or height set (params or module pref) then height or width 100% (respectively)
-     *  thumbnail cropped to retain image ratio
+     *  thumbnail size will be cropped to retain image ratio
      *
-     *  @param array $src_width - width of the src image
-     *  @param array $src_height - height of the src image
-     *  @param string $thumb_width - width of thumbnail to be created (default: module pref, sitepref)
-     *  @param string $thumb_height - height of thumbnail to be created (default: module pref, sitepref)
-     *  @param string $src_x - 0 or set if width cropping required
-     *  @param boolean $src_y - 0 or set if height cropping required
-     *  based on FileManager > class.filemanager_utils
+     *  @param int $src_width - width of the src image
+     *  @param int $src_height - height of the src image
+     *  @param int $thumb_width - optional width of thumbnail to be created (default: 0 hence module pref, sitepref)
+     *  @param int $thumb_height - optional height of thumbnail to be created (default: 0 hence module pref, sitepref)
+     *  @param int $src_x - optional crop width Default 0
+     *  @param int $src_y - optional crop height Default 0
      */
     public static function get_thumbnail_size(&$src_width, &$src_height, &$thumb_width = 0, &$thumb_height = 0, &$src_x = 0, &$src_y = 0)//: void
     {
         self::get_required_thumbnail_size($thumb_width, $thumb_height);
 
-        // if one dimension not set calculate width/height ratio
-        if ($thumb_width != 0 && $thumb_height != 0) {
+        // if one dimension not set, calculate width/height ratio
+        if ($thumb_width > 0 && $thumb_height > 0) {
             $thumb_width = (int)$thumb_width;
             $thumb_height = (int)$thumb_height;
         } elseif ($thumb_width == 0) {  // but not $thumb_height
+            if ($src_height == 0) {
+                return;
+            }
             $thumb_width = (int)($src_width / $src_height * $thumb_height);
-        } else { // $thumb_height==0 but not $thumb_width
+        } else { // $thumb_height == 0 but not $thumb_width
+            if ($src_width == 0) {
+                return;
+            }
             $thumb_height = (int)($src_height / $src_width * $thumb_width);
         }
-
-        // set $src_x/$src_y to crop width/height if required & set $src_width/$src_height
-        if ($src_height == 0 || $thumb_height == 0) {
+        if ($thumb_height == 0) {
             return;
         }
+        // set $src_x|$src_y, $src_width|$src_height to crop-related values if required
         $ratio_src = $src_width / $src_height;
         $ratio_thumb = $thumb_width / $thumb_height;
-        if ($ratio_src > $ratio_thumb) {    // src_wider_than_thumb
+        if ($ratio_src >= $ratio_thumb) { // width to be clipped
             $src_x = (int)(($src_width - $src_height * $ratio_thumb) / 2);
             $src_width = (int)($src_height * $ratio_thumb);
-        } else {                            // src_taller_than_thumb
+        } else {  // height to be clipped
             $src_y = (int)(($src_height - $src_width / $ratio_thumb) / 2);
             $src_height = (int)($src_width / $ratio_thumb);
         }
     }
 
     /**
-     *  converts File system path to URL
+     * converts file-system path to URL
      *
-     *  @return string url to access given $file
+     * @param string $file
+     * @param string $Protocol Default ''
+     * @return string URL to access given $file
      */
     public static function path2url($file, $Protocol = '')//: string
     {
@@ -441,14 +493,26 @@ class FileUtils
     }
 
     /**
-     *  provides thumbnail url for $src file, it's created if it doesn't already exist & correct size
+     * converts file-system path to site-root-relative URL NOT admin-specific
      *
-     *  @param string $src - filename of file to create thumbnail for
-     *  @param int $thumb_width - width of thumbnail to be created (default: module pref, sitepref)
-     *  @param int $thumb_height - height of thumbnail to be created (default: module pref, sitepref)
-     *  @param string $dest - alternative filename for new thumbnail
-     *  @param boolean $force - if set to TRUE will overwrite any existing thumbnail filename
-     *  @return string thumbnail url for given $src image or '' if it doesn't exist
+     * @param string $file absolute-filepath at the site
+     * @return string relative URL to access given $file
+     */
+    public static function admin_path2url($file)//: string
+    {
+        $url = cms_path_to_url($file);
+        return '..' . str_replace(CMS_ROOT_URL, '', $url);
+    }
+
+    /**
+     * provides thumbnail url for $src file, it's created if it doesn't already exist & correct size
+     *
+     * @param string $src - filename of file to create thumbnail for
+     * @param int $thumb_width - width of thumbnail to be created (default: module pref, sitepref)
+     * @param int $thumb_height - height of thumbnail to be created (default: module pref, sitepref)
+     * @param string $dest - alternative filename for new thumbnail
+     * @param boolean $force - if set to TRUE will overwrite any existing thumbnail filename
+     * @return string thumbnail url for given $src image or '' if it doesn't exist
      */
     public static function get_thumbnail_url($src, $thumb_width = 0, $thumb_height = 0, $dest = '', $force = false)//: string
     {
