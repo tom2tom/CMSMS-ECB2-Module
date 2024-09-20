@@ -2,12 +2,12 @@
 #-----------------------------------------------------------------------------
 # Module: ECB2 - Extended Content Blocks 2
 # Author: Chris Taylor
-# Copyright: (C) 2016-2023 Chris Taylor, chris@binnovative.co.uk
+# Copyright: (C) 2016-2024 Chris Taylor, chris@binnovative.co.uk
 # Licence: GNU General Public License version 3
-#          see /ECB2/LICENCE or <http://www.gnu.org/licenses/gpl-3.0.html>
+#   see /ECB2/LICENCE or <http://www.gnu.org/licenses/gpl-3.0.html>
 #-----------------------------------------------------------------------------
 
-use ECB2\FileUtils;
+use ECB2\Utils;
 
 if (!defined('CMS_VERSION')) {
     exit;
@@ -46,7 +46,7 @@ if (!$thumbnail_height) {
 $config = cmsms()->GetConfig();
 $img_src = cms_join_path($config['uploads_path'], $top_dir, $file_name);
 
-$thumbnail_url = FileUtils::get_thumbnail_url($img_src, $thumbnail_width, $thumbnail_height);
+$thumbnail_url = Utils::get_thumbnail_url($img_src, $thumbnail_width, $thumbnail_height);
 
 $n = count(ob_list_handlers());
 for ($cnt = 0; $cnt < $n; $cnt++) {
