@@ -1,4 +1,4 @@
-{* ECB2 admin_hidden_field.tpl
+{* ECB2 hidden_field.tpl
 
     uses js to hide the label
 ********************************************************************}
