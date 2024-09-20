@@ -2,16 +2,16 @@
 #-----------------------------------------------------------------------------
 # Module: ECB2 - Extended Content Blocks 2
 # Author: Chris Taylor
-# Copyright: (C) 2016-2023 Chris Taylor, chris@binnovative.co.uk
+# Copyright: (C) 2016-2024 Chris Taylor, chris@binnovative.co.uk
 # Licence: GNU General Public License version 3
 #          see /ECB2/LICENCE or <http://www.gnu.org/licenses/gpl-3.0.html>
 #-----------------------------------------------------------------------------
 
 namespace ECB2\fielddefs;
 
-use CmsApp;
+use CMSMS\App as CmsApp; //for CMSMS3
 use ECB2\FieldDefBase;
-use ECB2\FileUtils;
+use ECB2\Utils;
 use const ECB2_SANITIZE_STRING;
 use function cms_join_path;
 use function cmsms;
@@ -20,6 +20,8 @@ use function get_site_preference;
 
 class file_selector extends FieldDefBase
 {
+    // c.f. typehelper image types 'jpg','jpeg','jpe','bmp','wbmp','gif','png','tiff'.'tif','webp','avif','heif','svg'
+    //public const for CMSMS3
     public const SUPPORTED_EXTENSIONS = 'jpg,jpeg,png,gif';
 
     public function __construct($mod, $blockName, $value, $params, $adding, $id = 0)
@@ -120,7 +122,7 @@ class file_selector extends FieldDefBase
         $ajax_url = '';
         $class = 'cms_dropdown';
         $smarty = CmsApp::get_instance()->GetSmarty();
-        $tpl = $smarty->CreateTemplate('string:'.$this->get_template(), null, null, $smarty);
+        $tpl = $smarty->CreateTemplate('string:'.$this->get_template()); //, null, null, $smarty);
         $tpl->assign('block_name', $this->block_name);
         $tpl->assign('value', $this->value);
         $tpl->assign('opts', $opts);
@@ -146,9 +148,9 @@ class file_selector extends FieldDefBase
             $top_dir = $this->options['dir'] ?: '';
             // note: value includes $top_dir
             $img_src = cms_join_path($config['uploads_path'], $this->value);
-            $thumbnail_url = FileUtils::get_thumbnail_url($img_src,
+            $thumbnail_url = Utils::get_thumbnail_url($img_src,
                 $this->options['thumbnail_width'], $this->options['thumbnail_height']);
-            $ajax_url = $this->mod->create_url('m1_', 'admin_ajax_get_thumb'); //TODO str_replace('&amp;','&',$url) needed?
+            $ajax_url = $this->mod->create_url('m1_', 'admin_ajax_get_thumb', '', [], false, false, '', false, 2);
             $tpl->assign('thumbnail_url', $thumbnail_url);
             $tpl->assign('ajax_url', $ajax_url);
             $tpl->assign('top_dir', $top_dir);

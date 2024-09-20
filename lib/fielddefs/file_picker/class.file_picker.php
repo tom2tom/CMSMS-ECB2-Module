@@ -2,17 +2,17 @@
 #-----------------------------------------------------------------------------
 # Module: ECB2 - Extended Content Blocks 2
 # Author: Chris Taylor
-# Copyright: (C) 2016-2023 Chris Taylor, chris@binnovative.co.uk
+# Copyright: (C) 2016-2024 Chris Taylor, chris@binnovative.co.uk
 # Licence: GNU General Public License version 3
 #          see /ECB2/LICENCE or <http://www.gnu.org/licenses/gpl-3.0.html>
 #-----------------------------------------------------------------------------
 
 namespace ECB2\fielddefs;
 
-use cms_utils;
-use CmsApp;
+use CMSMS\App as CmsApp;
+use CMSMS\Utils as cms_utils;
 use ECB2\FieldDefBase;
-use ECB2\FileUtils;
+use ECB2\Utils;
 use FilePicker\TemporaryProfileStorage;
 use const ECB2_SANITIZE_STRING;
 use function cms_join_path;
@@ -80,18 +80,17 @@ class file_picker extends FieldDefBase
             $config = cmsms()->GetConfig();
             $top_dir = $this->options['top'] ? $this->options['top'] : $FPprofile->reltop;
             $img_src = cms_join_path($config['uploads_path'], $top_dir, $this->value);
-            $thumbnail_url = FileUtils::get_thumbnail_url(
+            $thumbnail_url = Utils::get_thumbnail_url(
                 $img_src,
                 $this->options['thumbnail_width'],
                 $this->options['thumbnail_height']
             );
-            $tmp = $this->mod->create_url('m1_', 'admin_ajax_get_thumb');
-            $ajax_url = str_replace('&amp', '&', $ajax_url);
+            $ajax_url = $this->mod->create_url('m1_', 'admin_ajax_get_thumb', '', [], false, false, '', false, 2);
         }
 
         $class = '';
         $smarty = CmsApp::get_instance()->GetSmarty();
-        $tpl = $smarty->CreateTemplate('string:'.$this->get_template(), null, null, $smarty);
+        $tpl = $smarty->CreateTemplate('string:'.$this->get_template()); //, null, null, $smarty);
         $tpl->assign('block_name', $this->block_name);
         $tpl->assign('value', $this->value);
 

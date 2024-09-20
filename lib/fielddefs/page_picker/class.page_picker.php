@@ -2,14 +2,14 @@
 #-----------------------------------------------------------------------------
 # Module: ECB2 - Extended Content Blocks 2
 # Author: Chris Taylor
-# Copyright: (C) 2016-2023 Chris Taylor, chris@binnovative.co.uk
+# Copyright: (C) 2016-2024 Chris Taylor, chris@binnovative.co.uk
 # Licence: GNU General Public License version 3
 #          see /ECB2/LICENCE or <http://www.gnu.org/licenses/gpl-3.0.html>
 #-----------------------------------------------------------------------------
 
 namespace ECB2\fielddefs;
 
-use CmsApp;
+use CMSMS\App as CmsApp; //for CMSMS3
 use CMSMS\ContentOperations; // for CMSMS3
 //use ContentOperations; // for CMSMS2
 use ECB2\FieldDefBase;
@@ -70,7 +70,7 @@ class page_picker extends FieldDefBase
 
         $class = '';
         $smarty = CmsApp::get_instance()->GetSmarty();
-        $tpl = $smarty->CreateTemplate('string:'.$this->get_template(), null, null, $smarty);
+        $tpl = $smarty->CreateTemplate('string:'.$this->get_template()); //, null, null, $smarty);
         $tpl->assign('block_name', $this->block_name);
         $tpl->assign('value', $this->value);
         $tpl->assign('contentOps', $contentOps);

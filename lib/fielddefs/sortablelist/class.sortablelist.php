@@ -2,14 +2,14 @@
 #-----------------------------------------------------------------------------
 # Module: ECB2 - Extended Content Blocks 2
 # Author: Chris Taylor
-# Copyright: (C) 2016-2023 Chris Taylor, chris@binnovative.co.uk
+# Copyright: (C) 2016-2024 Chris Taylor, chris@binnovative.co.uk
 # Licence: GNU General Public License version 3
 #          see /ECB2/LICENCE or <http://www.gnu.org/licenses/gpl-3.0.html>
 #-----------------------------------------------------------------------------
 
 namespace ECB2\fielddefs;
 
-use CmsApp;
+use CMSMS\App as CmsApp;
 use ECB2\FieldDefBase;
 use const ECB2_SANITIZE_STRING;
 
@@ -72,10 +72,9 @@ class sortablelist extends FieldDefBase
         // get the dropdown values/options
         if ($this->options['mod']) {
             // call module to get values (comma separated list)
-            $exclude_options = ['size', 'multiple', 'values', 'default_value', 'first_value', 'description',
-                'compact', 'field', 'mod', 'flip_values', 'template', 'udt', 'gbc', 'customgs_field'];
-
-            $exclude_options = ['values', 'udt', 'default_value', 'first_value', 'description', 'label_left', 'label_right', 'max_number', 'required_number', 'mod', 'flip_values', 'compact', 'field', 'allowduplicates', 'max_selected'];
+            $exclude_options = ['values', 'udt', 'default_value', 'first_value', 'description',
+             'label_left', 'label_right', 'max_number', 'required_number', 'mod', 'flip_values',
+             'compact', 'field', 'allowduplicates', 'max_selected', 'assign'];
 
             $options = $this->get_values_from_module($this->options['mod'], [], $exclude_options);
         } elseif ($this->options['udt']) {
@@ -125,7 +124,7 @@ class sortablelist extends FieldDefBase
         }
 
         $smarty = CmsApp::get_instance()->GetSmarty();
-        $tpl = $smarty->CreateTemplate('string:'.$this->get_template(), null, null, $smarty);
+        $tpl = $smarty->CreateTemplate('string:'.$this->get_template()); //, null, null, $smarty);
         $tpl->assign('mod', $this->mod);
         $tpl->assign('block_name', $this->block_name);
         $tpl->assign('description', $this->options['description']);
@@ -151,7 +150,9 @@ class sortablelist extends FieldDefBase
 
         if ($this->options['mod']) {
             // call module to get values
-            $exclude_options = 'values'udt','default_value','first_value','description','label_left','label_right','max_number','required_number','mod','flip_values','compact','field','allowduplicates','max_selected'];
+            $exclude_options = 'values'udt','default_value','first_value','description',
+             'label_left','label_right','max_number','required_number','mod','flip_values',
+             'compact','field','allowduplicates','max_selected'];
             $params = [];
             foreach ($this->options as $key => $value) {
                 if ( !in_array($key, $exclude_options) ) $params[$key] = $value;
@@ -203,7 +204,7 @@ class sortablelist extends FieldDefBase
             $this->options["required_number"] = ""; // max_number takes precidence if both set
         }
         $smarty = CmsApp::get_instance()->GetSmarty();
-        $tpl = $smarty->CreateTemplate($mod->GetTemplateResource('sortablelist_template.tpl'), null, null, $smarty);
+        $tpl = $smarty->CreateTemplate($mod->GetTemplateResource('sortablelist_template.tpl)); //, null, null, $smarty);
         $tpl->assign('selectarea_prefix',$this->block_name);
         $tpl->assign('selected_str',$this->value);
         $tpl->assign('selected',$selected);

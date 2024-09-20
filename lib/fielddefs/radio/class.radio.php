@@ -2,14 +2,14 @@
 #-----------------------------------------------------------------------------
 # Module: ECB2 - Extended Content Blocks 2
 # Author: Chris Taylor
-# Copyright: (C) 2016-2023 Chris Taylor, chris@binnovative.co.uk
+# Copyright: (C) 2016-2024 Chris Taylor, chris@binnovative.co.uk
 # Licence: GNU General Public License version 3
 #          see /ECB2/LICENCE or <http://www.gnu.org/licenses/gpl-3.0.html>
 #-----------------------------------------------------------------------------
 
 namespace ECB2\fielddefs;
 
-use CmsApp;
+use CMSMS\App as CmsApp; //for CMSMS3
 use ECB2\FieldDefBase;
 use const ECB2_SANITIZE_STRING;
 
@@ -69,7 +69,7 @@ class radio extends FieldDefBase
         $separator = ($this->options['inline']) ? '&nbsp;&nbsp;&nbsp;&nbsp;' : '<br>';
 
         $smarty = CmsApp::get_instance()->GetSmarty();
-        $tpl = $smarty->CreateTemplate('string:'.$this->get_template(), null, null, $smarty);
+        $tpl = $smarty->CreateTemplate('string:'.$this->get_template()); //, null, null, $smarty);
         $tpl->assign('block_name', $this->block_name);
         $tpl->assign('value', $this->value);
         $tpl->assign('options', $options);

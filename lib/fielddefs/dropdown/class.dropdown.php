@@ -2,14 +2,14 @@
 #-----------------------------------------------------------------------------
 # Module: ECB2 - Extended Content Blocks 2
 # Author: Chris Taylor
-# Copyright: (C) 2016-2023 Chris Taylor, chris@binnovative.co.uk
+# Copyright: (C) 2016-2024 Chris Taylor, chris@binnovative.co.uk
 # Licence: GNU General Public License version 3
 #          see /ECB2/LICENCE or <http://www.gnu.org/licenses/gpl-3.0.html>
 #-----------------------------------------------------------------------------
 
 namespace ECB2\fielddefs;
 
-use CmsApp;
+use CMSMS\App as CmsApp; //for CMSMS3
 use ECB2\FieldDefBase;
 use const ECB2_SANITIZE_STRING;
 
@@ -74,7 +74,7 @@ class dropdown extends FieldDefBase
         if ($this->options['mod']) {
             // call module to get values (comma separated list)
             $exclude_options = ['size', 'multiple', 'values', 'default_value', 'first_value', 'description',
-                'compact', 'field', 'mod', 'flip_values', 'template', 'udt', 'gbc', 'customgs_field'];
+                'compact', 'field', 'mod', 'flip_values', 'template', 'udt', 'gbc', 'customgs_field', 'assign'];
             $options = $this->get_values_from_module($this->options['mod'], [], $exclude_options);
         } elseif ($this->options['udt']) {
             // run UDT to get values (array or comma separated list)
@@ -111,7 +111,7 @@ class dropdown extends FieldDefBase
         }
 
         $smarty = CmsApp::get_instance()->GetSmarty();
-        $tpl = $smarty->CreateTemplate('string:'.$this->get_template(), null, null, $smarty);
+        $tpl = $smarty->CreateTemplate('string:'.$this->get_template()); //, null, null, $smarty);
         $tpl->assign('mod', $this->mod);
         $tpl->assign('block_name', $this->block_name);
         $tpl->assign('description', $this->options['description']);

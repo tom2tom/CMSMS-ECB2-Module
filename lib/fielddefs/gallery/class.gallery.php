@@ -2,16 +2,16 @@
 #-----------------------------------------------------------------------------
 # Module: ECB2 - Extended Content Blocks 2
 # Author: Chris Taylor
-# Copyright: (C) 2016-2023 Chris Taylor, chris@binnovative.co.uk
+# Copyright: (C) 2016-2024 Chris Taylor, chris@binnovative.co.uk
 # Licence: GNU General Public License version 3
 #          see /ECB2/LICENCE or <http://www.gnu.org/licenses/gpl-3.0.html>
 #-----------------------------------------------------------------------------
 
 namespace ECB2\fielddefs;
 
-use CmsApp;
+use CMSMS\App as CmsApp;
 use ECB2\FieldDefBase;
-use ECB2\FileUtils;
+use ECB2\Utils;
 use const ECB2_SANITIZE_STRING;
 
 class gallery extends FieldDefBase
@@ -90,15 +90,15 @@ class gallery extends FieldDefBase
             return $this->hidden_field();
         }
 
-        $location = FileUtils::ECB2ImagesUrl($this->block_name, $this->id, '', $this->options['dir']);
-        $dir = FileUtils::ECB2ImagesPath($this->block_name, $this->id, '', $this->options['dir']);
+        $location = Utils::ECB2ImagesUrl($this->block_name, $this->id, '', $this->options['dir']);
+        $dir = Utils::ECB2ImagesPath($this->block_name, $this->id, '', $this->options['dir']);
         if ($this->options['auto_add_delete']) {
-            FileUtils::autoAddDirImages($this->values, $dir, $this->options['thumbnail_width'], $this->options['thumbnail_height']);
+            Utils::autoAddDirImages($this->values, $dir, $this->options['thumbnail_width'], $this->options['thumbnail_height']);
         }
         $resize_method = ($this->options['resize_method'] == 'crop') ? 'crop' : ''; // default: 'contain'
         $thumbnail_width = $this->options['thumbnail_width'];
         $thumbnail_height = $this->options['thumbnail_height'];
-        FileUtils::get_required_thumbnail_size($thumbnail_width, $thumbnail_height);
+        Utils::get_required_thumbnail_size($thumbnail_width, $thumbnail_height);
         $max_files = $this->options['max_files'];
         if ($max_files > 0) {
             $max_files_text = $this->mod->Lang('max_files_text', $max_files);
@@ -121,7 +121,7 @@ class gallery extends FieldDefBase
         }
 
         $smarty = CmsApp::get_instance()->GetSmarty();
-        $tpl = $smarty->CreateTemplate('string:'.$this->get_template(), null, null, $smarty);
+        $tpl = $smarty->CreateTemplate('string:'.$this->get_template()); //, null, null, $smarty);
         $tpl->assign('block_name', $this->block_name);
         $tpl->assign('values', $this->values);
         $tpl->assign('json_filenames', $json_filenames);
@@ -134,7 +134,7 @@ class gallery extends FieldDefBase
         $tpl->assign('thumbnail_height', $thumbnail_height);
         $tpl->assign('max_files', $max_files);
         $tpl->assign('max_files_text', $max_files_text);
-        $tpl->assign('thumbnail_prefix', FileUtils::THUMB_PREFIX);
+        $tpl->assign('thumbnail_prefix', Utils::THUMB_PREFIX);
         $tpl->assign('type', $this->field);
         $tpl->assign('action_url', $action_url);
         $tpl->assign('description', $this->options['description']);
@@ -165,7 +165,7 @@ class gallery extends FieldDefBase
         $this->field_object = $this->create_field_object($inputArray);
         // add 'file_location' field to all gallery items
         if (!empty($this->field_object->sub_fields)) {
-            $galleryRelativeUrl = FileUtils::ECB2ImagesRelativeUrl(
+            $galleryRelativeUrl = Utils::ECB2ImagesRelativeUrl(
                 $this->block_name,
                 $this->id,
                 '',
@@ -179,7 +179,7 @@ class gallery extends FieldDefBase
         }
 
         // handle moving files from _tmp into galleryDir, create thumbnails & delete any unwanted files
-        $galleryDir = FileUtils::ECB2ImagesPath(
+        $galleryDir = Utils::ECB2ImagesPath(
             $this->block_name,
             $this->id,
             '',
@@ -191,7 +191,7 @@ class gallery extends FieldDefBase
                 $filenames[] = $fileArray['filename'];
             }
         }
-        FileUtils::updateGalleryDir(
+        Utils::updateGalleryDir(
             $filenames,
             $galleryDir,
             $this->options['auto_add_delete'],

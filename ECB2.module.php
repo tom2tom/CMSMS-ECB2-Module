@@ -2,7 +2,7 @@
 #-----------------------------------------------------------------------------
 # Module: ECB2 - Extended Content Blocks 2
 # Author: Chris Taylor
-# Copyright: (C) 2016-2023 Chris Taylor, chris@binnovative.co.uk
+# Copyright: (C) 2016-2024 Chris Taylor, chris@binnovative.co.uk
 # Licence: GNU General Public License version 3
 #          see /ECB2/LICENCE or <http://www.gnu.org/licenses/gpl-3.0.html>
 # Homepage: http://dev.cmsmadesimple.org/projects/ecb2
@@ -10,7 +10,7 @@
 # A fork of module: Extended Content Blocks (ECB)
 # Original Author: Zdeno Kuzmany (zdeno@kuzmany.biz) / kuzmany.biz  / twitter.com/kuzmany
 #-----------------------------------------------------------------------------
-# CMS Made Simple (C) 2004-2023 CMS Made Simple Foundation <foundation@cmsmadesimple.org>
+# CMS Made Simple (C) 2004-2024 CMS Made Simple Foundation <foundation@cmsmadesimple.org>
 # Homepage: https://www.cmsmadesimple.org
 #-----------------------------------------------------------------------------
 # This program is free software; you can redistribute it and/or modify it under the terms of the
@@ -25,16 +25,20 @@
 # If not, see <https://www.gnu.org/licenses/gpl-3.0.html>.
 #-----------------------------------------------------------------------------
 
-use CMSMS\CapabilityType as CmsCoreCapabilities; // CMSMS3 disable for CMSMS2
+// CMSMS3 disable these for CMSMS2
+use CMSMS\App as CmsApp;
+use CMSMS\CapabilityType as CmsCoreCapabilities;
+use CMSMS\Utils as cms_utils;
 
 define('ECB2_SANITIZE_STRING', 0x281); // global const (= FILTER_SANITIZE_STRING + 0x80, unused by PHP)
 
 class ECB2 extends CMSModule
 {
-    const MODULE_VERSION = '2.5';
-    const MANAGE_PERM = 'manage_ecb2';
+    //public const's for CMSMS3
+    public const MODULE_VERSION = '2.5';
+    public const MANAGE_PERM = 'manage_ecb2';
 
-    const FIELD_TYPES = [
+    public const FIELD_TYPES = [
         'checkbox',
         'color_picker',
         'date_time_picker',
@@ -60,8 +64,8 @@ class ECB2 extends CMSModule
         'admin_module_link',
         'admin_text'
     ];
-    const FIRST_ADMIN_ONLY_FIELD = 'admin_fieldset_start';  // only to trigger help subheading
-    const FIELD_ALIASES = [
+    public const FIRST_ADMIN_ONLY_FIELD = 'admin_fieldset_start';  // only to trigger help subheading
+    public const FIELD_ALIASES = [
         'datepicker' => 'date_time_picker',
         'dropdown_from_customgs' => 'dropdown',
         'dropdown_from_gbc' => 'dropdown',
@@ -83,8 +87,8 @@ class ECB2 extends CMSModule
         'text' => 'admin_text',
         'timepicker' => 'date_time_picker'
     ];
-    const OUTPUT_FORMAT_DEFAULT = 'string';
-    const OUTPUT_FORMAT = [ // 'string' (default), 'array','array_or_string','object','string_separated'
+    public const OUTPUT_FORMAT_DEFAULT = 'string';
+    public const OUTPUT_FORMAT = [ // 'string' (default), 'array','array_or_string','object','string_separated'
         'gallery' => 'object',
         'group' => 'object',
         'textinput' => 'array_or_string',
@@ -94,38 +98,36 @@ class ECB2 extends CMSModule
         'input_repeater' => 'string_separated'
     ];
 
-    const FIELD_DEF_PREFIX = 'ECB2\fielddefs\\';
-//  const FIELD_DEF_CLASS_PREFIX = 'class.';
-    const INPUT_TEMPLATE_PREFIX = 'input.';
-    const HELP_TEMPLATE_PREFIX = 'help.';
-    const DEMO_BLOCK_PREFIX = 'demo_';
+    public const FIELD_DEF_PREFIX = 'ECB2\fielddefs\\';
+//  public const FIELD_DEF_CLASS_PREFIX = 'class.';
+    public const INPUT_TEMPLATE_PREFIX = 'input.';
+    public const HELP_TEMPLATE_PREFIX = 'help.';
+    public const DEMO_BLOCK_PREFIX = 'demo_';
 
     public function __construct()
     {
         parent::__construct();
-
-        spl_autoload_register([$this, 'AutoLoader']); //CMSMS2
-
-        CMSMS\HookManager::add_hook('Core::ContentEditPre', [$this, 'ContentEditPre']); //CMSMS2
+        spl_autoload_register([$this, 'AutoLoader']);
+        CMSMS\HookManager::add_hook('Core::ContentEditPre', [$this, 'ContentEditPre']); //CMSMS2 ? TODO equivalent event-handler for 3
     }
 
-    public function GetName() { return 'ECB2'; }
-    public function GetFriendlyName() { return $this->Lang('friendlyname'); }
-    public function GetVersion() { return self::MODULE_VERSION; }
-    public function MinimumCMSVersion() { return '3.0B1'; } //2.2 CMSMS2 OR 3.0B1 CMSMS3
-//  public function LazyLoadFrontend() { return true; } // probably required for most pages
+    public function GetAdminDescription() { return $this->Lang('module_description'); }
     public function GetAuthor() { return 'Chris Taylor'; }
     public function GetAuthorEmail() { return 'chris@binnovative.co.uk'; }
-    public function GetChangeLog() { return $this->ProcessTemplate('admin_changelog.tpl'); }
-    public function GetAdminDescription() { return $this->Lang('module_description'); }
-    public function GetHelp() { return $this->get_admin(true); }
-    public function HasAdmin() { return true; }
-    public function VisibleToAdminUser() { return ($this->CheckPermission(self::MANAGE_PERM)); }
+    public function GetChangeLog() { return file_get_contents(__DIR__.DIRECTORY_SEPARATOR.'changelog.htm'); }
+    public function GetFriendlyName() { return $this->Lang('friendlyname'); }
     public function GetHeaderHTML() { return $this->get_admin_css_js(); }
+    public function GetHelp() { return file_get_contents(__DIR__.DIRECTORY_SEPARATOR.'modhelp.htm'); }
+    public function GetName() { return 'ECB2'; }
+    public function GetVersion() { return self::MODULE_VERSION; }
+    public function HasAdmin() { return true; }
     public function InstallPostMessage() { return $this->Lang('postinstall'); }
+    public function IsPluginlModule() { return true; } // see also CmsCoreCapabilities::PLUGIN_MODULE
+//  public function LazyLoadFrontend() { return true; } // probably required for most pages
+    public function MinimumCMSVersion() { return '3.0B1'; } //2.2 CMSMS2 OR 3.0B1 CMSMS3
     public function UninstallPostMessage() { return $this->Lang('postuninstall'); }
     public function UninstallPreMessage() { return $this->Lang('really_uninstall'); }
-    public function IsPluginlModule() { return true; } // see also CmsCoreCapabilities::PLUGIN_MODULE
+    public function VisibleToAdminUser() { return ($this->CheckPermission(self::MANAGE_PERM)); }
 
     public function HasCapability($capability, $params = [])
     {
@@ -133,67 +135,11 @@ class ECB2 extends CMSModule
             case CmsCoreCapabilities::CONTENT_BLOCKS:
             case CmsCoreCapabilities::PLUGIN_MODULE:
                 return true;
-
             default:
                 return false;
         }
     }
 
-    /**
-     *  @param boolean $help_only - only output the help tabs
-     *  @return string admin page content - uses smarty templates
-     */
-    public function get_admin($help_only = false)//: string
-    {
-        $output = $this->get_admin_css_js(false);
-        $smarty = CmsApp::get_instance()->GetSmarty();
-
-        $tpl = $smarty->CreateTemplate($this->GetTemplateResource('admin_default.tpl'), null, null, $smarty);
-        $tpl->assign('mod', $this);
-        $tpl->assign('actionid', 'm1_');
-        $tpl->assign('help_only', $help_only);
-        $output .= $tpl->fetch();
-
-        $tpl = $smarty->CreateTemplate($this->GetTemplateResource('admin_content_blocks.tpl'), null, null, $smarty);
-        $tpl->assign('mod', $this);
-        $tpl->assign('actionid', 'm1_');
-        $tpl->assign('field_types', self::FIELD_TYPES);
-        $tpl->assign('first_admin_only_field', self::FIRST_ADMIN_ONLY_FIELD);
-        $field_help = [];
-        foreach (self::FIELD_TYPES as $field_type) {
-            $type = self::FIELD_DEF_PREFIX.$field_type;
-            if (class_exists($type)) {    // stops errors with old field types on upgrade
-                $ecb2 = new $type($this, $this::DEMO_BLOCK_PREFIX.$field_type, null, ['field' => $field_type], true);
-                $field_help[$field_type] = $ecb2->get_field_help();
-            }
-        }
-        $tpl->assign('field_help', $field_help);
-        $output .= $tpl->fetch();
-
-        if (!$help_only) {
-            // admin menu sections
-            $sections = explode(',','main,content,layout,files,usersgroups,extensions,preferences,siteadmin,myprefs,ecommerce');
-            // the corresponding 'public' versions of those section names
-            $names = explode(',', $this->Lang('adminSectionOptions'));
-            $selopts = array_combine($sections, $names);
-            $tpl = $smarty->CreateTemplate($this->GetTemplateResource('admin_options.tpl'), null, null, $smarty);
-            $tpl->assign('mod', $this);
-            $tpl->assign('actionid', 'm1_');
-            $tpl->assign('customModuleName', $this->GetPreference('customModuleName', $this->Lang('extended_content_blocks')));
-            $tpl->assign('adminSection', $this->GetPreference('adminSection', 'extensions'));
-            $tpl->assign('adminSectionOptions', $selopts);
-            $tpl->assign('thumbnailWidth', $this->GetPreference('thumbnailWidth', ''));
-            $tpl->assign('thumbnailHeight', $this->GetPreference('thumbnailHeight', ''));
-            $output .= $tpl->fetch();
-        }
-
-        $tpl = $smarty->CreateTemplate($this->GetTemplateResource('admin_about.tpl'), null, null, $smarty);
-        $tpl->assign('mod', $this);
-        $tpl->assign('actionid', 'm1_');
-        $output .= $tpl->fetch();
-
-        return $output;
-    }
 
     /**
      *  load ECB2 admin js & css - but only once! - e.g. upon first ECB2
@@ -415,9 +361,9 @@ EOS;
     }
 
     /**
-     *  ECB2 module classes autoloader for CMSMS2
-     *  Needed because field-class namespaces do not entirely map to
-     *  their directories-tree position
+     *  ECB2 module classes autoloader
+     *  Needed because field-class namespaces do not map to their
+     *  directories-tree position (extra path segment fieldname)
      */
     private function AutoLoader($classname)//: void
     {

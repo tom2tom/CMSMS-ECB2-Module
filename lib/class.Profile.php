@@ -2,7 +2,7 @@
 #---------------------------------------------------------------------
 # Module: ECB2 - Extended Content Blocks 2
 # Author: Chris Taylor
-# Copyright: (C) 2016-2023 Chris Taylor, chris@binnovative.co.uk
+# Copyright: (C) 2016-2024 Chris Taylor, chris@binnovative.co.uk
 # Licence: GNU General Public License version 3
 #          see /ECB2/LICENCE or <http://www.gnu.org/licenses/gpl-3.0.html>
 #---------------------------------------------------------------------
@@ -23,7 +23,8 @@ use function cms_to_bool;
 class Profile implements ArrayAccess
 {
 	//these are verbatim from Microtiny - to be tailored
-	const KEYS = [
+	//public const for CMSMS3
+	public const KEYS = [
 		'allowcssoverride',
 		'allowimages',
 		'allowresize',

@@ -2,17 +2,21 @@
 #-----------------------------------------------------------------------------
 # Module: ECB2 - Extended Content Blocks 2
 # Author: Chris Taylor
-# Copyright: (C) 2016-2023 Chris Taylor, chris@binnovative.co.uk
+# Copyright: (C) 2016-2024 Chris Taylor, chris@binnovative.co.uk
 # Licence: GNU General Public License version 3
 #          see /ECB2/LICENCE or <http://www.gnu.org/licenses/gpl-3.0.html>
 #-----------------------------------------------------------------------------
 
 namespace ECB2;
 
-use cms_utils;
-use CmsApp;
-use CMSMS\UserTagOperations; //for CSMS3
-//use UserTagOperations; //for CSMS2
+//for CSMS3
+use CMSMS\App as CmsApp;
+use CMSMS\UserTagOperations;
+use CMSMS\Utils as cms_utils;
+//for CSMS2
+//use CmsApp;
+//use UserTagOperations;
+//use cms_utils;
 use stdClass;
 use const ECB2_SANITIZE_STRING;
 use function get_userid;
@@ -239,7 +243,7 @@ abstract class FieldDefBase
         $field_help = (is_readable($help_filename)) ? @file_get_contents($help_filename) : '';
 
         $smarty = CmsApp::get_instance()->GetSmarty();
-        $tpl = $smarty->CreateTemplate('string:'.$field_help, null, null, $smarty);
+        $tpl = $smarty->CreateTemplate('string:'.$field_help); //, null, null, $smarty);
         $tpl->assign('fielddef', $this);
         return $tpl->fetch();
     }
@@ -721,7 +725,7 @@ abstract class FieldDefBase
     protected function hidden_field()//: string TODO c.f. namespacing for other fields
     {
         $smarty = CmsApp::get_instance()->GetSmarty();
-        $tpl = $smarty->CreateTemplate($this->mod->GetTemplateResource('admin_hidden_field.tpl'), null, null, $smarty);
+        $tpl = $smarty->CreateTemplate($this->mod->GetTemplateResource('hidden_field.tpl')); //, null, null, $smarty);
         return $tpl->fetch();
     }
 }
