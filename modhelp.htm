@@ -1,0 +1,61 @@
+<h3>What Does This Do?</h3>
+<p>ECB2 provides additional Content Blocks for use in page templates for CMS Made Simple V2+.</p>
+<p>Those blocks facilitate website page and template construction. Many tailored html components can be simply applied.</p>
+
+<h3>Usage</h3>
+<p>Use a tag like the following to add each ECB2 field to any page's main-content-area or template.</p>
+<pre>{ECB2 field=some_field_type block='some name' ...}</pre>
+<p>or use an equivalent CMSMS core <b>{content_module}</b> tag instead.</p>
+<pre>{content_module module=ECB2 field=some_field_type block='some name' ...}</pre>
+<p>All ECB2 tags must, or may, include the following parameters:</p>
+<ul>
+  <li>module (required if using {content_module}) - 'ECB2'.</li>
+  <li>field (required) - one of the listed ECB2 field types.</li>
+  <li>block (required) - the name of the content block.</li>
+  <li>label (optional) - a label for the content block for use when editing the page.</li>
+  <li>required (optional) - allows specifying that the content block must contain some text.</li>
+  <li>tab (optional) - the desired tab to display this field on in the edit form.<br>Use the following to show on a core tab: tab='zz_1nav_tab__', 'zw_2logic_tab__', or 'zz_3options_tab__'.</li>
+  <li>priority (optional) integer - allows specifying an integer priority for the block within the tab.</li>
+  <li>assign (optional) string - assign the results to a Smarty variable with that name.</li>
+</ul>
+
+<p><b>Smarty tips</b>: parameter values that are single-word strings do not have to be quoted e.g. field=checkbox is the same as field='checkbox'. If parameter values have double quotes, simple Smarty variables or tags may be included, like var="test $foo {counter} test".<br>See <a href="//www.smarty.net/docs/en/language.syntax.quotes.tpl" target="_blank">Smarty docs</a> for details.</p>
+
+<h3>Upgrading from ECB</h3>
+<p>ECB2 is a fork of the module Extended Content Blocks (ECB) module for CMSMS V1, developed by Zdeno Kuzmany.</p>
+<p>Install ECB2 module and change all "module" parameters in content_module tags from "ECB" to "ECB2". Then ECB can be uninstalled.</p>
+
+<h3>Upgrading from CGContentUtils</h3>
+<p>Install ECB2 and change all "module" parameters in content_module tags from "CGContentUtils" to "ECB2".</p>
+<p>Parameters:</p>
+<ul>
+  <li>block (required) - must stay the same</li>
+  <li>field (required) - choose the appropriate ECB2 field
+  <li>other parameters will be required depending on the field and previous options set in CGContentUtils</li>
+</ul>
+<p>Check all are working as expected, then CGContentUtils can be uninstalled.</p>
+
+<h3>Implementation</h3>
+<p>ECB2 uses the core content blocks to save all field values, including more complex 'group' and 'gallery' fields with multiple sub-fields and rows. All such data is stored by core functions and retrieved with minimal overhead. Only a json_decode is required for each field for frontend actions.</p>
+<p>Each ECB2 field is stored in the '_content_props' table, using the 'longtext' data type that can store up to 4GB.</p>
+<p>Content saved in ECB2 fields is automatically indexed by the Search and Admin Search functions.</p>
+
+<h3>Support</h3>
+<p>As per the GPL licence, this software is provided as is. Please read the text of the license for the full disclaimer.
+The module author is not obligated to provide support for this code. However you might get support through the following:</p>
+<ul>
+  <li>For support, first search the <a href="http://forum.cmsmadesimple.org">CMS Made Simple Forum</a>, for issues with the module similar to those you are finding.</li>
+  <li>Then, if necessary, open a new forum topic to request help, with a thorough description of your issue, and steps to reproduce it.</li>
+  <li>Ask a question on the <a href="https://cms-made-simple.slack.com" target="_blank">CMS Made Simple Slack channel</a>, or just share your thoughts there if you found ECB2 useful. <a href="https://www.cmsmadesimple.org/support/documentation/chat" target="_blank">Join CMSMS on Slack</a></li>
+  <li>If you find a bug you can <a href="http://dev.cmsmadesimple.org/bug/list/1366" target="_blank">submit a Bug Report</a>.</li>
+  <li>For any good ideas you can <a href="http://dev.cmsmadesimple.org/feature_request/list/1366" target="_blank">submit a Feature Request</a>.</li>
+</ul>
+
+<h3>Sponsor Development</h3>
+<p>Thanks to Matt @DIGI3 & Simon @Simon66, for the sponsorship of this module that have supported the development of new features.</p>
+<p>If you would like a new field or feature added to this module, please contact the module author. You can sponsor development from £50.</p>
+
+<h3>Copyright &amp; Licence</h3>
+<p>Copyright &copy; 2019-2024, Chris Taylor < chris at binnovative dot co dot uk >. All rights reserved.</p><br>
+<p>This module has been released under the GNU General Public License v3.</p>
+
