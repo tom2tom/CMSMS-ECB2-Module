@@ -2,7 +2,7 @@
 <p>This type of field creates a simple check-able input.</p>
 
 <fieldset>
-    <p class="pagetext">Test checkbox</p>
+    <label class="pagetext" for="">Test checkbox</label><br>
     {$fielddef->get_demo_input(['default'=>1])}
 </fieldset>
 
