@@ -27,9 +27,11 @@ $lang['error_sub_field_name_format'] = 'The sub field name \'%s\', for the field
 $lang['error_no_sub_fields'] = 'No sub fields defined.';
 $lang['extended_content_blocks'] = 'Field Types';
 
+$lang['fields_index'] = 'Field types index';
 $lang['fields'] = 'Fields';
 $lang['field_error'] = 'Please specify a correct field parameter for the ECB2 content block \'%s\'.';
 $lang['field_types'] = 'Field types';
+
 $lang['friendlyname'] = 'Extended Content Blocks';
 
 $lang['gallery_module_error'] = 'Gallery module is not installed.';
@@ -46,14 +48,14 @@ $lang['installed'] = 'Module version %s installed.';
 
 $lang['max_files_text'] = 'You have already uploaded the maximum of %s files';
 $lang['max_files_unlimited_text'] = 'You have already uploaded the maximum of unlimited files';
-$lang['module_description'] = 'Simply add customised elements to pages and page templates';
+$lang['module_description'] = 'Easily add customised elements to pages and page templates';
 $lang['module_error'] = 'The \'%s\' module is not available.';
 
 $lang['need_permission'] = 'You need permission to use this module';
 $lang['none_selected'] = '--- none ---';
 
-$lang['options'] = 'Options';
-$lang['options_saved'] = 'Options saved';
+//$lang['options'] = 'Options';
+//$lang['options_saved'] = 'Options saved';
 
 $lang['parameter_missing'] = 'Please specify a \'%s\' parameter for the ECB2 content block \'%s\'.';
 $lang['postinstall'] = 'Extended Content Blocks was successfully installed';
@@ -63,9 +65,12 @@ $lang['really_uninstall'] = 'Really? Are you sure you want to uninstall the ECB2
 $lang['remove'] = 'Remove';
 $lang['remove_line'] = 'Remove line';
 
-$lang['save_options'] = 'Save Options';
+$lang['save'] = 'Save';
+//$lang['save_options'] = 'Save Options';
 $lang['selected'] = 'Selected';
 $lang['select'] = 'Select';
+$lang['settings'] = 'Settings';
+$lang['settings_saved'] = 'settings saved';
 
 $lang['template_error'] = 'Invalid template name \'%s\'';
 $lang['title_customModuleName'] = 'Custom Module Name';
@@ -86,13 +91,13 @@ $lang['upgraded'] = 'Module upgraded to version %s.';
 ###    ###   #########   #########  ###
 ###    ###   #########   #########  ###
 
+//<p>The Extended Content Blocks (ECB2) module facilitates website page and template construction. Many tailored html components can be simply applied.</p>
+//<br>
 $lang['general_c'] = <<<'EOD'
-<p>The Extended Content Blocks (ECB2) module facilitates website page and template construction. Many tailored html components can be simply applied.</p>
-<br>
 <h3>Usage</h3>
-<p>Use a tag like the following to add each ECB2 field to any page's main-content-area or template.</p>
+<p>Insert a tag like the following to add each ECB2 field to any page's main-content-area or template.</p>
 <pre>{ECB2 field=some_field_type block='some name' ...}</pre>
-<p>or use an equivalent CMSMS core <b>{content_module}</b> tag instead.</p>
+<p>or insert an equivalent CMSMS core <b>{content_module}</b> tag instead.</p>
 <pre>{content_module module=ECB2 field=some_field_type block='some name' ...}</pre>
 <p>All ECB2 tags must, or may, include the following parameters:</p>
 <ul>
@@ -101,16 +106,14 @@ $lang['general_c'] = <<<'EOD'
     <li>block (required) - the name of the content block.</li>
     <li>label (optional) - a label for the content block for use when editing the page.</li>
     <li>required (optional) - allows specifying that the content block must contain some text.</li>
-    <li>tab (optional) - the desired tab to display this field on in the edit form.<br>Use the following to show on a core tab: tab='zz_1nav_tab__', 'zz_2logic_tab__', or 'zz_3options_tab__'.</li>
+    <li>tab (optional) - the desired tab to display this field on in the edit form.<br>Use the following to show on a core tab: tab='zz_1nav_tab__', 'zw_2logic_tab__', or 'zz_3options_tab__'.</li>
     <li>priority (optional) integer - allows specifying an integer priority for the block within the tab.</li>
     <li>assign (optional) string - assign the results to a Smarty variable with that name.</li>
 </ul>
 
 <p><b>Smarty tips</b>: parameter values that are single-word strings do not have to be quoted e.g. field=checkbox is the same as field='checkbox'. If parameter values have double quotes, simple Smarty variables or tags may be included, like var="test $foo {counter} test".<br>See <a href="//www.smarty.net/docs/en/language.syntax.quotes.tpl" target="_blank">Smarty docs</a> for details.</p>
-
-<br><br>
 EOD;
-
+/* exported
 $lang['about_c'] = <<<'EOD'
 <p>ECB2 provides additional Content Blocks for use in page templates for CMS Made Simple v2+.</p>
 
@@ -154,7 +157,8 @@ The module author is not obligated to provide support for this code. However you
 <p>If you would like a new field or feature added to this module, please contact me. You can sponsor development from £50.</p><br>
 
 <h3>Copyright &amp; Licence</h3>
-<p>Copyright © 2019-2023, Chris Taylor < chris at binnovative dot co dot uk >. All rights reserved.</p><br>
+<p>Copyright &copy; 2016-2024, Chris Taylor < chris at binnovative dot co dot uk >. All rights reserved.</p><br>
 <p>This module has been released under the GNU General Public License v3.</p><br>
 <br>
 EOD;
+*/
